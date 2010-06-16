@@ -1,4 +1,6 @@
 .classpath
 .project
 target
+maven-eclipse.xml
+.settings
 

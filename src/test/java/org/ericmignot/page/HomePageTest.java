@@ -20,4 +20,10 @@ public class HomePageTest {
 		assertThat( homePageContent, hasImageHtmlTag( "logo.png" ));
 	}
 	
+	@Test public void
+	containsMyInformation() {
+		assertThat (homePageContent, hasImageHtmlTag( "me.png"));
+	}
+	
+	
 }

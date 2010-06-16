@@ -9,7 +9,7 @@ public class HasImageHtmlTag extends BaseMatcher<String> {
 	private String expected;
 	
 	public HasImageHtmlTag(String fileName) {
-		this.expected = "<img src=/" + fileName + "></img>";
+		this.expected = "<img src=/" + fileName + " />";
 	}
 	
 	public boolean matches(Object obj) {
