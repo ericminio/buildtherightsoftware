@@ -1,10 +1,16 @@
-<body style="font-size:14px;font-family:'Lucida Grande', sans-serif;font-weight:normal;color:#333">
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
 
 <table height=100%>
 
 <tr>
 
-<td valign=top style="padding-right: 10px;border-right-width:1px;border-right-color:#41809B;border-right-style:solid;">
+<td class=firstcolumn>
     <img src=logo.png />
 </td>
 
@@ -12,19 +18,19 @@
 
     <p>
 
-    <table border=0 style="font-size:14px">
+    <table>
     <tr>
     <td valign=top>
         <img src=me.png /> 
     </td>
     <td valign=top>
-        <span style="font-weight:bold;color:#41809B">
+        <span class=user>
             EricMinio
         </span>
         <span>
             I would like this software
         </span>
-        <span style="font-weight:normal;color:#41809B">
+        <span class=tag>
             #game #mastermind
         </span>
     </td>
@@ -35,15 +41,15 @@
     
     <p>
     
-    <table style="font-size:14px" > 
+    <table> 
     <tr> 
-        <td style="color:#41809B">Rule for</td> 
+        <td class=rulefor>Rule for</td> 
         <td>mastermind</td> 
     </tr>
     <tr> 
-        <td style="padding-right: 10px;">given the secret</td> 
-        <td style="padding-right: 10px;">when player plays</td> 
-        <td style="padding-right: 10px;">does he win ?</td> 
+        <td class=ruleforheader>given the secret</td> 
+        <td class=ruleforheader>when player plays</td> 
+        <td class=ruleforheader>does he win ?</td> 
     </tr>
     <tr> <td>green</td> <td>red</td> <td>no</td> </tr>
     <tr> <td>green</td> <td>green</td> <td>yes</td> </tr>
@@ -52,39 +58,18 @@
     </p>
     
     <p>
-        <span style="font-size:14px">
+        <span>
             Can you make it ? 
             Enter a github url to a java code:
         </span>
         
-        <table style="font-size:14px">
+        <table>
         <tr>
             <td>
-                <textarea cols=40 rows=2 style="resize: none;font-size:14px;font-family:'Lucida Grande', sans-serif;font-weight:normal;color:black"></textarea>
+                <textarea cols=40 rows=2></textarea>
             </td>
             <td>
-                <a href="#" style="background-color: #DDD;
-                                border-bottom-color: #888;
-border-bottom-left-radius: 5px;
-border-bottom-right-radius: 5px;
-border-bottom-style: solid;
-border-bottom-width: 1px;
-border-collapse: separate;
-border-left-color: #999;
-border-left-style: solid;
-border-left-width: 1px;
-border-right-color: #999;
-border-right-style: solid;
-border-right-width: 1px;
-border-top-color: #999;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-style: solid;
-border-top-width: 1px;
-padding-bottom: 6px;
-padding-left: 15px;
-padding-right: 15px;
-padding-top: 5px;text-decoration: none;color: #333;">Try this code !</a>
+                <a href="#" class=button>Try this code !</a>
             </td>
         </tr>
         </table>
@@ -98,3 +83,4 @@ padding-top: 5px;text-decoration: none;color: #333;">Try this code !</a>
 </table>
 
 </body>
+</html>

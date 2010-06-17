@@ -2,17 +2,44 @@ package org.ericmignot.page;
 
 public class HomePage {
 
-	public String html() {
-		return "<img src=/logo.png />" + teaser();
+	public static final String STYLE = "<head><link rel='stylesheet' type='text/css' href='/style.css' /></head>";
+	private FirstColumn firstColumn;
+	
+	public HomePage() {
+		setFirstColumn(new FirstColumn());
 	}
 	
-	protected String teaser() {
-		String teaser = "" +
-			"<img src=/me.png /> I would like this software" +
-			"<br>" 
-		;
+	public String html() {
+		String content = "";
 		
-		return teaser;
+		content += "<html>";
+		content += head();
+		content += openTable();
+		content += firstColumn.html();
+		content += closeTable();
+		content += "</html>";
+		
+		return content;
+	}
+	
+	private String head() {
+		return STYLE;
+	}
+
+	private String closeTable() {
+		return "</table></body>";
+	}
+
+	private String openTable() {
+		return "<body><table>";
+	}
+
+	public void setFirstColumn(FirstColumn firstColumn) {
+		this.firstColumn = firstColumn;
+	}
+
+	public FirstColumn getFirstColumn() {
+		return this.firstColumn;
 	}
 
 }

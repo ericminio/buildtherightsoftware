@@ -1,28 +1,52 @@
 package org.ericmignot.page;
 
-import static org.ericmignot.test.HasImageHtmlTag.hasImageHtmlTag;
+import static org.ericmignot.test.ContainsTableMatcher.containsTableAsRootElement;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.startsWith;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class HomePageTest {
 
-	private String homePageContent;
+	private HomePage homePage;
+	private String content;
 	
 	@Before public void
 	init() {
-		homePageContent = new HomePage().html();
+		homePage = new HomePage();
+		assertNotNull(homePage.getFirstColumn());
+		content = homePage.html();
 	}
 	
 	@Test public void
-	containsLogo() {
-		assertThat( homePageContent, hasImageHtmlTag( "logo.png" ));
+	isAnHtmlDocument() {
+		assertThat( content, startsWith( "<html>" ) );
+		assertThat( content, endsWith( "</html>" ) );
 	}
 	
 	@Test public void
-	containsMyInformation() {
-		assertThat (homePageContent, hasImageHtmlTag( "me.png"));
+	linksStyle() {
+		assertThat( content, containsString( HomePage.STYLE ));
+	}
+	
+	@Test public void
+	containsATable() {
+		assertThat( content, containsTableAsRootElement() );
+	}
+	
+	@Test public void
+	displayFirstColumn() {
+		FirstColumn firstColumnMock = mock(FirstColumn.class);
+		homePage.setFirstColumn( firstColumnMock );
+		
+		homePage.html();
+		verify(firstColumnMock).html();
 	}
 	
 	

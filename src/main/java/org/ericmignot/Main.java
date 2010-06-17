@@ -11,7 +11,10 @@ public class Main
         Server server = new Server(8080);
         
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { new ImageHandler(), new PageHandler() });
+        handlers.setHandlers(new Handler[] { 
+        		new CssHandler(),
+        		new ImageHandler(), 
+        		new PageHandler() });
         server.setHandler(handlers);
  
         server.start();

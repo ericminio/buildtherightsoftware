@@ -4,11 +4,11 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 
 
-public class HasImageHtmlTag extends BaseMatcher<String> {
+public class HasImageHtmlTagMatcher extends BaseMatcher<String> {
 
 	private String expected;
 	
-	public HasImageHtmlTag(String fileName) {
+	public HasImageHtmlTagMatcher(String fileName) {
 		this.expected = "<img src=/" + fileName + " />";
 	}
 	
@@ -21,8 +21,8 @@ public class HasImageHtmlTag extends BaseMatcher<String> {
 		description.appendText("image tag " + expected);
 	}
 	
-	public static HasImageHtmlTag hasImageHtmlTag(String fileName) {
-		return new HasImageHtmlTag(fileName);
+	public static HasImageHtmlTagMatcher hasImageHtmlTag(String fileName) {
+		return new HasImageHtmlTagMatcher(fileName);
 	}
 
 

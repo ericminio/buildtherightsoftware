@@ -12,9 +12,15 @@
 
     <dependency>
       <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <artifactId>junit-dep</artifactId>
       <version>4.5</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion> 
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
@@ -34,12 +40,6 @@
       <artifactId>jetty-server</artifactId>
       <version>7.0.1.v20091125</version>
     </dependency>
-    
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>1.6.4</version>
-    </dependency>
 
   </dependencies>
   
@@ -48,8 +48,13 @@
   <resources>
   
       <resource>
+      	<directory>${basedir}/src/main/images</directory>
         <targetPath>${basedir}/target/images</targetPath>
-        <directory>${basedir}/src/main/images</directory>
+      </resource>
+
+      <resource>
+      	<directory>${basedir}/src/main/styles</directory>
+        <targetPath>${basedir}/target/styles</targetPath>
       </resource>
       
     </resources>
