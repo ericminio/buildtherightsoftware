@@ -27,11 +27,11 @@ public class HomePage {
 	}
 
 	private String closeTable() {
-		return "</table></body>";
+		return "</tr></table></body>";
 	}
 
 	private String openTable() {
-		return "<body><table>";
+		return "<body><table><tr>";
 	}
 
 	public void setFirstColumn(FirstColumn firstColumn) {

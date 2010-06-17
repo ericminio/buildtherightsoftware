@@ -11,6 +11,12 @@
   <dependencies>
 
     <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit-dep</artifactId>
       <version>4.5</version>
@@ -29,12 +35,6 @@
         <version>1.8.2</version>
     </dependency>
     
-    <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-all</artifactId>
-        <version>1.2</version>
-    </dependency>
-
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
