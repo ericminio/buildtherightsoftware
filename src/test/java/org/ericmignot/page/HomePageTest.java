@@ -1,11 +1,6 @@
 package org.ericmignot.page;
 
-import static org.ericmignot.test.ContainsTableMatcher.containsTableAsRootElement;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -15,29 +10,23 @@ import org.junit.Test;
 public class HomePageTest {
 
 	private HomePage homePage;
-	private String content;
 	
 	@Before public void
 	init() {
 		homePage = new HomePage();
+		assertNotNull(homePage.getHeader());
 		assertNotNull(homePage.getFirstColumn());
-		content = homePage.html();
+		assertNotNull(homePage.getSecondColumn());
+		assertNotNull(homePage.getFooter());
 	}
 	
 	@Test public void
-	isAnHtmlDocument() {
-		assertThat( content, startsWith( "<html>" ) );
-		assertThat( content, endsWith( "</html>" ) );
-	}
-	
-	@Test public void
-	linksStyle() {
-		assertThat( content, containsString( HomePage.STYLE ));
-	}
-	
-	@Test public void
-	containsATable() {
-		assertThat( content, containsTableAsRootElement() );
+	displayHeader() {
+		Header headerMock = mock(Header.class);
+		homePage.setHeader(headerMock);
+		
+		homePage.html();
+		verify(headerMock).html();
 	}
 	
 	@Test public void
@@ -47,6 +36,24 @@ public class HomePageTest {
 		
 		homePage.html();
 		verify(firstColumnMock).html();
+	}
+	
+	@Test public void
+	displayPageContent() {
+		SecondColumn secondColumnMock = mock(SecondColumn.class);
+		homePage.setSecondColumn(secondColumnMock);
+		
+		homePage.html();
+		verify(secondColumnMock).html();
+	}
+	
+	@Test public void
+	displayFooter() {
+		Footer footerMock = mock(Footer.class);
+		homePage.setFooter(footerMock);
+		
+		homePage.html();
+		verify(footerMock).html();
 	}
 	
 	

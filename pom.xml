@@ -57,6 +57,11 @@
         <targetPath>${basedir}/target/styles</targetPath>
       </resource>
       
+      <resource>
+      	<directory>${basedir}/src/main/html</directory>
+        <targetPath>${basedir}/target/html</targetPath>
+      </resource>
+      
     </resources>
   
     <plugins>
