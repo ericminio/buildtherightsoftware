@@ -12,8 +12,7 @@ public class Main
         
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { 
-        		new CssHandler(),
-        		new ImageHandler(), 
+        		new FileHandler(), 
         		new PageHandler() });
         server.setHandler(handlers);
  
