@@ -1,0 +1,4 @@
+rm -rf classes
+mkdir classes
+javac ../src/*.java -d classes
+java -cp greenpepper-core-2.7.jar:classes com.greenpepper.runner.Main -o out uneCouleur.html

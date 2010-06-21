@@ -18,8 +18,15 @@ public class HomePage {
 		String content = "";
 		
 		content += header.html();
+		
+		content += "<td class=firstcolumn>";
 		content += firstColumn.html();
+		content += "</td>";
+		
+		content += "<td valign=top>";
 		content += secondColumn.html();
+		content += "</td>";
+		
 		content += footer.html();
 		
 		return content;
