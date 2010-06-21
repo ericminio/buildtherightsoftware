@@ -7,7 +7,9 @@ import org.ericmignot.util.FileReader;
 
 public class SecondColumn {
 
-	public static final String FILE_NAME = "target/html/homePageContent.html";
+	public static final String SE_SAMPLE = "target/html/SeSample.html";
+	public static final String INVITATION = "target/html/invitation.html";
+	
 	private FileReader fileReader;
 	
 	public SecondColumn() {
@@ -16,7 +18,9 @@ public class SecondColumn {
 	
 	public String html() {
 		try {
-			return fileReader.readFile( FILE_NAME );
+			String content = fileReader.readFile( SE_SAMPLE );
+			content += fileReader.readFile( INVITATION );
+			return content;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

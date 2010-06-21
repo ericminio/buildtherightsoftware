@@ -1,11 +1,10 @@
 package org.ericmignot.page;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
-import org.ericmignot.util.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,11 +19,13 @@ public class SecondColumnTest {
 	}
 	
 	@Test public void
-	readsContentFromFile() throws IOException {
-		FileReader fileReaderMock = mock(FileReader.class);
-		secondColumn.setFileReader(fileReaderMock);
+	containsSeExampleAndCodeSubmisionInvitation() throws IOException {
+		String content = secondColumn.html();
 		
-		secondColumn.html();
-		verify(fileReaderMock).readFile( SecondColumn.FILE_NAME );
+		assertThat( "rule for section", content, containsString("Rule for"));
+		assertThat( "rule for section", content, containsString("mastermind"));
+		
+		assertThat( "rule for section", content, containsString("</textarea>"));
+		assertThat( "rule for section", content, containsString("Try this code"));
 	}
 }
