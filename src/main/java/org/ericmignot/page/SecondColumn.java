@@ -7,7 +7,7 @@ import org.ericmignot.util.FileReader;
 
 public class SecondColumn {
 
-	public static final String SE_SAMPLE = "target/html/SeSample.html";
+	public static final String SE_SAMPLE = "target/html/seSample.html";
 	public static final String INVITATION = "target/html/invitation.html";
 	
 	private FileReader fileReader;

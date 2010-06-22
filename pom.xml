@@ -62,11 +62,6 @@
         <targetPath>${basedir}/target/html</targetPath>
       </resource>
       
-      <resource>
-      	<directory>${basedir}/src/main/clones</directory>
-        <targetPath>${basedir}/target/clones</targetPath>
-      </resource>
-      
     </resources>
   
     <plugins>

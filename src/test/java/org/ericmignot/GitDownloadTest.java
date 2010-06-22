@@ -12,11 +12,10 @@ public class GitDownloadTest {
 	@Test public void
 	canCloneGitRepository() throws IOException, InterruptedException {
 		GitDownload fetcher = new GitDownload();
-		
-		fetcher.setCloneNumber( "1" ); 
+		fetcher.setDirectory( "target/test-classes/test-git-donwload" );
 		fetcher.fetch( "git://github.com/testaddict/mastermind.git" );
 		
-		File mastermind = new File( "target/clones/1/mastermind" );
-		assertTrue(mastermind.isDirectory());
+		File mastermind = new File( "target/test-classes/test-git-donwload/mastermind" );
+		assertTrue( mastermind.isDirectory() );
 	}
 }
