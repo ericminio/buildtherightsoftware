@@ -5,7 +5,7 @@ public class FirstColumn {
 	public static final String LOGO = "<img src=/logo.png />";
 
 	public String html() {
-		return LOGO;
+		return "<a href=/ >" + LOGO + "</a>";
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.ericmignot.page;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -16,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class HomePageTryCodeTest {
+public class HomePageTryCodeSystemTest {
 
 	private Server server;
 	private Thread thread;
@@ -31,10 +30,6 @@ public class HomePageTryCodeTest {
         		new PageHandler() });
         server.setHandler(handlers);
  
-        assertFalse( server.isRunning() );
-        assertFalse( server.isStarted() );
-
-        
         thread = new Thread(new Runnable() {
 			public void run() {
 		        try {

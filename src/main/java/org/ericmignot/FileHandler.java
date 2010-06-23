@@ -40,7 +40,6 @@ public class FileHandler extends AbstractHandler {
 			HttpServletRequest servletRequest, HttpServletResponse response)
 			throws IOException, ServletException {
 		
-		
 		String extension = extractExtension(target);
 		if (fileDirectories.containsKey(extension)) {
 			resourceHandler.setResourceBase(fileDirectories.get(extension));

@@ -2,60 +2,33 @@ package org.ericmignot.page;
 
 public class HomePage implements Page {
 
-	private Header header;
-	private FirstColumn firstColumn;
+	public static final String SE_SAMPLE = "specs/sample.html";
+	
 	private SecondColumn secondColumn;
-	private Footer footer;
 	
 	public HomePage() {
-		setHeader(new Header());
-		setFirstColumn(new FirstColumn());
 		setSecondColumn(new SecondColumn());
-		setFooter(new Footer());
+		secondColumn.setContent( SE_SAMPLE );
 	}
 	
 	public String html() {
 		String content = "";
 		
-		content += header.html();
+		content += new Header().html();
 		
 		content += "<td class=firstcolumn>";
-		content += firstColumn.html();
+		content += new FirstColumn().html();
 		content += "</td>";
 		
 		content += "<td valign=top>";
 		content += secondColumn.html();
 		content += "</td>";
 		
-		content += footer.html();
+		content += new Footer().html();
 		
 		return content;
 	}
 	
-	public void setFirstColumn(FirstColumn firstColumn) {
-		this.firstColumn = firstColumn;
-	}
-
-	public FirstColumn getFirstColumn() {
-		return this.firstColumn;
-	}
-
-	public Header getHeader() {
-		return header;
-	}
-
-	public void setHeader(Header header) {
-		this.header = header;
-	}
-
-	public void setFooter(Footer footer) {
-		this.footer = footer;
-	}
-
-	public Footer getFooter() {
-		return footer;
-	}
-
 	public SecondColumn getSecondColumn() {
 		return secondColumn;
 	}
