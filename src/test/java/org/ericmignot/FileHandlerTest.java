@@ -20,7 +20,7 @@ public class FileHandlerTest {
 	private FileHandler fileHandler;
 	
 	@Before public void
-	init() {
+	init() throws Exception {
 		fileHandler = new FileHandler();
 		assertTrue(fileHandler.getResourceHandler() instanceof ResourceHandler);
 	}
@@ -32,7 +32,7 @@ public class FileHandlerTest {
 	}
 	
 	@Test public void
-	servesUrlWithPngExtension() throws IOException, ServletException {
+	servesUrlWithPngExtension() throws Exception {
 		ResourceHandler handlerMock = mock(ResourceHandler.class);
 		fileHandler.setResourceHandler(handlerMock);
 		
@@ -42,7 +42,7 @@ public class FileHandlerTest {
 	}
 	
 	@Test public void
-	servesUrlWithCssExtension() throws IOException, ServletException {
+	servesUrlWithCssExtension() throws Exception {
 		ResourceHandler handlerMock = mock(ResourceHandler.class);
 		fileHandler.setResourceHandler(handlerMock);
 		

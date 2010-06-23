@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.util.resource.Resource;
 
 public class FileHandler extends AbstractHandler {
 
@@ -18,7 +19,7 @@ public class FileHandler extends AbstractHandler {
 	
 	Map<String, String> fileDirectories;
 	
-	public FileHandler() {
+	public FileHandler() throws Exception {
 		setResourceHandler(new ResourceHandler());
 		fileDirectories = new HashMap<String, String>();
 		fileDirectories.put(".png", "target/images");
@@ -39,19 +40,21 @@ public class FileHandler extends AbstractHandler {
 			HttpServletRequest servletRequest, HttpServletResponse response)
 			throws IOException, ServletException {
 		
+		
 		String extension = extractExtension(target);
 		if (fileDirectories.containsKey(extension)) {
 			resourceHandler.setResourceBase(fileDirectories.get(extension));
 			resourceHandler.handle(target, request, servletRequest, response);
-		}
+	    }
 		else {
 			request.setHandled(false);
 			return;
 		}
 	}
 
-	public void setResourceHandler(ResourceHandler resourceHandler) {
+	public void setResourceHandler(ResourceHandler resourceHandler) throws Exception {
 		this.resourceHandler = resourceHandler;
+		resourceHandler.doStart();
 	}
 
 	public ResourceHandler getResourceHandler() {

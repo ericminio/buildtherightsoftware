@@ -1,6 +1,6 @@
 package org.ericmignot.page;
 
-public class HomePage {
+public class HomePage implements Page {
 
 	private Header header;
 	private FirstColumn firstColumn;
@@ -63,5 +63,4 @@ public class HomePage {
 	public void setSecondColumn(SecondColumn secondColumn) {
 		this.secondColumn = secondColumn;
 	}
-
 }

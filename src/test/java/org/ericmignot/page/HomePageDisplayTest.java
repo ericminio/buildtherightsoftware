@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HomePageTest {
+public class HomePageDisplayTest {
 
 	private HomePage homePage;
 	
@@ -55,6 +55,5 @@ public class HomePageTest {
 		homePage.html();
 		verify(footerMock).html();
 	}
-	
 	
 }

@@ -8,10 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.ericmignot.page.HomePage;
+import org.ericmignot.page.Page;
+import org.ericmignot.page.PageChooser;
  
 public class PageHandler extends AbstractHandler
 {
+	private PageChooser pageChooser;
+	
+	public PageHandler() {
+		setPageChooser( new PageChooser() );
+	}
+	
     public void handle(String target,
                        Request baseRequest,
                        HttpServletRequest request,
@@ -22,7 +29,16 @@ public class PageHandler extends AbstractHandler
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
         
-        response.getWriter().println(new HomePage().html());
+        Page choosen = pageChooser.choosePage(request);
+        response.getWriter().println(choosen.html());
     }
+    
+    public PageChooser getPageChooser() {
+		return pageChooser;
+	}
+	
+	public void setPageChooser(PageChooser pageChooser) {
+		this.pageChooser = pageChooser;
+	}
  
 }

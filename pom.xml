@@ -8,7 +8,29 @@
   <name>buildtherightsoftware</name>
   <url>http://maven.apache.org</url>
   
+  
+  <repositories>
+        <repository> 
+            <id>openqa-releases</id> 
+            <name>OpenQA Releases</name> 
+            <url>http://archiva.openqa.org/repository/releases/</url> 
+            <releases> 
+                <enabled>true</enabled> 
+            </releases> 
+            <snapshots> 
+                <enabled>false</enabled> 
+            </snapshots> 
+        </repository> 
+    </repositories>
+  
   <dependencies>
+  
+  	<dependency> 
+        <groupId>org.openqa.selenium.webdriver</groupId> 
+        <artifactId>webdriver-htmlunit</artifactId> 
+        <version>0.5.484</version> 
+    	<scope>test</scope> 
+    </dependency>
 
     <dependency>
         <groupId>org.hamcrest</groupId>
@@ -60,6 +82,11 @@
       <resource>
       	<directory>${basedir}/src/main/html</directory>
         <targetPath>${basedir}/target/html</targetPath>
+      </resource>
+      
+      <resource>
+      	<directory>${basedir}/src/main/specs</directory>
+        <targetPath>${basedir}/specs</targetPath>
       </resource>
       
     </resources>

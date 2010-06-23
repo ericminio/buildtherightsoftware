@@ -6,16 +6,18 @@
         Enter a github url to a mavenized java code:
     </span>
     
+    <form name=tryCodeForm method=get action="/specs/sample/execute" >
     <table>
     <tr>
         <td>
-            <textarea cols=40 rows=2>git://github.com/testaddict/mastermind.git</textarea>
+            <textarea name=repo cols=40 rows=2>git://github.com/testaddict/mastermind.git</textarea>
         </td>
         <td>
-            <a href="#" class=button>Try this code !</a>
+            <a name=tryCodeLink href="javascript:tryCodeForm.submit()" class=button>Try this code !</a>
         </td>
     </tr>
     </table>
+    </form>
     
 </p>
  

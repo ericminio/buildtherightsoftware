@@ -11,9 +11,7 @@ public class Main
         Server server = new Server(8080);
         
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { 
-        		new FileHandler(), 
-        		new PageHandler() });
+        handlers.setHandlers(new Handler[] { new FileHandler(), new PageHandler() });
         server.setHandler(handlers);
  
         server.start();
