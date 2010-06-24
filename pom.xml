@@ -10,6 +10,7 @@
   
   
   <repositories>
+  
         <repository> 
             <id>openqa-releases</id> 
             <name>OpenQA Releases</name> 
@@ -21,6 +22,12 @@
                 <enabled>false</enabled> 
             </snapshots> 
         </repository> 
+        
+        <repository>
+	    	<id>Forumarchivebuilder</id>
+	    	<url>http://forumarchivebuilder.googlecode.com/svn/repository</url>
+	  	</repository>
+	  	
     </repositories>
   
   <dependencies>

@@ -1,3 +1,6 @@
 you need java, maven, git
 
-then type : mvn clean test exec:java
+type :
+git clone git://github.com/testaddict/buildtherightsotware.git
+cd buildtherightsotware
+mvn clean test exec:java
