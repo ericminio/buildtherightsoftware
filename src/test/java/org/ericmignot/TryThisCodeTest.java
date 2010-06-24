@@ -31,6 +31,7 @@ public class TryThisCodeTest {
 	@Test public void
 	extractProjectNameFromGitUrl() {
 		assertEquals( "mastermind", tryThisCode.extractProjectName("git://github.com/testaddict/mastermind.git") );
+		assertEquals( null, tryThisCode.extractProjectName("git") );
 	}
 	
 }

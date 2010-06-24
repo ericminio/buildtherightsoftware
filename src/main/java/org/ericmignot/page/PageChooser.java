@@ -7,11 +7,13 @@ public class PageChooser {
 	public Page choosePage(HttpServletRequest request) {
 		String seCandidate = extractSe( request.getRequestURI() );
 
-		if (seCandidate == null) {
-			return new HomePage();
+		if (seCandidate!=null 
+				&& request.getParameter( "repo" )!=null
+				) {
+			return new ResultPage( seCandidate, request.getParameter( "repo" ) );
 		}
 		else {
-			return new ResultPage( seCandidate, request.getParameter( "repo" ) );
+			return new HomePage();
 		}
 	}
 	
