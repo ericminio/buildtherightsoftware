@@ -11,20 +11,18 @@ public class MavenCompilerTest {
 
 	@Test public void
 	canCompile()  {
+		String pomDirectory = "target/test-classes/test-compilation/mastermind/";
 		MavenCompiler compiler = new MavenCompiler();
-		
-		compiler.setDirectory( "target/test-classes/test-compilation/mastermind" );
+		compiler.setDirectory( pomDirectory );
 		try {
 			compiler.mavenCleanAndCompile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		File classes = new File( "target/test-classes/test-compilation/mastermind/target/classes");
-		assertTrue( "classes exist", classes.isDirectory() );
+		File classes = new File( pomDirectory + "target/classes" );
+		assertTrue( "classes exist", classes.exists() );
 	}
 }

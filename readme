@@ -1,0 +1,3 @@
+you need java, maven, git
+
+then type : mvn clean test exec:java
