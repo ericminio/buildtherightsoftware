@@ -5,12 +5,10 @@ import java.util.Date;
 
 import org.ericmignot.TryThisCode;
 
-public class ResultPage implements Page {
+public class ResultPage extends Page {
 
 	private TryThisCode launcher;
 	private String chrono;
-	
-	private SecondColumn secondColumn;
 	
 	public ResultPage(String se, String gitRepository) {
 		this.chrono = ""+new Date().getTime();
@@ -24,35 +22,14 @@ public class ResultPage implements Page {
 		setSecondColumn(new SecondColumn());
 	}
 
-	public String html() {
-		launch();
-		
-		return render();
+	@Override
+	protected void updateSpecificContent() {
+		String executionOutputFile = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/" + launcher.getSe() + ".html";
+		getSecondColumn().setContent( executionOutputFile );
 	}
 
-	protected String render() {
-		String content = "";
-		
-		content += new Header().html();
-		
-		content += "<td class=firstcolumn>";
-		content += new FirstColumn().html();
-		content += "</td>";
-		
-		content += "<td valign=top>";
-		content += secondColumn.html();
-		content += "</td>";
-		
-		content += new Footer().html();
-		
-		return content;
-	}
-
-	public void setLauncher(TryThisCode launcher) {
-		this.launcher = launcher;
-	}
-
-	protected void launch() {
+	@Override
+	protected void workBeforeRenderingHtml() {
 		try {
 			launcher.go();
 		} catch (IOException e) {
@@ -62,27 +39,17 @@ public class ResultPage implements Page {
 		}
 	}
 
-	public SecondColumn getSecondColumn() {
-		return secondColumn;
-	}
-
-	public void setSecondColumn(SecondColumn secondColumn) {
-		this.secondColumn = secondColumn;
-		updateContent();
-	}
-
-	private void updateContent() {
-		String executionOutputFile = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/" + launcher.getSe() + ".html";
-		secondColumn.setContent( executionOutputFile );
+	public void setRunnerDirectory(String path) {
+		launcher.setRunnerDirectory(path);
+		updateSpecificContent();
 	}
 
 	public String getChrono() {
 		return chrono;
 	}
 
-	public void setRunnerDirectory(String path) {
-		launcher.setRunnerDirectory(path);
-		updateContent();
+	public void setLauncher(TryThisCode launcher) {
+		this.launcher = launcher;
 	}
 
 	public TryThisCode getLauncher() {
