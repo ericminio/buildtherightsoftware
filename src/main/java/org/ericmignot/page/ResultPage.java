@@ -8,22 +8,20 @@ import org.ericmignot.TryThisCode;
 public class ResultPage implements Page {
 
 	private TryThisCode launcher;
-	private String se;
-	private String gitRepository;
 	private String chrono;
 	
 	private SecondColumn secondColumn;
 	
 	public ResultPage(String se, String gitRepository) {
-		setLauncher( new TryThisCode() );
-		this.se = se;
-		this.gitRepository = gitRepository;
 		this.chrono = ""+new Date().getTime();
 		
+		TryThisCode launcher = new TryThisCode();
+		launcher.setSe( se );
+		launcher.setGitRepository( gitRepository );
+		launcher.setChrono( getChrono() );
+		setLauncher(  launcher );
+		
 		setSecondColumn(new SecondColumn());
-		String projectName = launcher.extractProjectName( gitRepository );
-		String executionOutputFile = "specs/" + chrono + "/" + projectName + "/se/out/" + se + ".html";
-		secondColumn.setContent( executionOutputFile );
 	}
 
 	public String html() {
@@ -54,14 +52,7 @@ public class ResultPage implements Page {
 		this.launcher = launcher;
 	}
 
-	public TryThisCode getLauncher() {
-		return launcher;
-	}
-
 	protected void launch() {
-		launcher.setSe( se );
-		launcher.setGitRepository( gitRepository );
-		launcher.setChrono( chrono );
 		try {
 			launcher.go();
 		} catch (IOException e) {
@@ -77,10 +68,25 @@ public class ResultPage implements Page {
 
 	public void setSecondColumn(SecondColumn secondColumn) {
 		this.secondColumn = secondColumn;
+		updateContent();
+	}
+
+	private void updateContent() {
+		String executionOutputFile = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/" + launcher.getSe() + ".html";
+		secondColumn.setContent( executionOutputFile );
 	}
 
 	public String getChrono() {
 		return chrono;
+	}
+
+	public void setRunnerDirectory(String path) {
+		launcher.setRunnerDirectory(path);
+		updateContent();
+	}
+
+	public TryThisCode getLauncher() {
+		return launcher;
 	}
 	
 }

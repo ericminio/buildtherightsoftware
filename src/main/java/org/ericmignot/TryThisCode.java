@@ -8,6 +8,12 @@ public class TryThisCode {
 	private String repository;
 	private String chrono;
 	
+	private String runnerDirectory;
+	
+	public TryThisCode() {
+		setRunnerDirectory( "specs/" );
+	}
+	
 	public void setSe(String se) {
 		this.se = se;
 	}
@@ -22,24 +28,61 @@ public class TryThisCode {
 
 	public void go() throws IOException, InterruptedException {
 		GitDownload fetcher = new GitDownload();
-		fetcher.setDirectory( "specs/" + chrono );
+		fetcher.setDirectory( getFetcherDirectory() );
 		fetcher.fetch( repository );
 		
 		MavenCompiler compiler = new MavenCompiler();
-		String projectName = extractProjectName( repository );
-		compiler.setDirectory( "specs/" + chrono + "/" + projectName );
+		compiler.setDirectory( getCompilerDirectory() );
 		compiler.mavenCleanAndCompile();
 		
 		SeRunner seRunner = new SeRunner();
-		seRunner.setRunnerDirectory( "specs/" );
+		seRunner.setRunnerDirectory( getRunnerDirectory() );
 		seRunner.setSeRelativeFile( se + ".html" );
-		seRunner.setClassesRelativeDirectory( chrono + "/" + projectName + "/target/classes" );
-		seRunner.setOutputRelativeDirectory( chrono + "/" + projectName + "/se/out" );
+		seRunner.setClassesRelativeDirectory( getClassesRelativeDirectory() );
+		seRunner.setOutputRelativeDirectory( getExecutionOutputDirectory() );
 		seRunner.executeSpecification();
 	}
 
+	public void setRunnerDirectory(String path) {
+		this.runnerDirectory = path;
+	}
+
+	public String getRunnerDirectory() {
+		return runnerDirectory;
+	}
+	
+	public String getFetcherDirectory() {
+		return getRunnerDirectory() + "runs/" + chrono;
+	}
+	
+	public String getCompilerDirectory() {
+		return getFetcherDirectory() + "/" + extractProjectName( repository );
+	}
+	
 	public String extractProjectName(String gitUrl) {
 		return gitUrl.substring( gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4 );
 	}
+
+	public String getClassesRelativeDirectory() {
+		return "runs/" + chrono + "/" + extractProjectName( repository ) + "/target/classes";
+	}
+
+	public String getExecutionOutputDirectory() {
+		return "runs/" + chrono + "/" + extractProjectName( repository ) + "/se/out";
+	}
+
+	public String getSe() {
+		return se;
+	}
+
+	public String getGitRepository() {
+		return repository;
+	}
+
+	public String getChrono() {
+		return chrono;
+	}
+
 	
+
 }

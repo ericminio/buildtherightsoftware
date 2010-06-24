@@ -2,11 +2,6 @@ package org.ericmignot.page;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import java.io.IOException;
 
 import org.ericmignot.TryThisCode;
 import org.junit.Before;
@@ -15,39 +10,27 @@ import org.junit.Test;
 public class ResultPageTest {
 
 	private ResultPage resultPage;
+	private TryThisCode launcher;
 	
 	@Before public void
 	init() {
 		resultPage = new ResultPage( "sample" , "git://github.com/testaddict/mastermind.git" );
-		assertNotNull( resultPage.getLauncher() );
+		launcher = resultPage.getLauncher();
 	}
 	
 	@Test public void
-	executeSeBeforeDisplay() throws IOException, InterruptedException {
-		TryThisCode launcherMock = mock( TryThisCode.class );
-		resultPage.setLauncher( launcherMock );
-		
-		resultPage.launch();
-		verify( launcherMock ).setSe( "sample" );
-		verify( launcherMock ).setGitRepository( "git://github.com/testaddict/mastermind.git" );
-		verify( launcherMock ).setChrono( anyString() );
-		verify( launcherMock ).go();
+	launcherConfiguration() {
+		assertNotNull( launcher );
+		assertEquals( "se", "sample", launcher.getSe() );
+		assertEquals( "repo", "git://github.com/testaddict/mastermind.git", launcher.getGitRepository() );
+		assertEquals( "chrono", resultPage.getChrono(), launcher.getChrono() );
 	}
 	
 	@Test public void
-	contentIsExecutionOutput() {
-		resultPage.launch();
-		String chrono = resultPage.getChrono();
-		String expectedContent = "specs/" + chrono + "/mastermind/se/out/sample.html";
+	contentTargetsOutput() {
+		resultPage.setRunnerDirectory( "toto/" );
+		String expectedContent = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/sample.html";
 		assertEquals( expectedContent, resultPage.getSecondColumn().getContent() );
 	}
 	
-	@Test public void
-	displayPageContent() {
-		SecondColumn secondColumnMock = mock(SecondColumn.class);
-		resultPage.setSecondColumn(secondColumnMock);
-		
-		resultPage.html();
-		verify(secondColumnMock).html();
-	}
 }
