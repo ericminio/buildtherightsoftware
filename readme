@@ -3,4 +3,4 @@ you need java, maven, git
 type :
 git clone git://github.com/testaddict/buildtherightsotware.git
 cd buildtherightsotware
-mvn clean test exec:java
+mvn clean test exec:java -Dexec.gs="8080"
