@@ -8,7 +8,7 @@ public class Main
 {
     public static void main(String[] args) throws Exception
     {
-        Server server = new Server(8080);
+        Server server = new Server(80);
         
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { new FileHandler(), new PageHandler() });
