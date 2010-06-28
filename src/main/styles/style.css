@@ -5,10 +5,6 @@ body, table {
     color:#333;
 }
 
-table {
-    height:100%;
-}
-
 textarea {
     font-size:14px;
     font-family:'Lucida Grande', sans-serif;
