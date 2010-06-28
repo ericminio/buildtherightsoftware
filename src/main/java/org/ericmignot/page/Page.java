@@ -28,7 +28,7 @@ public abstract class Page {
 		content += new FirstColumn().html();
 		content += "</td>";
 		
-		content += "<td valign=top>";
+		content += "<td class=secondcolumn>";
 		content += secondColumn.html();
 		content += "</td>";
 		
