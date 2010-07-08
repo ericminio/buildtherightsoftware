@@ -1,33 +1,41 @@
-package org.ericmignot.page;
+package org.ericmignot;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.ericmignot.FileHandler;
-import org.ericmignot.PageHandler;
-import org.junit.After;
+import org.ericmignot.jetty.FileHandler;
+import org.ericmignot.jetty.PageHandler;
+import org.ericmignot.page.Page;
+import org.ericmignot.page.ResultPage;
+import org.ericmignot.page.ShowPage;
+import org.ericmignot.router.PageRouter;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class HomePageTryCodeSystemTest {
+public class SystemTest {
 
-	private Server server;
-	private Thread thread;
+	private static Server server;
+	private static Thread thread;
+	private WebDriver driver;
 	
-	@Before public void
+	@BeforeClass public static void
 	setUp() throws Exception {
 		server = new Server(8080);
 		
 		PageHandler testPageHandler = new PageHandler();
-		testPageHandler.setPageChooser( new TestPageChooser() );
+		testPageHandler.setPageRouter( new TestPageChooser() );
         
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { 
@@ -48,24 +56,38 @@ public class HomePageTryCodeSystemTest {
         thread.start();
 	}
 	
-	@After public void
+	@AfterClass public static void
 	tearDown() throws Exception {
 		server.stop();
 		thread.stop();
 	}
 	
+	@Before public void
+	initDriver() {
+		driver = new HtmlUnitDriver(true);
+	}
+	
 	@Test public void
-	formSubmission() throws InterruptedException {
-        WebDriver driver = new HtmlUnitDriver(true);
-        
+	executeSpecUrl() throws InterruptedException {
         driver.get("http://localhost:8080/");
         WebElement link = driver.findElement(By.name("tryCodeLink"));
         link.click();
 
-      	assertEquals( "Url", "http://localhost:8080/specs/sample/execute?repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git", driver.getCurrentUrl() );
+      	assertEquals( "Url", "http://localhost:8080/specs/execute/sample?repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git", driver.getCurrentUrl() );
 	}
 	
-	private class TestPageChooser extends PageChooser {
+	@Test public void
+	canAccessASpecificSpec() {
+		driver.get("http://localhost:8080/specs/show/calculator-sample");
+		String source = driver.getPageSource();
+		assertThat( "rule for calculator", source, containsString( "<td>calculator</td>" ) );
+	}
+	
+	
+	
+	
+	
+	private static class TestPageChooser extends PageRouter {
 		
 		public Page choosePage(HttpServletRequest request) {
 			Page choosen = super.choosePage( request );
@@ -73,9 +95,13 @@ public class HomePageTryCodeSystemTest {
 				ResultPage resultPage = (ResultPage) choosen;
 				resultPage.setRunnerDirectory( "target/test-classes/test-system/" );
 				return resultPage;
-			} else {
-				return choosen;
-			}
+			} 
+			if ( choosen instanceof ShowPage ) {
+				ShowPage showPage = (ShowPage) choosen;
+				showPage.setWorkingDirectory( "target/test-classes/test-system/" );
+				return showPage;
+			}	
+			return choosen;
 		}
 	}
 	

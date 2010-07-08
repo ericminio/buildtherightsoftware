@@ -1,4 +1,4 @@
-package org.ericmignot;
+package org.ericmignot.jetty;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.resource.Resource;
 
 public class FileHandler extends AbstractHandler {
 

@@ -1,8 +1,10 @@
-package org.ericmignot;
+package org.ericmignot.core;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.ericmignot.jetty.FileHandler;
+import org.ericmignot.jetty.PageHandler;
  
 public class Main 
 {

@@ -1,4 +1,4 @@
-package org.ericmignot;
+package org.ericmignot.core;
 
 import java.io.IOException;
 

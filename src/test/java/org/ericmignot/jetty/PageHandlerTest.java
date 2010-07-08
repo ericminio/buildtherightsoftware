@@ -1,4 +1,4 @@
-package org.ericmignot;
+package org.ericmignot.jetty;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.ericmignot.page.HomePage;
-import org.ericmignot.page.PageChooser;
+import org.ericmignot.router.PageRouter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class PageHandlerTest {
 	@Before public void
 	init() throws IOException {
 		pageHandler = new PageHandler();
-		assertNotNull( "page chooser", pageHandler.getPageChooser() );
+		assertNotNull( "page chooser", pageHandler.getPageRouter() );
 		
 		requestMock = mock(Request.class);
 		httpRequestMock = mock(HttpServletRequest.class);
@@ -50,9 +50,9 @@ public class PageHandlerTest {
 	
 	@Test public void 
 	askPageChooserWhichPageToServe() throws IOException, ServletException {
-		PageChooser pageChooser = mock(PageChooser.class);
+		PageRouter pageChooser = mock(PageRouter.class);
 		when(pageChooser.choosePage(httpRequestMock)).thenReturn(new HomePage());
-		pageHandler.setPageChooser(pageChooser);
+		pageHandler.setPageRouter(pageChooser);
 		
 		pageHandler.handle(null, requestMock, httpRequestMock, httpResponseMock);
 		verify(pageChooser).choosePage(httpRequestMock);

@@ -3,7 +3,7 @@ package org.ericmignot.page;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.ericmignot.TryThisCode;
+import org.ericmignot.core.TryThisCode;
 import org.junit.Before;
 import org.junit.Test;
 

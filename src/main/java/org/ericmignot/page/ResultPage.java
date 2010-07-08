@@ -3,7 +3,7 @@ package org.ericmignot.page;
 import java.io.IOException;
 import java.util.Date;
 
-import org.ericmignot.TryThisCode;
+import org.ericmignot.core.TryThisCode;
 
 public class ResultPage extends Page {
 
