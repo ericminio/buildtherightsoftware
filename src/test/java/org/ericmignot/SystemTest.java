@@ -85,7 +85,7 @@ public class SystemTest {
 	}
 	
 	@Test public void
-	containsAModifyLink() {
+	containsAModifyLink() { 
 		driver.get("http://localhost:8080/specs/show/calculator-sample");
 		WebElement link = driver.findElement(By.name("modifyLink"));
 		assertThat( "modify link href" , link.getAttribute( "href" ), equalTo( "/specs/modify/calculator-sample" ) );
@@ -93,7 +93,7 @@ public class SystemTest {
         assertThat( "modify url", driver.getCurrentUrl(), equalTo( "http://localhost:8080/specs/modify/calculator-sample" ) );
 	}
 	
-	
+	   
 	
 	
 	
@@ -108,7 +108,7 @@ public class SystemTest {
 			} 
 			if ( choosen instanceof ShowPage ) {
 				ShowPage showPage = (ShowPage) choosen;
-				showPage.setWorkingDirectory( "target/test-classes/test-system/" );
+				showPage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return showPage;
 			}	
 			return choosen;

@@ -16,6 +16,6 @@ public class GitDownloadTest {
 		fetcher.fetch( "git://github.com/testaddict/mastermind.git" );
 		
 		File mastermind = new File( "target/test-classes/test-git-donwload/mastermind" );
-		assertTrue( mastermind.isDirectory() );
+		assertTrue( "git clone ok", mastermind.isDirectory() ); 
 	}
 }

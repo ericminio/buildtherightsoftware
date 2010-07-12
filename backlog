@@ -1,17 +1,17 @@
 items livrés:
 -------------
 
-1. ETQ visiteur, je peux exécuter une spec-x avec un code java mavénisé hébergée sur github
+3. ETQ visiteur, je peux exécuter une spec-x avec un code java mavénisé hébergée sur github
 
 item en cours de développement:
 -------------------------------
 
-- ETQ visiteur, je peux modifier une spec-x
+5. ETQ visiteur, je peux modifier une spec-x
 
 
 backlog:
 --------
 
-- créer une spec-x pour inviter des gens à la faire passer
-- trouver toutes les spec-x qui contiennent un mot donné
-- augmenter l'indicateur de pertinence d'une spec-x pour la voir avant les autres
+5. créer une spec-x pour inviter des gens à la faire passer
+3. trouver toutes les spec-x qui contiennent un mot donné
+5. augmenter l'indicateur de pertinence d'une spec-x pour la voir avant les autres

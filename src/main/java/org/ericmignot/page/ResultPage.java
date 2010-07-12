@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.ericmignot.core.TryThisCode;
-import org.ericmignot.page.section.SecondColumn;
+import org.ericmignot.page.section.Modify;
+import org.ericmignot.util.FileReader;
 
 public class ResultPage extends Page {
 
@@ -14,35 +15,21 @@ public class ResultPage extends Page {
 	public ResultPage(String se, String gitRepository) {
 		this.chrono = ""+new Date().getTime();
 		
-		TryThisCode launcher = new TryThisCode();
+		launcher = new TryThisCode();
 		launcher.setSe( se );
 		launcher.setGitRepository( gitRepository );
 		launcher.setChrono( getChrono() );
-		setLauncher(  launcher );
 		
-		setSecondColumn(new SecondColumn());
 	}
 
-	@Override
-	protected void updateSpecificContent() {
-		String executionOutputFile = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/" + launcher.getSe() + ".html";
-		getSecondColumn().setContent( executionOutputFile );
-	}
-
-	@Override
-	protected void workBeforeRenderingHtml() {
-		try {
-			launcher.go();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public String specExecutionResultFile() {
+		return launcher.getRunnerDirectory() 
+			+ launcher.getExecutionOutputDirectory() 
+			+ "/" + launcher.getSe() + ".html";
 	}
 
 	public void setRunnerDirectory(String path) {
 		launcher.setRunnerDirectory(path);
-		updateSpecificContent();
 	}
 
 	public String getChrono() {
@@ -55,6 +42,38 @@ public class ResultPage extends Page {
 
 	public TryThisCode getLauncher() {
 		return launcher;
+	}
+
+	public void setFileReader(FileReader fileReader) {
+		this.fileReader = fileReader;
+	}
+
+	protected void workBeforeRenderingHtml() {
+		try {
+			launcher.go();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String pageContent() throws IOException {
+		workBeforeRenderingHtml();
+		
+		String content = "";
+		
+		content += getModifySection();
+		content += fileReader.readFile( specExecutionResultFile() );
+		content += fileReader.readFile( "target/html/invitation.html" );
+		
+		return content;
+	}
+
+	private String getModifySection() {
+		Modify section = new Modify();
+		section.setSpecX( launcher.getSe() );
+		return section.html();
 	}
 	
 }

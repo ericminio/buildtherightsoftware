@@ -1,45 +1,40 @@
 package org.ericmignot.page;
 
-import org.ericmignot.page.section.FirstColumn;
-import org.ericmignot.page.section.Footer;
-import org.ericmignot.page.section.Header;
-import org.ericmignot.page.section.SecondColumn;
+import java.io.IOException;
 
-public abstract class Page {
+import org.ericmignot.util.FileReader;
 
-	private SecondColumn secondColumn;
+public class Page {
 	
-	public SecondColumn getSecondColumn() {
-		return secondColumn;
+	protected FileReader fileReader;
+	
+	public Page() {
+		fileReader = new FileReader();
 	}
 
-	public void setSecondColumn(SecondColumn secondColumn) {
-		this.secondColumn = secondColumn;
-		updateSpecificContent();
-	}
-	
-	protected abstract void updateSpecificContent();
-	
-	protected void workBeforeRenderingHtml() {}
-	
-	public String html() {
-		workBeforeRenderingHtml();
+	public String html() throws IOException {
 		
 		String content = "";
 		
-		content += new Header().html();
+		content += "<html><head>" 
+			+ "<link rel='stylesheet' type='text/css' href='/style.css' />"
+			+ "</head><body><table><tr>";
 		
-		content += "<td class=firstcolumn>";
-		content += new FirstColumn().html();
+		content += "<td class=\"firstcolumn\" >";
+		content += "<a href='/' ><img src='/logo.png' border='0' /></a>";
 		content += "</td>";
 		
-		content += "<td class=secondcolumn>";
-		content += secondColumn.html();
+		content += "<td class=\"secondcolumn\" >";
+		content += pageContent();
 		content += "</td>";
 		
-		content += new Footer().html();
+		content += "</tr></table></body></html>";
 		
 		return content;
+	}
+
+	public String pageContent() throws IOException {
+		return null;
 	}
 
 }

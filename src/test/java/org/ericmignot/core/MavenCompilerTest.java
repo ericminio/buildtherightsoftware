@@ -23,6 +23,6 @@ public class MavenCompilerTest {
 		}
 		
 		File classes = new File( pomDirectory + "target/classes" );
-		assertTrue( "classes exist", classes.exists() );
-	}
+		assertTrue( "classes exist", classes.exists() ); 
+	}       
 }
