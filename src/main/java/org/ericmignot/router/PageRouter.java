@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.HomePage;
 import org.ericmignot.page.Page;
+import org.ericmignot.page.ShowPage;
 
 public class PageRouter {
 
@@ -25,7 +25,7 @@ public class PageRouter {
 				return chooser.getPage( request );
 			}
 		}
-		return new HomePage();
+		return new ShowPage( "sample" );
 	}
 	
 }

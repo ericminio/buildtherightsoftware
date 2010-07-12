@@ -1,4 +1,4 @@
-package org.ericmignot.page;
+package org.ericmignot.page.section;
 
 public class Header {
 

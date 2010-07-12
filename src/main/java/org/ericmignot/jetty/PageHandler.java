@@ -30,6 +30,7 @@ public class PageHandler extends AbstractHandler
         
         Page choosen = router.choosePage(request);
         response.getWriter().println(choosen.html());
+        
     }
     
     public PageRouter getPageRouter() {

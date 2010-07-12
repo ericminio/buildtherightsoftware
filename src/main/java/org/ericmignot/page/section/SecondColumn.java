@@ -1,4 +1,4 @@
-package org.ericmignot.page;
+package org.ericmignot.page.section;
 
 import java.io.IOException;
 
@@ -19,8 +19,13 @@ public class SecondColumn {
 		try {
 			String content = "";
 			if (getContent() != null) {
+				Modify modifySection = new Modify();
+				modifySection.setSpecX( getSpecX() );
+				content += modifySection.html();
+				
 				content += fileReader.readFile( getContent() );
 			}
+			
 			content += fileReader.readFile( INVITATION );
 			return content;
 		} catch (IOException e) {
@@ -38,6 +43,18 @@ public class SecondColumn {
 	}
 
 	public String getContent() {
+		return columnContent;
+	}
+
+	public String getSpecX() {
+		int slash = columnContent.lastIndexOf( "/" );
+		if (slash != -1) {
+			String specX = columnContent.substring( slash + 1 );
+			if (specX.indexOf( ".html" ) != -1 ) {
+				return specX.substring(0, specX.indexOf( ".html" ) );
+			}
+			return specX;
+		}
 		return columnContent;
 	}
 

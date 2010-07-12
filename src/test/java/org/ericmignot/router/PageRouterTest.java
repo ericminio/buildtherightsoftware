@@ -1,13 +1,14 @@
 package org.ericmignot.router;
 
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.HomePage;
+import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
 import org.ericmignot.page.ShowPage;
 import org.junit.Before;
@@ -20,14 +21,6 @@ public class PageRouterTest {
 	@Before public void
 	init() {
 		pageRouter = new PageRouter();
-	}
-	
-	@Test public void
-	returnsHomePageWhenSiteHomeIsCalled() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn("/");
-		assertNotNull( "choosen page", pageRouter.choosePage( request ) );
-		assertTrue( "serves home page", pageRouter.choosePage( request ) instanceof HomePage );
 	}
 	
 	@Test public void
@@ -47,5 +40,16 @@ public class PageRouterTest {
 		assertTrue( "serves show page", pageRouter.choosePage( request ) instanceof ShowPage );
 	}
 	
+	@Test public void
+	returnsDefaultSampleByDefault() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn( "/" );
+		
+		Page page = pageRouter.choosePage( request );
+		assertTrue( "serves show page", page instanceof ShowPage );
+		ShowPage showPage = (ShowPage) page;
+		assertThat( "spec", showPage.getSpecX(), equalTo( "sample" ));
+		
+	}
 	
 }

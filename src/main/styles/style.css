@@ -72,3 +72,45 @@ textarea {
     color: #333;
 }
 
+.action {
+	background-attachment: scroll;
+background-clip: border-box;
+background-color: rgba(34, 118, 187, 0.398438);
+background-image: none;
+background-origin: padding-box;
+border-bottom-color: white;
+border-bottom-left-radius: 12px;
+border-bottom-right-radius: 12px;
+border-collapse: separate;
+border-left-color: white;
+border-right-color: white;
+border-top-color: white;
+border-top-left-radius: 12px;
+border-top-right-radius: 12px;
+color: white;
+cursor: auto;
+display: block;
+font-family: 'Lucida Grande', sans-serif;
+font-size: 11px;
+font-style: normal;
+font-variant: normal;
+font-weight: normal;
+height: 11px;
+line-height: 11px;
+list-style-image: none;
+list-style-position: outside;
+list-style-type: none;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 3px;
+margin-top: 0px;
+padding-bottom: 6px;
+padding-left: 12px;
+padding-right: 12px;
+padding-top: 6px;
+text-align: left;
+text-decoration: none;
+text-shadow: rgba(34, 118, 187, 0.746094) 0px 1px 1px;
+width: 37px;
+	}
+

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.ericmignot.core.TryThisCode;
+import org.ericmignot.page.section.SecondColumn;
 
 public class ResultPage extends Page {
 

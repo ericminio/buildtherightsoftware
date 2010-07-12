@@ -1,5 +1,10 @@
 package org.ericmignot.page;
 
+import org.ericmignot.page.section.FirstColumn;
+import org.ericmignot.page.section.Footer;
+import org.ericmignot.page.section.Header;
+import org.ericmignot.page.section.SecondColumn;
+
 public abstract class Page {
 
 	private SecondColumn secondColumn;

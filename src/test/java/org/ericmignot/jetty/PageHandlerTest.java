@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
-import org.ericmignot.page.HomePage;
+import org.ericmignot.page.Page;
 import org.ericmignot.router.PageRouter;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,8 +50,9 @@ public class PageHandlerTest {
 	
 	@Test public void 
 	askPageChooserWhichPageToServe() throws IOException, ServletException {
+		Page pageMock = mock(Page.class);
 		PageRouter pageChooser = mock(PageRouter.class);
-		when(pageChooser.choosePage(httpRequestMock)).thenReturn(new HomePage());
+		when(pageChooser.choosePage(httpRequestMock)).thenReturn(pageMock);
 		pageHandler.setPageRouter(pageChooser);
 		
 		pageHandler.handle(null, requestMock, httpRequestMock, httpResponseMock);

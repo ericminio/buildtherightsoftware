@@ -1,8 +1,9 @@
-package org.ericmignot.page;
+package org.ericmignot.page.section;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import org.ericmignot.page.section.Footer;
 import org.junit.Before;
 import org.junit.Test;
 

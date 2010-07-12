@@ -1,5 +1,7 @@
 package org.ericmignot.page;
 
+import org.ericmignot.page.section.SecondColumn;
+
 public class ShowPage extends Page {
 
 	public static final String DEFAULT_WORKING_DIRECTORY = "specs/";

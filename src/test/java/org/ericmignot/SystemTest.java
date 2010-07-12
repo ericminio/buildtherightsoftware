@@ -1,6 +1,7 @@
 package org.ericmignot;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -81,6 +82,15 @@ public class SystemTest {
 		driver.get("http://localhost:8080/specs/show/calculator-sample");
 		String source = driver.getPageSource();
 		assertThat( "rule for calculator", source, containsString( "<td>calculator</td>" ) );
+	}
+	
+	@Test public void
+	containsAModifyLink() {
+		driver.get("http://localhost:8080/specs/show/calculator-sample");
+		WebElement link = driver.findElement(By.name("modifyLink"));
+		assertThat( "modify link href" , link.getAttribute( "href" ), equalTo( "/specs/modify/calculator-sample" ) );
+        link.click();
+        assertThat( "modify url", driver.getCurrentUrl(), equalTo( "http://localhost:8080/specs/modify/calculator-sample" ) );
 	}
 	
 	
