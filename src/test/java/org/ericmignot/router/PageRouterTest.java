@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
 import org.ericmignot.page.ShowPage;
@@ -21,6 +22,18 @@ public class PageRouterTest {
 	@Before public void
 	init() {
 		pageRouter = new PageRouter();
+	}
+	
+	@Test public void
+	returnsDefaultSampleByDefault() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn( "/" );
+		
+		Page page = pageRouter.choosePage( request );
+		assertTrue( "serves show page", page instanceof ShowPage );
+		ShowPage showPage = (ShowPage) page;
+		assertThat( "spec", showPage.getSpecX(), equalTo( "sample" ));
+		
 	}
 	
 	@Test public void
@@ -41,15 +54,12 @@ public class PageRouterTest {
 	}
 	
 	@Test public void
-	returnsDefaultSampleByDefault() {
+	returnsModifyPageWhenModifyIsCalled() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn( "/" );
+		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
 		
-		Page page = pageRouter.choosePage( request );
-		assertTrue( "serves show page", page instanceof ShowPage );
-		ShowPage showPage = (ShowPage) page;
-		assertThat( "spec", showPage.getSpecX(), equalTo( "sample" ));
-		
+		assertTrue( "serves modify page", pageRouter.choosePage( request ) instanceof ModifyPage );
 	}
+	
 	
 }

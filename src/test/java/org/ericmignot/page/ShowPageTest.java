@@ -8,22 +8,16 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.ericmignot.util.PageFileReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 public class ShowPageTest {
 
 	private ShowPage page;
-	private PageFileReader fileReaderMock;
 	
 	@Before public void
-	init() throws IOException, SAXException, ParserConfigurationException, FactoryConfigurationError {
+	init() throws IOException {
 		page = new ShowPage( "sample" );
 	}
 	
@@ -34,7 +28,7 @@ public class ShowPageTest {
 	
 	@Test public void
 	defaultWorkingDirectory() {
-		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( ShowPage.DEFAULT_WORKING_DIRECTORY ) );
+		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( Page.DEFAULT_WORKING_DIRECTORY ) );
 	}
 	
 	@Test public void
@@ -47,7 +41,14 @@ public class ShowPageTest {
 	containsModifyLink() throws IOException {
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
-											   , withAttribute("href", "/specs/modify/sample") ));
+										 , withAttribute("href", "/specs/modify/sample") ));
+	}
+	
+	@Test public void
+	containsCodeSubmissionForm() throws IOException {
+		Element doc = doc( page );
+		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
+											, withAttribute("action", "/specs/execute/sample") ));
 	}
 	
 }

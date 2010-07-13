@@ -13,6 +13,7 @@ public class PageFileReader {
 		String str;
 		while ((str = reader.readLine()) != null) {
 			buffer.append(str);
+			buffer.append("\n");
 		}
 		String content = buffer.toString();
 		reader.close();

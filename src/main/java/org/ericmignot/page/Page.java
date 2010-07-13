@@ -6,6 +6,8 @@ import org.ericmignot.util.PageFileReader;
 
 public class Page {
 	
+	public static final String DEFAULT_WORKING_DIRECTORY = "specs/";
+	
 	private PageFileReader fileReader;
 	
 	public Page() {

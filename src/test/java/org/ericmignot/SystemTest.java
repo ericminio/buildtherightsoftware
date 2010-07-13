@@ -12,6 +12,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.jetty.FileHandler;
 import org.ericmignot.jetty.PageHandler;
+import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
 import org.ericmignot.page.ShowPage;
@@ -79,7 +80,7 @@ public class SystemTest {
 	
 	@Test public void
 	canAccessASpecificSpec() {
-		driver.get("http://localhost:8080/specs/show/calculator-sample");
+		driver.get("http://localhost:8080/specs/show/calculator-sample");  
 		String source = driver.getPageSource();
 		assertThat( "rule for calculator", source, containsString( "<td>calculator</td>" ) );
 	}
@@ -111,6 +112,12 @@ public class SystemTest {
 				showPage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return showPage;
 			}	
+			if ( choosen instanceof ModifyPage ) {
+				ModifyPage modifyPage = (ModifyPage) choosen;
+				modifyPage.setSpecXDirectory( "target/test-classes/test-system/" );
+				return modifyPage;
+			}	
+			
 			return choosen;
 		}
 	}
