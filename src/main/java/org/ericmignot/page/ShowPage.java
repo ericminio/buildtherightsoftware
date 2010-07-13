@@ -2,8 +2,7 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
-import org.ericmignot.page.section.Modify;
-import org.ericmignot.util.FileReader;
+import org.ericmignot.page.section.ModifyLink;
 
 public class ShowPage extends Page {
 
@@ -27,25 +26,27 @@ public class ShowPage extends Page {
 	public void setSpecXDirectory(String dir) {
 		this.specXDirectory = dir;
 	}
+	
+	public String html() throws IOException {
+		String template = super.html();
+		String page = template.replaceAll( "page-content", pageContent() );
+		return page;
+	}
 
-	public String pageContent() throws IOException {
+	private String pageContent() throws IOException {
 		String content = "";
 		
 		content += getModifySection();
-		content += fileReader.readFile( specXDirectory + specX + ".html" );
-		content += fileReader.readFile( "target/html/invitation.html" );
+		content += readFile( specXDirectory + specX + ".html" );
+		content += readFile( "target/html/invitation.html" );
 		
 		return content;
 	}
 
 	private String getModifySection() {
-		Modify section = new Modify();
+		ModifyLink section = new ModifyLink();
 		section.setSpecX( specX );
 		return section.html();
-	}
-
-	public void setFileReader(FileReader fileReader) {
-		this.fileReader = fileReader;
 	}
 
 }

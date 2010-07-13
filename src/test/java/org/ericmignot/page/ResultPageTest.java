@@ -1,31 +1,30 @@
 package org.ericmignot.page;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
+import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
+import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
 import org.ericmignot.core.TryThisCode;
-import org.ericmignot.util.FileReader;
+import org.ericmignot.util.PageFileReader;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Element;
 
 public class ResultPageTest {
 
 	private ResultPage page;
 	private TryThisCode launcher;
-	private FileReader fileReaderMock;
+	private PageFileReader fileReaderMock;
 	
 	@Before public void
 	init() {
 		page = new ResultPage( "sample" , "git://github.com/testaddict/mastermind.git" );
 		launcher = page.getLauncher();
-		fileReaderMock = mock(FileReader.class);
-		page.setFileReader(fileReaderMock);
 	}
 	
 	@Test public void
@@ -38,23 +37,9 @@ public class ResultPageTest {
 	
 	@Test public void
 	containsModifyLink() throws IOException {
-		String content = page.pageContent();
-		assertThat( "modify link", content, containsString( "<a name=modifyLink href=/specs/modify/sample" ));
-	}
-	
-	@Test public void
-	containsSpecExecutionResult() throws IOException {
-		page.setRunnerDirectory( "toto/" );
-		String expectedContent = launcher.getRunnerDirectory() + launcher.getExecutionOutputDirectory() + "/sample.html";
-		
-		page.pageContent();
-		verify( fileReaderMock ).readFile( expectedContent );
-	}
-	
-	@Test public void
-	containsCodeSubmissionInvitation() throws IOException {
-		page.pageContent();
-		verify(fileReaderMock).readFile( "target/html/invitation.html" );
+		Element doc = doc( page );
+		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
+											   , withAttribute("href", "/specs/modify/sample") ));
 	}
 	
 }

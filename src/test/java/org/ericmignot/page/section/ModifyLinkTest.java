@@ -6,19 +6,19 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ModifyTest {
+public class ModifyLinkTest {
 
-	private Modify section;
+	private ModifyLink section;
 	
 	@Before public void
 	init() {
-		section = new Modify();
+		section = new ModifyLink();
 	}
 	
 	@Test public void
 	isDoorToModifySpec() {
 		section.setSpecX( "toto" );
 		String html = section.html();
-		assertThat( "link tag", html, containsString( "<a name=modifyLink href=/specs/modify/toto class=action >Modify</a>" ) );
+		assertThat( "link tag", html, containsString( "<a name=\"modifyLink\" href=\"/specs/modify/toto\" class=\"action\" >Modify</a>" ) );
 	}
 }

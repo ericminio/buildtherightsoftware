@@ -2,39 +2,27 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
-import org.ericmignot.util.FileReader;
+import org.ericmignot.util.PageFileReader;
 
 public class Page {
 	
-	protected FileReader fileReader;
+	private PageFileReader fileReader;
 	
 	public Page() {
-		fileReader = new FileReader();
+		fileReader = new PageFileReader();
+	}
+	
+	public void setFileReader(PageFileReader fileReader) {
+		this.fileReader = fileReader;
+	}
+	
+	public String readFile(String fileName) throws IOException {
+		return fileReader.readFile( fileName );
 	}
 
 	public String html() throws IOException {
-		
-		String content = "";
-		
-		content += "<html><head>" 
-			+ "<link rel='stylesheet' type='text/css' href='/style.css' />"
-			+ "</head><body><table><tr>";
-		
-		content += "<td class=\"firstcolumn\" >";
-		content += "<a href='/' ><img src='/logo.png' border='0' /></a>";
-		content += "</td>";
-		
-		content += "<td class=\"secondcolumn\" >";
-		content += pageContent();
-		content += "</td>";
-		
-		content += "</tr></table></body></html>";
-		
+		String content = readFile( "target/html/template.html" );
 		return content;
-	}
-
-	public String pageContent() throws IOException {
-		return null;
 	}
 
 }

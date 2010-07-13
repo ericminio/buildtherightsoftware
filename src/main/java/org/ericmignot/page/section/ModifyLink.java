@@ -1,6 +1,6 @@
 package org.ericmignot.page.section;
 
-public class Modify {
+public class ModifyLink {
 
 	private String specX;
 	
@@ -10,7 +10,7 @@ public class Modify {
 
 	public String html() {
 		String content = "<p>"
-			+ "<a name=modifyLink href=/specs/modify/" + specX +  " class=action >Modify</a>"
+			+ "<a name=\"modifyLink\" href=\"/specs/modify/" + specX +  "\" class=\"action\" >Modify</a>"
 			+ "</p>";
 		return content;
 	}

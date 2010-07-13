@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.ericmignot.core.TryThisCode;
-import org.ericmignot.page.section.Modify;
-import org.ericmignot.util.FileReader;
+import org.ericmignot.page.section.ModifyLink;
 
 public class ResultPage extends Page {
 
@@ -44,8 +43,10 @@ public class ResultPage extends Page {
 		return launcher;
 	}
 
-	public void setFileReader(FileReader fileReader) {
-		this.fileReader = fileReader;
+	public String html() throws IOException {
+		String template = super.html();
+		String page = template.replaceAll( "page-content", pageContent() );
+		return page;
 	}
 
 	protected void workBeforeRenderingHtml() {
@@ -58,20 +59,20 @@ public class ResultPage extends Page {
 		}
 	}
 
-	public String pageContent() throws IOException {
+	private String pageContent() throws IOException {
 		workBeforeRenderingHtml();
 		
 		String content = "";
 		
 		content += getModifySection();
-		content += fileReader.readFile( specExecutionResultFile() );
-		content += fileReader.readFile( "target/html/invitation.html" );
+		content += readFile( specExecutionResultFile() );
+		content += readFile( "target/html/invitation.html" );
 		
 		return content;
 	}
 
 	private String getModifySection() {
-		Modify section = new Modify();
+		ModifyLink section = new ModifyLink();
 		section.setSpecX( launcher.getSe() );
 		return section.html();
 	}

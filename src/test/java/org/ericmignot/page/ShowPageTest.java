@@ -1,33 +1,35 @@
 package org.ericmignot.page;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
+import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
+import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
-import org.ericmignot.util.FileReader;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.ericmignot.util.PageFileReader;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 public class ShowPageTest {
 
 	private ShowPage page;
-	private FileReader fileReaderMock;
+	private PageFileReader fileReaderMock;
 	
 	@Before public void
-	init() throws IOException {
-		page = new ShowPage( "a-spec-x" );
-		fileReaderMock = mock(FileReader.class);
-		page.setFileReader(fileReaderMock);
-		
+	init() throws IOException, SAXException, ParserConfigurationException, FactoryConfigurationError {
+		page = new ShowPage( "sample" );
 	}
 	
 	@Test public void
 	specXIsStored() {
-		assertThat( "spec-x stored", page.getSpecX(), equalTo( "a-spec-x" ) );
+		assertThat( "spec-x stored", page.getSpecX(), equalTo( "sample" ) );
 	}
 	
 	@Test public void
@@ -43,20 +45,9 @@ public class ShowPageTest {
 	
 	@Test public void
 	containsModifyLink() throws IOException {
-		String content = page.pageContent();
-		assertThat( "modify link", content, containsString( "<a name=modifyLink href=/specs/modify/a-spec-x" ));
-	}
-	
-	@Test public void
-	containsSpecItself() throws IOException {
-		page.pageContent();
-		verify(fileReaderMock).readFile( "specs/a-spec-x.html" );
-	}
-	
-	@Test public void
-	containsCodeSubmissionInvitation() throws IOException {
-		page.pageContent();
-		verify(fileReaderMock).readFile( "target/html/invitation.html" );
+		Element doc = doc( page );
+		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
+											   , withAttribute("href", "/specs/modify/sample") ));
 	}
 	
 }
