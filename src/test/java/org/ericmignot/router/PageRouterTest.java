@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
+import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +60,17 @@ public class PageRouterTest {
 		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
 		
 		assertTrue( "serves modify page", pageRouter.choosePage( request ) instanceof ModifyPage );
+	}
+	
+	@Test public void
+	returnsSaveWhenSaveSpecIsCalled() {
+		String specXContent = "toto";
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn("/specs/save/sample");
+		when(request.getParameter("specX")).thenReturn( specXContent );
+		
+		Page page = pageRouter.choosePage( request );
+		assertTrue( "serves save page", page instanceof SavePage );
 	}
 	
 	

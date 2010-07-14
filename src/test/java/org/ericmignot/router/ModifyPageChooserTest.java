@@ -57,7 +57,7 @@ public class ModifyPageChooserTest {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
 		Page instance = pageChooser.getPage( request );
-		assertTrue( "show page instance", instance instanceof ModifyPage );
+		assertTrue( "modify page instance", instance instanceof ModifyPage );
 		assertEquals( "spec-x param", "sample", ((ModifyPage)instance).getSpecX() );
 	}
 }
