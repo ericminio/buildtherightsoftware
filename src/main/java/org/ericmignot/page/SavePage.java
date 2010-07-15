@@ -1,21 +1,35 @@
 package org.ericmignot.page;
 
-public class SavePage extends Page {
+import java.io.IOException;
 
-	private String specX;
+import org.ericmignot.core.SpecSaver;
+
+public class SavePage extends ShowPage {
+
 	private String specXContent;
+	private SpecSaver specSaver;
 	
 	public SavePage(String specX, String specXContent) {
-		this.specX = specX;
+		super(specX);
 		this.specXContent = specXContent;
-	}
-
-	public String getSpecX() {
-		return specX;
+		this.specSaver = new SpecSaver();
 	}
 
 	public String getSpecXContent() {
 		return specXContent;
 	}
 
+	public void setSpecSaver(SpecSaver specSaver) {
+		this.specSaver = specSaver;
+	}
+	
+	public SpecSaver getSpecSaver() {
+		return specSaver;
+	}
+
+	public String html() throws IOException {
+		specSaver.setSpecXDirectory( getSpecXDirectory() );
+		specSaver.save( getSpecX(), specXContent );
+		return super.html();
+	}
 }

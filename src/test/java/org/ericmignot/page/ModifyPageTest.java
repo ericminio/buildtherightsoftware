@@ -62,12 +62,4 @@ public class ModifyPageTest {
 									     , withText("Save") ));
 	}
 	
-	@Ignore
-	@Test public void
-	textareaContainsTheSpecCode() throws IOException {
-		String specX = new PageFileReader().readFile( "specs/sample.html" );
-		Element doc = doc( page );
-		assertThat( doc, hasSelector( "textarea", withContent( specX ) ));
-	}
-	
 }

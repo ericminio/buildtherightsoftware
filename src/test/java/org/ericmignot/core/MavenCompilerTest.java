@@ -23,6 +23,13 @@ public class MavenCompilerTest {
 		}
 		
 		File classes = new File( pomDirectory + "target/classes" );
-		assertTrue( "classes exist", classes.exists() ); 
+		assertTrue( "classes exist", classes.exists() );   
 	}       
+	
+	@Test public void
+	nopWhenDirectoryDoesNotExist() throws IOException, InterruptedException {
+		MavenCompiler compiler = new MavenCompiler();
+		compiler.setDirectory( "toto" );
+		compiler.mavenCleanAndCompile();
+	}
 }

@@ -21,7 +21,6 @@ public class PageRouter {
 	}
 	
 	public Page choosePage(HttpServletRequest request) {
-
 		for (PageChooser chooser : choosers) {
 			if ( chooser.isConcernedBy( request )) {
 				return chooser.getPage( request );

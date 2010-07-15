@@ -15,7 +15,7 @@ public class PageFileReader {
 			buffer.append(str);
 			buffer.append("\n");
 		}
-		String content = buffer.toString();
+		String content = buffer.substring( 0, buffer.length() - 1 );
 		reader.close();
 		fileReader.close();
 		return content==null ? "": content;

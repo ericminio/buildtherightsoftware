@@ -1,8 +1,8 @@
 package org.ericmignot;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,7 @@ import org.ericmignot.jetty.PageHandler;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
+import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
 import org.ericmignot.router.PageRouter;
 import org.junit.AfterClass;
@@ -70,7 +71,14 @@ public class SystemTest {
 	}
 	
 	@Test public void
-	executeSpecUrl() throws InterruptedException {
+	canShowASpec() {
+		driver.get("http://localhost:8080/specs/show/calculator-sample");  
+		String source = driver.getPageSource();
+		assertThat( "rule for calculator", source, containsString( "<td>calculator</td>" ) );
+	}
+	
+	@Test public void
+	canExecuteASpec() throws InterruptedException {
         driver.get("http://localhost:8080/");
         WebElement link = driver.findElement(By.name("tryCodeLink"));
         link.click();
@@ -79,20 +87,40 @@ public class SystemTest {
 	}
 	
 	@Test public void
-	canAccessASpecificSpec() {
-		driver.get("http://localhost:8080/specs/show/calculator-sample");  
-		String source = driver.getPageSource();
-		assertThat( "rule for calculator", source, containsString( "<td>calculator</td>" ) );
+	canModifyASpec() {
+		driver.get("http://localhost:8080/specs/modify/save-sample");
+		WebElement textarea = driver.findElement(By.name("specX"));
+		textarea.clear();
+		CharSequence seq = new CharSequence() {
+			
+			public CharSequence subSequence(int start, int end) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			public int length() {
+				return 4;
+			}
+			
+			public char charAt(int index) {
+				return "toto".charAt(index);
+			}
+		};
+		textarea.sendKeys(seq);
+		
+		WebElement saveLink = driver.findElement(By.name("saveSpecXLink"));
+        saveLink.click();
+        
+        assertEquals( "http://localhost:8080/specs/save/save-sample", driver.getCurrentUrl() );
+        WebElement modifyLink = driver.findElement(By.name("modifyLink"));
+        assertNotNull("modify link present", modifyLink);
+        
+        String source = driver.getPageSource();
+        assertThat( "modification saved", source, containsString( "toto" ) );
 	}
 	
-	@Test public void
-	containsAModifyLink() { 
-		driver.get("http://localhost:8080/specs/show/calculator-sample");
-		WebElement link = driver.findElement(By.name("modifyLink"));
-		assertThat( "modify link href" , link.getAttribute( "href" ), equalTo( "/specs/modify/calculator-sample" ) );
-        link.click();
-        assertThat( "modify url", driver.getCurrentUrl(), equalTo( "http://localhost:8080/specs/modify/calculator-sample" ) );
-	}
+	
+	
 	
 	   
 	
@@ -116,7 +144,12 @@ public class SystemTest {
 				ModifyPage modifyPage = (ModifyPage) choosen;
 				modifyPage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return modifyPage;
-			}	
+			}
+			if ( choosen instanceof SavePage ) {
+				SavePage savePage = (SavePage) choosen;
+				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
+				return savePage;
+			}
 			
 			return choosen;
 		}

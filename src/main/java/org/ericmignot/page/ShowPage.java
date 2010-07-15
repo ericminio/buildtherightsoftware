@@ -6,26 +6,10 @@ import org.ericmignot.page.section.ModifyLink;
 
 public class ShowPage extends Page {
 
-	private String specX;
-	private String specXDirectory;
-	
 	public ShowPage(String specX) {
-		this.specX = specX;
-		this.specXDirectory = DEFAULT_WORKING_DIRECTORY;
+		super( specX );
 	}
 
-	public String getSpecX() {
-		return specX;
-	}
-
-	public String getSpecXDirectory() {
-		return specXDirectory;
-	}
-
-	public void setSpecXDirectory(String dir) {
-		this.specXDirectory = dir;
-	}
-	
 	public String html() throws IOException {
 		String template = super.html();
 		String page = template.replaceAll( "page-content", pageContent() );
@@ -36,7 +20,7 @@ public class ShowPage extends Page {
 		String content = "";
 		
 		content += getModifySection();
-		content += readFile( specXDirectory + specX + ".html" );
+		content += readFile( getSpecXDirectory() + getSpecX() + ".html" );
 		content += readFile( "target/html/invitation.html" );
 		
 		return content;
@@ -44,7 +28,7 @@ public class ShowPage extends Page {
 
 	private String getModifySection() {
 		ModifyLink section = new ModifyLink();
-		section.setSpecX( specX );
+		section.setSpecX( getSpecX() );
 		return section.html();
 	}
 

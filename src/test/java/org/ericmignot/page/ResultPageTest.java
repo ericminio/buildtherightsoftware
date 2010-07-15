@@ -6,11 +6,13 @@ import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
 import org.ericmignot.core.TryThisCode;
-import org.ericmignot.util.PageFileReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
@@ -19,7 +21,6 @@ public class ResultPageTest {
 
 	private ResultPage page;
 	private TryThisCode launcher;
-	private PageFileReader fileReaderMock;
 	
 	@Before public void
 	init() {
@@ -36,10 +37,28 @@ public class ResultPageTest {
 	}
 	
 	@Test public void
+	launchExecution() throws IOException, InterruptedException {
+		TryThisCode launcherMock = mock(TryThisCode.class);
+		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result/");
+		when(launcherMock.getExecutionOutputDirectory()).thenReturn("runs/1111111/mastermind/se/out");
+		when(launcherMock.getSe()).thenReturn("sample");
+		page.setLauncher(launcherMock);
+		
+		page.html();
+		verify(launcherMock).go();
+	}
+	
+	@Test public void
 	containsModifyLink() throws IOException {
+		TryThisCode launcherMock = mock(TryThisCode.class);
+		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result/");
+		when(launcherMock.getExecutionOutputDirectory()).thenReturn("runs/1111111/mastermind/se/out");
+		when(launcherMock.getSe()).thenReturn("sample");
+		page.setLauncher(launcherMock);
+		
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
-											   , withAttribute("href", "/specs/modify/sample") ));
+									     , withAttribute("href", "/specs/modify/sample") ));
 	}
 	
 }

@@ -11,11 +11,11 @@ public class ResultPage extends Page {
 	private TryThisCode launcher;
 	private String chrono;
 	
-	public ResultPage(String se, String gitRepository) {
+	public ResultPage(String specX, String gitRepository) {
 		this.chrono = ""+new Date().getTime();
 		
 		launcher = new TryThisCode();
-		launcher.setSe( se );
+		launcher.setSe( specX );
 		launcher.setGitRepository( gitRepository );
 		launcher.setChrono( getChrono() );
 		
