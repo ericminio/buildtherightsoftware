@@ -28,6 +28,11 @@
 	    	<url>http://forumarchivebuilder.googlecode.com/svn/repository</url>
 	  	</repository>
 	  	
+	  	<repository>
+	    	<id>Pyxis</id>
+	    	<url>https://www.pyxis-tech.ca/nexus/content/groups/public/</url>
+	  	</repository>
+	  	
     </repositories>
   
   <dependencies>
