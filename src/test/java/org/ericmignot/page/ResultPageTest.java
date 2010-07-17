@@ -39,8 +39,8 @@ public class ResultPageTest {
 	@Test public void
 	launchExecution() throws IOException, InterruptedException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
-		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result/");
-		when(launcherMock.getExecutionOutputDirectory()).thenReturn("runs/1111111/mastermind/se/out");
+		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result");
+		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
 		when(launcherMock.getSe()).thenReturn("sample");
 		page.setLauncher(launcherMock);
 		
@@ -51,8 +51,8 @@ public class ResultPageTest {
 	@Test public void
 	containsModifyLink() throws IOException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
-		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result/");
-		when(launcherMock.getExecutionOutputDirectory()).thenReturn("runs/1111111/mastermind/se/out");
+		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result");
+		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
 		when(launcherMock.getSe()).thenReturn("sample");
 		page.setLauncher(launcherMock);
 		
