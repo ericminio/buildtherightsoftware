@@ -79,11 +79,14 @@ public class SystemTest {
 	
 	@Test public void
 	canExecuteASpec() throws InterruptedException {
-        driver.get("http://localhost:8080/");
+        driver.get("http://localhost:8080/specs/show/execution-sample");
         WebElement link = driver.findElement(By.name("tryCodeLink"));
         link.click();
 
-      	assertEquals( "Url", "http://localhost:8080/specs/execute/sample?repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git", driver.getCurrentUrl() );
+      	assertEquals( "Url", "http://localhost:8080/specs/execute/execution-sample?repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git", driver.getCurrentUrl() );
+      	
+      	String source = driver.getPageSource();
+      	assertThat( "spec passes", source, containsString( "background-color: #AAFFAA;") );
 	}
 	
 	@Test public void
@@ -92,16 +95,12 @@ public class SystemTest {
 		WebElement textarea = driver.findElement(By.name("specX"));
 		textarea.clear();
 		CharSequence seq = new CharSequence() {
-			
 			public CharSequence subSequence(int start, int end) {
-				// TODO Auto-generated method stub
 				return null;
 			}
-			
 			public int length() {
 				return 4;
 			}
-			
 			public char charAt(int index) {
 				return "toto".charAt(index);
 			}

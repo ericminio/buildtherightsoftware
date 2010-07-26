@@ -38,7 +38,7 @@ public class Page {
 		this.specXDirectory = dir;
 	}
 	
-	public String readFile(String fileName) throws IOException {
+	public String readFile(String fileName) {
 		return fileReader.readFile( fileName );
 	}
 

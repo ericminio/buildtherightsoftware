@@ -37,7 +37,7 @@ public class ResultPageTest {
 	}
 	
 	@Test public void
-	launchExecution() throws IOException, InterruptedException {
+	launchSpecExecutionWhenRenderIsCalled() throws IOException, InterruptedException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
 		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result");
 		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");

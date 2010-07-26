@@ -4,27 +4,20 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.ericmignot.core.TryThisCode;
-import org.ericmignot.page.section.ModifyLink;
 
-public class ResultPage extends Page {
+public class ResultPage extends ShowPage {
 
 	private TryThisCode launcher;
 	private String chrono;
 	
 	public ResultPage(String specX, String gitRepository) {
-		this.chrono = ""+new Date().getTime();
+		super( specX );
 		
+		this.chrono = ""+new Date().getTime();
 		launcher = new TryThisCode();
 		launcher.setSe( specX );
 		launcher.setGitRepository( gitRepository );
 		launcher.setChrono( getChrono() );
-		
-	}
-
-	public String specExecutionResultFile() {
-		return launcher.getRunnerDirectory() 
-			+ launcher.getExecutionOutputDirectory() 
-			+ "/" + launcher.getSe() + ".html";
 	}
 
 	public void setRunnerDirectory(String path) {
@@ -43,10 +36,15 @@ public class ResultPage extends Page {
 		return launcher;
 	}
 
+	public String getFilePathToBeIncluded() {
+		return launcher.getRunnerDirectory() 
+			+ launcher.getExecutionOutputDirectory() 
+			+ "/" + launcher.getSe() + ".html";
+	}
+
 	public String html() throws IOException {
-		String template = super.html();
-		String page = template.replaceAll( "page-content", pageContent() );
-		return page;
+		workBeforeRenderingHtml();
+		return super.html();
 	}
 
 	protected void workBeforeRenderingHtml() {
@@ -57,24 +55,6 @@ public class ResultPage extends Page {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private String pageContent() throws IOException {
-		workBeforeRenderingHtml();
-		
-		String content = "";
-		
-		content += getModifySection();
-		content += readFile( specExecutionResultFile() );
-		content += readFile( "target/html/invitation.html" );
-		
-		return content;
-	}
-
-	private String getModifySection() {
-		ModifyLink section = new ModifyLink();
-		section.setSpecX( launcher.getSe() );
-		return section.html();
 	}
 	
 }

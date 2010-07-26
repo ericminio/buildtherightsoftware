@@ -5,19 +5,25 @@ import java.io.IOException;
 
 public class PageFileReader {
 
-	public String readFile(String fileName) throws IOException {
-		java.io.FileReader fileReader = new java.io.FileReader(fileName);
-		BufferedReader reader = new BufferedReader(fileReader);
-
-		StringBuffer buffer = new StringBuffer();
-		String str;
-		while ((str = reader.readLine()) != null) {
-			buffer.append(str);
-			buffer.append("\n");
+	public String readFile(String fileName) {
+		String content = null;
+		try {
+			java.io.FileReader fileReader = new java.io.FileReader(fileName);
+			BufferedReader reader = new BufferedReader(fileReader);
+	
+			StringBuffer buffer = new StringBuffer();
+			String str;
+			while ((str = reader.readLine()) != null) {
+				buffer.append(str);
+				buffer.append("\n");
+			}
+			content = buffer.substring( 0, buffer.length() - 1 );
+			reader.close();
+			fileReader.close();
 		}
-		String content = buffer.substring( 0, buffer.length() - 1 );
-		reader.close();
-		fileReader.close();
-		return content==null ? "": content;
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return content;
 	}
 }
