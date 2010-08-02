@@ -28,7 +28,7 @@ public class SavePage extends ShowPage {
 	}
 
 	public String html() throws IOException {
-		specSaver.setSpecXDirectory( getSpecXDirectory() );
+		specSaver.setDirectory( getSpecXDirectory() );
 		specSaver.save( getSpecX(), specXContent );
 		return super.html();
 	}

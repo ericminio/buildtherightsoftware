@@ -3,27 +3,28 @@ package org.ericmignot.core;
 import java.io.File;
 import java.io.IOException;
 
-public class SeRunner {
+public class SpecRunner {
 
 	private String directory;
+	
 	private String classesRelativePath;
-	private String seRelativePath;
+	private String specXRelativePath;
 	private String outRelativePath;
 	
-	public void setRunnerDirectory(String path) {
+	public void setDirectory(String path) {
 		this.directory = path;
 	}
 	
-	public void setClassesRelativeDirectory(String cloneRelativePath) {
-		this.classesRelativePath = cloneRelativePath;
+	public void setClassesRelativeDirectory(String classesRelativePath) {
+		this.classesRelativePath = classesRelativePath;
 	}
 
-	public void setSeRelativeFile(String se) {
-		this.seRelativePath = se;
+	public void setSpecXRelativeFile(String specXRelativePath) {
+		this.specXRelativePath = specXRelativePath;
 	}
 	
-	public void setOutputRelativeDirectory(String out) {
-		this.outRelativePath = out;
+	public void setOutputRelativeDirectory(String outRelativePath) {
+		this.outRelativePath = outRelativePath;
 	}
 
 	public void executeSpecification() throws IOException, InterruptedException {
@@ -31,7 +32,7 @@ public class SeRunner {
 		String command = "java -cp greenpepper-core-2.7.jar:" + 
 			classesRelativePath +
 			" com.greenpepper.runner.Main" +
-			" " + seRelativePath +
+			" " + specXRelativePath +
 			" -o " + outRelativePath ;
 		Process process = Runtime.getRuntime().exec( command, null, dir );
 		process.waitFor();

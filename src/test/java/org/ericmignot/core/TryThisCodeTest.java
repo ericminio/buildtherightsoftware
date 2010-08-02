@@ -16,7 +16,7 @@ public class TryThisCodeTest {
 	
 	@Test public void
 	defaultDirectoriesToBeUSed() {
-		assertEquals( "runner", "specs/", tryThisCode.getRunnerDirectory() );
+		assertEquals( "runner", "specs/", tryThisCode.getDirectory() );
 		
 		tryThisCode.setChrono( "chrono-directory" );
 		assertEquals( "fetcher", "specs/runs/chrono-directory", tryThisCode.getFetcherDirectory() );

@@ -7,8 +7,8 @@ public class MavenCompiler {
 
 	private String directory;
 
-	public void setDirectory(String directory) {
-		this.directory = directory;
+	public void setDirectory(String path) {
+		this.directory = path;
 	}
 
 	public void mavenCleanAndCompile() throws IOException, InterruptedException {

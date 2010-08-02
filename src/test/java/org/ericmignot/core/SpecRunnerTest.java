@@ -9,22 +9,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class SeRunnerTest {
+public class SpecRunnerTest {
 
-	private SeRunner seRunner;
+	private SpecRunner specRunner;
 	
 	@Before public void
 	init() {
-		seRunner = new SeRunner();
+		specRunner = new SpecRunner();
 	}
 	
 	@Test public void
 	canExecuteASe() throws IOException, InterruptedException {
-		seRunner.setRunnerDirectory( "target/test-classes/test-greenpepper");
-		seRunner.setClassesRelativeDirectory( "mastermind/target/classes" );
-		seRunner.setSeRelativeFile( "mastermind/se/sample.html" );
-		seRunner.setOutputRelativeDirectory( "mastermind/se/out" );
-		seRunner.executeSpecification();
+		specRunner.setDirectory( "target/test-classes/test-greenpepper");
+		specRunner.setClassesRelativeDirectory( "mastermind/target/classes" );
+		specRunner.setSpecXRelativeFile( "mastermind/se/sample.html" );
+		specRunner.setOutputRelativeDirectory( "mastermind/se/out" );
+		specRunner.executeSpecification();
 		
 		File out = new File ( "target/test-classes/test-greenpepper/mastermind/se/out/sample.html" );
 		assertTrue( "se output", out.exists() );

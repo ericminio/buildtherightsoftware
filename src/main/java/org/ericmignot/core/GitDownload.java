@@ -20,5 +20,4 @@ public class GitDownload {
 		process.waitFor();
 	}
 
-
 }

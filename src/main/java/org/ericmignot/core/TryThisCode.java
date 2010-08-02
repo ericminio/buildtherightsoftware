@@ -4,26 +4,26 @@ import java.io.IOException;
 
 public class TryThisCode {
 
-	private String se;
+	private String directory;
+	
+	private String specX;
 	private String repository;
 	private String chrono;
 	
-	private String runnerDirectory;
-	
 	public TryThisCode() {
-		setRunnerDirectory( "specs/" );
+		setDirectory( "specs/" );
 	}
 	
-	public void setSe(String se) {
-		this.se = se;
+	public void setDirectory(String path) {
+		this.directory = path;
+	}
+	
+	public void setSpecX(String se) {
+		this.specX = se;
 	}
 
 	public void setGitRepository(String repository) {
 		this.repository = repository;
-	}
-
-	public void setChrono(String chrono) {
-		this.chrono = chrono;
 	}
 
 	public void go() throws IOException, InterruptedException {
@@ -35,38 +35,26 @@ public class TryThisCode {
 		compiler.setDirectory( getCompilerDirectory() );
 		compiler.mavenCleanAndCompile();
 		
-		SeRunner seRunner = new SeRunner();
-		seRunner.setRunnerDirectory( getRunnerDirectory() );
-		seRunner.setSeRelativeFile( se + ".html" );
-		seRunner.setClassesRelativeDirectory( getClassesRelativeDirectory() );
-		seRunner.setOutputRelativeDirectory( getExecutionOutputDirectory() );
-		seRunner.executeSpecification();
+		SpecRunner specRunner = new SpecRunner();
+		specRunner.setDirectory( getDirectory() );
+		specRunner.setSpecXRelativeFile( specX + ".html" );
+		specRunner.setClassesRelativeDirectory( getClassesRelativeDirectory() );
+		specRunner.setOutputRelativeDirectory( getExecutionOutputDirectory() );
+		specRunner.executeSpecification();
 	}
 
-	public void setRunnerDirectory(String path) {
-		this.runnerDirectory = path;
+	public void setChrono(String chrono) {
+		this.chrono = chrono;
 	}
 
-	public String getRunnerDirectory() {
-		return runnerDirectory;
-	}
-	
 	public String getFetcherDirectory() {
-		return getRunnerDirectory() + "runs/" + chrono;
+		return getDirectory() + "runs/" + chrono;
 	}
 	
 	public String getCompilerDirectory() {
 		return getFetcherDirectory() + "/" + extractProjectName( repository );
 	}
 	
-	public String extractProjectName(String gitUrl) {
-		if ( gitUrl.length() < "git://github.com/*/*.git".length() ) {
-			return null;
-		} else {
-			return gitUrl.substring( gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4 );
-		}
-	}
-
 	public String getClassesRelativeDirectory() {
 		return "runs/" + chrono + "/" + extractProjectName( repository ) + "/target/classes";
 	}
@@ -75,8 +63,20 @@ public class TryThisCode {
 		return "runs/" + chrono + "/" + extractProjectName( repository ) + "/se/out";
 	}
 
-	public String getSe() {
-		return se;
+	public String extractProjectName(String gitUrl) {
+		if ( gitUrl.length() < "git://github.com/*/*.git".length() ) {
+			return null;
+		} else {
+			return gitUrl.substring( gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4 );
+		}
+	}
+
+	public String getDirectory() {
+		return directory;
+	}
+	
+	public String getSpecX() {
+		return specX;
 	}
 
 	public String getGitRepository() {
@@ -86,7 +86,5 @@ public class TryThisCode {
 	public String getChrono() {
 		return chrono;
 	}
-
-	
 
 }

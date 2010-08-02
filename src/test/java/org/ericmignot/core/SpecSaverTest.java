@@ -20,7 +20,7 @@ public class SpecSaverTest {
 	
 	@Test public void
 	modifiesTheSpecFileContent() throws IOException {
-		saver.setSpecXDirectory( "target/test-classes/test-save-spec/" );
+		saver.setDirectory( "target/test-classes/test-save-spec/" );
 		saver.save( "sample", "toto" );
 		
 		String fileContent = new PageFileReader().readFile( "target/test-classes/test-save-spec/sample.html" );

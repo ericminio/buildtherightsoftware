@@ -65,7 +65,7 @@ public class ResultPageChooserTest {
 		Page instance = pageChooser.getPage( request );
 		assertTrue( "result page", instance instanceof ResultPage );
 		ResultPage resultPage = (ResultPage) instance;
-		assertEquals( "spec-x", "sample", resultPage.getLauncher().getSe() );
+		assertEquals( "spec-x", "sample", resultPage.getLauncher().getSpecX() );
 		assertEquals( "repo", "git://github.com/testaddict/mastermind.git", resultPage.getLauncher().getGitRepository() );
 	}
 }

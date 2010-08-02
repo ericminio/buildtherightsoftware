@@ -45,7 +45,7 @@ public class SavePageTest {
 		SpecSaver saverMock = mock(SpecSaver.class);
 		page.setSpecSaver(saverMock);
 		page.html();
-		verify(saverMock).setSpecXDirectory(page.getSpecXDirectory());
+		verify(saverMock).setDirectory(page.getSpecXDirectory());
 		verify(saverMock).save( "sample", "toto" );
 	}
 	

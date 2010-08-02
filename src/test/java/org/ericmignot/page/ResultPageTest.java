@@ -31,7 +31,7 @@ public class ResultPageTest {
 	@Test public void
 	launcherConfiguration() {
 		assertNotNull( launcher );
-		assertEquals( "se", "sample", launcher.getSe() );
+		assertEquals( "se", "sample", launcher.getSpecX() );
 		assertEquals( "repo", "git://github.com/testaddict/mastermind.git", launcher.getGitRepository() );
 		assertEquals( "chrono", page.getChrono(), launcher.getChrono() );
 	}
@@ -39,9 +39,9 @@ public class ResultPageTest {
 	@Test public void
 	launchSpecExecutionWhenRenderIsCalled() throws IOException, InterruptedException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
-		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result");
+		when(launcherMock.getDirectory()).thenReturn("target/test-classes/test-page-result");
 		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
-		when(launcherMock.getSe()).thenReturn("sample");
+		when(launcherMock.getSpecX()).thenReturn("sample");
 		page.setLauncher(launcherMock);
 		
 		page.html();
@@ -51,9 +51,9 @@ public class ResultPageTest {
 	@Test public void
 	containsModifyLink() throws IOException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
-		when(launcherMock.getRunnerDirectory()).thenReturn("target/test-classes/test-page-result");
+		when(launcherMock.getDirectory()).thenReturn("target/test-classes/test-page-result");
 		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
-		when(launcherMock.getSe()).thenReturn("sample");
+		when(launcherMock.getSpecX()).thenReturn("sample");
 		page.setLauncher(launcherMock);
 		
 		Element doc = doc( page );

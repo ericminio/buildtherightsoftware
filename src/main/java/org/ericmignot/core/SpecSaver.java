@@ -7,14 +7,14 @@ import java.io.PrintWriter;
 
 public class SpecSaver {
 
-	private String specXDirectory;
+	private String directory;
 	
-	public void setSpecXDirectory(String dir) {
-		this.specXDirectory = dir;
+	public void setDirectory(String path) {
+		this.directory = path;
 	}
 
 	public void save(String specX, String specXContent) throws IOException {
-		String file = specXDirectory + specX + ".html";
+		String file = directory + specX + ".html";
 		PrintWriter out
 		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
 		out.print( specXContent );

@@ -15,13 +15,13 @@ public class ResultPage extends ShowPage {
 		
 		this.chrono = ""+new Date().getTime();
 		launcher = new TryThisCode();
-		launcher.setSe( specX );
+		launcher.setSpecX( specX );
 		launcher.setGitRepository( gitRepository );
 		launcher.setChrono( getChrono() );
 	}
 
 	public void setRunnerDirectory(String path) {
-		launcher.setRunnerDirectory(path);
+		launcher.setDirectory(path);
 	}
 
 	public String getChrono() {
@@ -37,9 +37,9 @@ public class ResultPage extends ShowPage {
 	}
 
 	public String getFilePathToBeIncluded() {
-		return launcher.getRunnerDirectory() 
+		return launcher.getDirectory() 
 			+ launcher.getExecutionOutputDirectory() 
-			+ "/" + launcher.getSe() + ".html";
+			+ "/" + launcher.getSpecX() + ".html";
 	}
 
 	public String html() throws IOException {
