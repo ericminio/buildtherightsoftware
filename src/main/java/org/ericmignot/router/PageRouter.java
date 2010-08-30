@@ -18,6 +18,7 @@ public class PageRouter {
 		choosers.add( new ShowPageChooser() );
 		choosers.add( new ModifyPageChooser() );
 		choosers.add( new SavePageChooser() );
+		choosers.add( new NewPageChooser() );
 	}
 	
 	public Page choosePage(HttpServletRequest request) {

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.ModifyPage;
+import org.ericmignot.page.NewPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
 import org.ericmignot.page.SavePage;
@@ -71,6 +72,14 @@ public class PageRouterTest {
 		
 		Page page = pageRouter.choosePage( request );
 		assertTrue( "serves save page", page instanceof SavePage );
+	}
+	
+	@Test public void
+	returnsNewWhenCreationIsCalled() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn("/specs/new");
+		
+		assertTrue( "serves new page", pageRouter.choosePage( request ) instanceof NewPage );
 	}
 	
 	

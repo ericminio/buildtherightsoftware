@@ -3,16 +3,13 @@ package org.ericmignot.page;
 import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
 import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
 import static com.pyxis.matchers.dom.DomMatchers.withText;
-import static com.pyxis.matchers.dom.WithContentText.withContent;
 import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
-import org.ericmignot.util.PageFileReader;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 

@@ -94,18 +94,7 @@ public class SystemTest {
 		driver.get("http://localhost:8080/specs/modify/save-sample");
 		WebElement textarea = driver.findElement(By.name("specX"));
 		textarea.clear();
-		CharSequence seq = new CharSequence() {
-			public CharSequence subSequence(int start, int end) {
-				return null;
-			}
-			public int length() {
-				return 4;
-			}
-			public char charAt(int index) {
-				return "toto".charAt(index);
-			}
-		};
-		textarea.sendKeys(seq);
+		typeInto( textarea, "toto" );
 		
 		WebElement saveLink = driver.findElement(By.name("saveSpecXLink"));
         saveLink.click();
@@ -118,12 +107,39 @@ public class SystemTest {
         assertThat( "modification saved", source, containsString( "toto" ) );
 	}
 	
+	@Test public void
+	canCreateANewSpec() {
+		driver.get("http://localhost:8080");
+		WebElement createLink = driver.findElement(By.name("newLink"));
+		createLink.click();
+		assertEquals( "url after click on new link", "http://localhost:8080/specs/new", driver.getCurrentUrl());
+		
+		WebElement newSpecNameField = driver.findElement(By.name("specXName"));
+		typeInto(newSpecNameField, "anewspec");
+		
+		WebElement saveLink = driver.findElement(By.name("createSpecXLink"));
+        saveLink.click();
+
+        assertEquals( "http://localhost:8080/specs/new?specXName=anewspec", driver.getCurrentUrl() );
+	}
+
+
 	
 	
-	
-	   
-	
-	
+	private void typeInto(WebElement field, final String aString) {
+		CharSequence seq = new CharSequence() {
+			public CharSequence subSequence(int start, int end) {
+				return null;
+			}
+			public int length() {
+				return aString.length();
+			}
+			public char charAt(int index) {
+				return aString.charAt(index);
+			}
+		};
+		field.sendKeys(seq);
+	}
 	
 	private static class TestPageChooser extends PageRouter {
 		
