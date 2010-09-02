@@ -32,7 +32,7 @@ public class NewPageTest {
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "form", withAttribute("name", "newSpecXForm")
 											, withAttribute("method", "get") 
-											, withAttribute("action", "/specs/new") ));
+											, withAttribute("action", "/specs/create") ));
 		
 		assertThat( doc, hasSelector( "a", withAttribute("name", "createSpecXLink")
 				 , withAttribute("href", "javascript:newSpecXForm.submit()") 

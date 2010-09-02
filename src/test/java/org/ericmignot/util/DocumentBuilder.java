@@ -18,6 +18,10 @@ public class DocumentBuilder {
 
 	public static Element doc( Page page ) throws IOException {
 		String content = page.html();
+		return doc( content );
+	}
+	
+	public static Element doc( String content ) throws IOException {
 		InputStream is = null;
 		try {
 			is = new ByteArrayInputStream(content.getBytes("UTF-8"));

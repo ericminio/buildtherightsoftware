@@ -12,6 +12,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.jetty.FileHandler;
 import org.ericmignot.jetty.PageHandler;
+import org.ericmignot.page.CreatePage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
@@ -102,8 +103,17 @@ public class SystemTest {
 		uriShouldBe( "uri after click on new link", "/specs/new" );
 		findSpecNameFieldAndEnterTheValue( "anewspec" );
 		createSpec();
-		uriShouldBe( "create uri", "/specs/new" );
+		
+		uriShouldBe( "create uri", "/specs/create" );
 		queryStringShouldBe( "creation query string", "specXName=anewspec" );
+		
+		pageShouldContainModifyLink();
+		pageShouldContain( "new spec template", "put your service name here" );
+		pageShouldContainTryThisCodeLink();
+	}
+
+	private void pageShouldContainTryThisCodeLink() {
+		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
 	}
 	
 	private void findTryCodeLinkAndClickIt() {
@@ -218,6 +228,11 @@ public class SystemTest {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
+			}
+			if ( choosen instanceof CreatePage ) {
+				CreatePage createPage = (CreatePage) choosen;
+				createPage.setSpecXDirectory( "target/test-classes/test-system/" );
+				return createPage;
 			}
 			
 			return choosen;
