@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ericmignot.page.CreatePage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.NewPage;
 import org.ericmignot.page.Page;
@@ -75,11 +76,20 @@ public class PageRouterTest {
 	}
 	
 	@Test public void
-	returnsNewWhenCreationIsCalled() {
+	returnsNewWhenNewIsCalled() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/new");
 		
 		assertTrue( "serves new page", pageRouter.choosePage( request ) instanceof NewPage );
+	}
+	
+	@Test public void
+	returnsCreateWhenCreationIsCalled() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn("/specs/create");
+		when(request.getQueryString()).thenReturn("specXName=toto");
+		
+		assertTrue( "serves create page", pageRouter.choosePage( request ) instanceof CreatePage );
 	}
 	
 	

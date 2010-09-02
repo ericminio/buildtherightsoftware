@@ -1,6 +1,5 @@
 package org.ericmignot.router;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -8,9 +7,7 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.NewPage;
-import org.ericmignot.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 

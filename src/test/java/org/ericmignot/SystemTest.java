@@ -12,6 +12,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.jetty.FileHandler;
 import org.ericmignot.jetty.PageHandler;
+import org.ericmignot.page.CreatePage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.Page;
 import org.ericmignot.page.ResultPage;
@@ -120,7 +121,11 @@ public class SystemTest {
 		WebElement saveLink = driver.findElement(By.name("createSpecXLink"));
         saveLink.click();
 
-        assertEquals( "http://localhost:8080/specs/new?specXName=anewspec", driver.getCurrentUrl() );
+        assertEquals( "http://localhost:8080/specs/create?specXName=anewspec", driver.getCurrentUrl() );
+        
+        assertNotNull("contains modify link", driver.findElement(By.name("modifyLink")));
+		assertThat( "contains rule for example", driver.getPageSource(), containsString( "put your service name here" ) );
+		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
 	}
 
 
@@ -164,6 +169,11 @@ public class SystemTest {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
+			}
+			if ( choosen instanceof CreatePage ) {
+				CreatePage createPage = (CreatePage) choosen;
+				createPage.setSpecXDirectory( "target/test-classes/test-system/" );
+				return createPage;
 			}
 			
 			return choosen;
