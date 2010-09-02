@@ -77,7 +77,7 @@ public class SystemTest {
 	}
 	
 	@Test public void
-	canExecuteASpec() throws InterruptedException {
+	canExecuteASpecWithARemoteCode() throws InterruptedException {
         showSpec( "execution-sample" );
         findTryCodeLinkAndClickIt();
         uriShouldBe( "execution uri", "/specs/execute/execution-sample" );

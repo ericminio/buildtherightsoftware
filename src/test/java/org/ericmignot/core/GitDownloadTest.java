@@ -10,7 +10,7 @@ import org.junit.Test;
 public class GitDownloadTest {
 
 	@Test public void
-	canCloneGitRepository() throws IOException, InterruptedException {
+	canCloneARemoteGitRepository() throws IOException, InterruptedException {
 		GitDownload fetcher = new GitDownload();
 		fetcher.setDirectory( "target/test-classes/test-git-donwload" );
 		fetcher.fetch( "git://github.com/testaddict/mastermind.git" );
