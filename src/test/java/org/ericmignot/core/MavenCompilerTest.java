@@ -5,10 +5,17 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MavenCompilerTest {
 
+	@Before public void
+	copyResources() throws IOException, InterruptedException {
+		Process process = Runtime.getRuntime().exec("mvn resources:testResources", null, new File(".") );
+		process.waitFor();
+	}
+	
 	@Test public void
 	canCompile()  {
 		String pomDirectory = "target/test-classes/test-compilation/mastermind/";
