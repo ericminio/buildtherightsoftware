@@ -6,12 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.page.activation.CreatePageActivator;
-import org.ericmignot.page.activation.ExecutePageActivator;
-import org.ericmignot.page.activation.ModifyPageActivator;
-import org.ericmignot.page.activation.NewPageActivator;
-import org.ericmignot.page.activation.SavePageActivator;
-import org.ericmignot.page.activation.ShowPageActivator;
+import org.ericmignot.page.route.CreateRoute;
+import org.ericmignot.page.route.ExecuteRoute;
+import org.ericmignot.page.route.ModifyRoute;
+import org.ericmignot.page.route.NewRoute;
+import org.ericmignot.page.route.SaveRoute;
+import org.ericmignot.page.route.ShowRoute;
 
 public class PageRouter {
 
@@ -19,12 +19,12 @@ public class PageRouter {
 	
 	public PageRouter() {
 		candidates = new ArrayList<PageBuilder>();
-		candidates.add( new ExecutePageActivator() );
-		candidates.add( new ShowPageActivator() );
-		candidates.add( new ModifyPageActivator() );
-		candidates.add( new SavePageActivator() );
-		candidates.add( new NewPageActivator() );
-		candidates.add( new CreatePageActivator() );
+		candidates.add( new ExecuteRoute() );
+		candidates.add( new ShowRoute() );
+		candidates.add( new ModifyRoute() );
+		candidates.add( new SaveRoute() );
+		candidates.add( new NewRoute() );
+		candidates.add( new CreateRoute() );
 	}
 	
 	public Page choosePage(HttpServletRequest request) {

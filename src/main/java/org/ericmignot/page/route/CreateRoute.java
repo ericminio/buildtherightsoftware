@@ -1,4 +1,4 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
 import static org.ericmignot.util.HttpRequestInformationExtractor.containsGetParameter;
 import static org.ericmignot.util.HttpRequestInformationExtractor.getQueryStringValueOf;
@@ -7,10 +7,11 @@ import static org.ericmignot.util.HttpRequestInformationExtractor.uriIs;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.jetty.PageBuilder;
-import org.ericmignot.page.CreatePage;
 import org.ericmignot.page.PageTemplate;
+import org.ericmignot.page.SavePage;
+import org.ericmignot.util.PageFileReader;
 
-public class CreatePageActivator implements PageBuilder {
+public class CreateRoute implements PageBuilder {
 	
 	private static final String URI_PREFIX = "/specs/create";
 	private static final String QUERY_STRING_PARAMETER = "specXName";
@@ -21,7 +22,8 @@ public class CreatePageActivator implements PageBuilder {
 	}
 
 	public PageTemplate buildsPage(HttpServletRequest request) {
-		return new CreatePage( getQueryStringValueOf( QUERY_STRING_PARAMETER, request ) );
+		return new SavePage( getQueryStringValueOf( QUERY_STRING_PARAMETER, request ),
+				new PageFileReader().readFile( "target/html/newSpecTemplate.html" ));
 	}
 	
 }

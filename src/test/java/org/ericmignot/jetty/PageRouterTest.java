@@ -8,12 +8,9 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.jetty.Page;
-import org.ericmignot.jetty.PageRouter;
-import org.ericmignot.page.CreatePage;
+import org.ericmignot.page.ExecutePage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.NewPage;
-import org.ericmignot.page.ExecutePage;
 import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
 import org.junit.Before;
@@ -90,7 +87,7 @@ public class PageRouterTest {
 		when(request.getRequestURI()).thenReturn("/specs/create");
 		when(request.getQueryString()).thenReturn("specXName=toto");
 		
-		assertTrue( "serves create page", pageRouter.choosePage( request ) instanceof CreatePage );
+		assertTrue( "serves save page", pageRouter.choosePage( request ) instanceof SavePage );
 	}
 	
 	

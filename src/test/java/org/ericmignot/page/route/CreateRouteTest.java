@@ -1,25 +1,25 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.CreatePage;
-import org.ericmignot.page.activation.CreatePageActivator;
+import org.ericmignot.page.SavePage;
+import org.ericmignot.page.route.CreateRoute;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CreatePageChooserTest {
+public class CreateRouteTest {
 
-	private CreatePageActivator pageChooser;
+	private CreateRoute pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new CreatePageActivator();
+		pageChooser = new CreateRoute();
 	}
 	
 	@Test public void
@@ -50,7 +50,7 @@ public class CreatePageChooserTest {
 	
 	@Test public void
 	returnsCorrectPage() {
-		assertEquals( "mytestcreation", ((CreatePage) pageChooser
+		assertEquals( "mytestcreation", ((SavePage) pageChooser
 				.buildsPage( request("/specs/create", "specXName=mytestcreation") )).getSpecX() );
 	}
 	

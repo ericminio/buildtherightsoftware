@@ -14,9 +14,8 @@ import org.ericmignot.jetty.FileHandler;
 import org.ericmignot.jetty.Page;
 import org.ericmignot.jetty.PageHandler;
 import org.ericmignot.jetty.PageRouter;
-import org.ericmignot.page.CreatePage;
-import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.ExecutePage;
+import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
 import org.junit.AfterClass;
@@ -228,11 +227,6 @@ public class SystemTest {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
-			}
-			if ( choosen instanceof CreatePage ) {
-				CreatePage createPage = (CreatePage) choosen;
-				createPage.setSpecXDirectory( "target/test-classes/test-system/" );
-				return createPage;
 			}
 			
 			return choosen;

@@ -1,4 +1,4 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
 import static org.ericmignot.util.HttpRequestInformationExtractor.uriIs;
 
@@ -8,7 +8,7 @@ import org.ericmignot.jetty.PageBuilder;
 import org.ericmignot.page.NewPage;
 import org.ericmignot.page.PageTemplate;
 
-public class NewPageActivator implements PageBuilder {
+public class NewRoute implements PageBuilder {
 
 	private static final String URI_PREFIX = "/specs/new";
 	

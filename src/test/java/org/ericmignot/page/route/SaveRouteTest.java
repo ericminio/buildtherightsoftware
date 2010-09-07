@@ -1,4 +1,4 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
@@ -11,17 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.jetty.Page;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.page.activation.SavePageActivator;
+import org.ericmignot.page.route.SaveRoute;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SavePageChooserTest {
+public class SaveRouteTest {
 
-	private SavePageActivator pageChooser;
+	private SaveRoute pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new SavePageActivator();
+		pageChooser = new SaveRoute();
 	}
 	
 	@Test public void

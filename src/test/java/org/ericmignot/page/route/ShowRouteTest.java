@@ -1,4 +1,4 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.jetty.Page;
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.page.activation.ShowPageActivator;
+import org.ericmignot.page.route.ShowRoute;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ShowPageChooserTest {
+public class ShowRouteTest {
 
-	private ShowPageActivator pageChooser;
+	private ShowRoute pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new ShowPageActivator();
+		pageChooser = new ShowRoute();
 	}
 	
 	@Test public void

@@ -1,4 +1,4 @@
-package org.ericmignot.page.activation;
+package org.ericmignot.page.route;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,17 +8,17 @@ import static org.mockito.Mockito.when;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.NewPage;
-import org.ericmignot.page.activation.NewPageActivator;
+import org.ericmignot.page.route.NewRoute;
 import org.junit.Before;
 import org.junit.Test;
 
-public class NewPageChooserTest {
+public class NewRouteTest {
 
-	private NewPageActivator pageChooser;
+	private NewRoute pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new NewPageActivator();
+		pageChooser = new NewRoute();
 	}
 	
 	@Test public void
