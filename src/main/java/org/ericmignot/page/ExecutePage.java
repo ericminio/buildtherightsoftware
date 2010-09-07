@@ -5,12 +5,12 @@ import java.util.Date;
 
 import org.ericmignot.core.TryThisCode;
 
-public class ResultPage extends ShowPage {
+public class ExecutePage extends ShowPage {
 
 	private TryThisCode launcher;
 	private String chrono;
 	
-	public ResultPage(String specX, String gitRepository) {
+	public ExecutePage(String specX, String gitRepository) {
 		super( specX );
 		
 		this.chrono = ""+new Date().getTime();
@@ -42,9 +42,9 @@ public class ResultPage extends ShowPage {
 			+ "/" + launcher.getSpecX() + ".html";
 	}
 
-	public String html() throws IOException {
+	public String content() throws IOException {
 		workBeforeRenderingHtml();
-		return super.html();
+		return super.content();
 	}
 
 	protected void workBeforeRenderingHtml() {

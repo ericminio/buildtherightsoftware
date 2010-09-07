@@ -2,7 +2,8 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
-public class ShowPage extends Page {
+
+public class ShowPage extends PageTemplate {
 
 	public ShowPage(String specX) {
 		super( specX );
@@ -12,8 +13,8 @@ public class ShowPage extends Page {
 		return getSpecXDirectory() + getSpecX() + ".html";
 	}
 
-	public String html() throws IOException {
-		String template = super.html();
+	public String content() throws IOException {
+		String template = super.content();
 		String page = template.replaceAll( "page-content", pageContent() );
 		return page;
 	}

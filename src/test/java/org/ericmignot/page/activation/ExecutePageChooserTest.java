@@ -1,4 +1,4 @@
-package org.ericmignot.router;
+package org.ericmignot.page.activation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,18 +8,19 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.Page;
-import org.ericmignot.page.ResultPage;
+import org.ericmignot.jetty.Page;
+import org.ericmignot.page.ExecutePage;
+import org.ericmignot.page.activation.ExecutePageActivator;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ResultPageChooserTest {
+public class ExecutePageChooserTest {
 
-	private ResultPageChooser pageChooser;
+	private ExecutePageActivator pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new ResultPageChooser();
+		pageChooser = new ExecutePageActivator();
 	}
 	
 	@Test public void
@@ -28,7 +29,7 @@ public class ResultPageChooserTest {
 		when(request.getRequestURI()).thenReturn("/specs/execute/sample");
 		when(request.getParameter("repo")).thenReturn( "git://github.com/testaddict/mastermind.git" );
 		
-		assertTrue( "activation", pageChooser.isConcernedBy( request ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( request ) );
 	}
 	
 	private HttpServletRequest request( String uri, String repoParam ) {
@@ -40,20 +41,14 @@ public class ResultPageChooserTest {
 	
 	@Test public void
 	noActivation() {
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( null, null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/specs", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/specs/", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/specs/execute", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/specs/execute/", null ) ) );
-		assertFalse( "activate", pageChooser.isConcernedBy( request( "/specs/execute/toto", null ) ) );
-	}
-	
-	@Test public void
-	canExtractSpecXFromUri() {
-		assertEquals( "extract spec-x", "sample", pageChooser.extractSpecX( "/specs/execute/sample" ) );
-		assertEquals( "extract spec-x", "toto", pageChooser.extractSpecX( "/specs/execute/toto" ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( null, null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/specs", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/specs/", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/specs/execute", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/specs/execute/", null ) ) );
+		assertFalse( "activate", pageChooser.isActivatedBy( request( "/specs/execute/toto", null ) ) );
 	}
 	
 	@Test public void
@@ -62,9 +57,9 @@ public class ResultPageChooserTest {
 		when(request.getRequestURI()).thenReturn("/specs/execute/sample");
 		when(request.getParameter("repo")).thenReturn( "git://github.com/testaddict/mastermind.git" );
 		
-		Page instance = pageChooser.getPage( request );
-		assertTrue( "result page", instance instanceof ResultPage );
-		ResultPage resultPage = (ResultPage) instance;
+		Page instance = pageChooser.buildsPage( request );
+		assertTrue( "result page", instance instanceof ExecutePage );
+		ExecutePage resultPage = (ExecutePage) instance;
 		assertEquals( "spec-x", "sample", resultPage.getLauncher().getSpecX() );
 		assertEquals( "repo", "git://github.com/testaddict/mastermind.git", resultPage.getLauncher().getGitRepository() );
 	}

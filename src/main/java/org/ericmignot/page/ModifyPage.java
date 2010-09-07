@@ -2,14 +2,15 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
-public class ModifyPage extends Page {
+
+public class ModifyPage extends PageTemplate {
 
 	public ModifyPage(String specX) {
 		super( specX );
 	}
 
-	public String html() throws IOException {
-		String template = super.html();
+	public String content() throws IOException {
+		String template = super.content();
 		String page = template.replaceAll( "page-content", pageContent() );
 		return page;
 	}

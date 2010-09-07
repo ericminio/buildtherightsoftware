@@ -28,7 +28,7 @@ public class ShowPageTest {
 	
 	@Test public void
 	defaultWorkingDirectory() {
-		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( Page.DEFAULT_WORKING_DIRECTORY ) );
+		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( PageTemplate.DEFAULT_WORKING_DIRECTORY ) );
 	}
 	
 	@Test public void

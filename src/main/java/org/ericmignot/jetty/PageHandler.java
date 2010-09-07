@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.ericmignot.page.Page;
-import org.ericmignot.router.PageRouter;
  
 public class PageHandler extends AbstractHandler
 {
@@ -29,7 +27,7 @@ public class PageHandler extends AbstractHandler
         baseRequest.setHandled(true);
         
         Page choosen = router.choosePage(request);
-        response.getWriter().println(choosen.html());
+        response.getWriter().println(choosen.content());
         
     }
     

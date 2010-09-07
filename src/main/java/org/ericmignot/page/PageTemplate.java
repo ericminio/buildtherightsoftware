@@ -2,9 +2,10 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
+import org.ericmignot.jetty.Page;
 import org.ericmignot.util.PageFileReader;
 
-public class Page {
+public class PageTemplate implements Page {
 	
 	public static final String DEFAULT_WORKING_DIRECTORY = "specs/";
 	
@@ -12,18 +13,19 @@ public class Page {
 	private String specX;
 	private String specXDirectory;
 	
-	public Page() {
+	public PageTemplate() {
 		this(null);
 	}
 	
-	public Page(String specX) {
+	public PageTemplate(String specX) {
 		this.specX = specX;
 		this.specXDirectory = DEFAULT_WORKING_DIRECTORY;
 		fileReader = new PageFileReader();
 	}
 	
-	public void setFileReader(PageFileReader fileReader) {
-		this.fileReader = fileReader;
+	public String content() throws IOException {
+		String content = readFile( "target/html/template.html" );
+		return content;
 	}
 	
 	public String getSpecX() {
@@ -38,13 +40,12 @@ public class Page {
 		this.specXDirectory = dir;
 	}
 	
+	public void setFileReader(PageFileReader fileReader) {
+		this.fileReader = fileReader;
+	}
+	
 	public String readFile(String fileName) {
 		return fileReader.readFile( fileName );
-	}
-
-	public String html() throws IOException {
-		String content = readFile( "target/html/template.html" );
-		return content;
 	}
 
 }

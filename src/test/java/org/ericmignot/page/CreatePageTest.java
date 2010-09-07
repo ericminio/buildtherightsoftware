@@ -24,7 +24,7 @@ public class CreatePageTest {
 	
 	@Test public void
 	alwaysCreateSpecWithSameContent() throws IOException {
-		page.html();
+		page.content();
 		
 		String content = new PageFileReader().readFile( 
 				"target/test-classes/test-system/spec-test.html" );

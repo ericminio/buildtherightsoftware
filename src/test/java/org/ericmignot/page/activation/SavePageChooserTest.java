@@ -1,7 +1,6 @@
-package org.ericmignot.router;
+package org.ericmignot.page.activation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -10,18 +9,19 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.Page;
+import org.ericmignot.jetty.Page;
 import org.ericmignot.page.SavePage;
+import org.ericmignot.page.activation.SavePageActivator;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SavePageChooserTest {
 
-	private SavePageChooser pageChooser;
+	private SavePageActivator pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new SavePageChooser();
+		pageChooser = new SavePageActivator();
 	}
 	
 	@Test public void
@@ -30,8 +30,8 @@ public class SavePageChooserTest {
 		when(request.getRequestURI()).thenReturn("/specs/save/sample");
 		when(request.getParameter("specX")).thenReturn( "toto" );
 		
-		assertTrue( "activation", pageChooser.isConcernedBy( request ) );
-		assertTrue( "activation", pageChooser.isConcernedBy( requestWithParameter( "/specs/save/sample-calculator") ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( request ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( requestWithParameter( "/specs/save/sample-calculator") ) );
 	}
 
 	private HttpServletRequest requestWithParameter( String uri ) {
@@ -49,19 +49,13 @@ public class SavePageChooserTest {
 	
 	@Test public void
 	noActivation() {
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithParameter( "/" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithParameter( "" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithParameter( null ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithParameter( "/specs/save" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithParameter( "/specs/save/" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithParameter( "/" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithParameter( "" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithParameter( null ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithParameter( "/specs/save" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithParameter( "/specs/save/" ) ) );
 		
-		assertFalse( "don't activate", pageChooser.isConcernedBy( requestWithoutParameter( "/specs/save/sample" ) ) );
-	}
-	
-	@Test public void
-	canExtractSpecXFromUri() {
-		assertEquals( "extract spec-x", "sample", pageChooser.extractSpecX( "/specs/save/sample" ) );
-		assertEquals( "extract spec-x", "toto", pageChooser.extractSpecX( "/specs/save/toto" ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( requestWithoutParameter( "/specs/save/sample" ) ) );
 	}
 	
 	@Test public void
@@ -70,7 +64,7 @@ public class SavePageChooserTest {
 		when(request.getRequestURI()).thenReturn("/specs/save/sample");
 		when(request.getParameter("specX")).thenReturn( "toto" );
 		
-		Page instance = pageChooser.getPage( request );
+		Page instance = pageChooser.buildsPage( request );
 		assertTrue( "save page instance", instance instanceof SavePage );
 		SavePage savePage = (SavePage) instance;
 		assertThat( "specX", savePage.getSpecX(), equalTo( "sample" ) );

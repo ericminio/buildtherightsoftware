@@ -11,14 +11,14 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.jetty.FileHandler;
+import org.ericmignot.jetty.Page;
 import org.ericmignot.jetty.PageHandler;
+import org.ericmignot.jetty.PageRouter;
 import org.ericmignot.page.CreatePage;
 import org.ericmignot.page.ModifyPage;
-import org.ericmignot.page.Page;
-import org.ericmignot.page.ResultPage;
+import org.ericmignot.page.ExecutePage;
 import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.router.PageRouter;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -111,6 +111,10 @@ public class SystemTest {
 		pageShouldContain( "new spec template", "put your service name here" );
 		pageShouldContainTryThisCodeLink();
 	}
+	
+	
+	
+	
 
 	private void pageShouldContainTryThisCodeLink() {
 		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
@@ -185,11 +189,7 @@ public class SystemTest {
 	private void accessSpecForModification(String specName) {
 		driver.get("http://localhost:8080/specs/modify/" + specName);
 	}
-	
-	
 
-	
-	
 	private void typeInto(WebElement field, final String aString) {
 		CharSequence seq = new CharSequence() {
 			public CharSequence subSequence(int start, int end) {
@@ -209,8 +209,8 @@ public class SystemTest {
 		
 		public Page choosePage(HttpServletRequest request) {
 			Page choosen = super.choosePage( request );
-			if ( choosen instanceof ResultPage ) {
-				ResultPage resultPage = (ResultPage) choosen;
+			if ( choosen instanceof ExecutePage ) {
+				ExecutePage resultPage = (ExecutePage) choosen;
 				resultPage.setRunnerDirectory( "target/test-classes/test-system/" );
 				return resultPage;
 			} 

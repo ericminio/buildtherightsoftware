@@ -1,4 +1,4 @@
-package org.ericmignot.router;
+package org.ericmignot.page.activation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,18 +8,19 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ericmignot.jetty.Page;
 import org.ericmignot.page.ModifyPage;
-import org.ericmignot.page.Page;
+import org.ericmignot.page.activation.ModifyPageActivator;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ModifyPageChooserTest {
 
-	private ModifyPageChooser pageChooser;
+	private ModifyPageActivator pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new ModifyPageChooser();
+		pageChooser = new ModifyPageActivator();
 	}
 	
 	@Test public void
@@ -27,8 +28,8 @@ public class ModifyPageChooserTest {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
 		
-		assertTrue( "activation", pageChooser.isConcernedBy( request ) );
-		assertTrue( "activation", pageChooser.isConcernedBy( request( "/specs/modify/sample-calculator") ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( request ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( request( "/specs/modify/sample-calculator") ) );
 	}
 
 	private HttpServletRequest request( String uri ) {
@@ -39,24 +40,18 @@ public class ModifyPageChooserTest {
 	
 	@Test public void
 	noActivation() {
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( null ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/specs/modify" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/specs/modify/" ) ) );
-	}
-	
-	@Test public void
-	canExtractSpecXFromUri() {
-		assertEquals( "extract spec-x", "sample", pageChooser.extractSpecX( "/specs/modify/sample" ) );
-		assertEquals( "extract spec-x", "toto", pageChooser.extractSpecX( "/specs/modify/toto" ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( null ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/specs/modify" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/specs/modify/" ) ) );
 	}
 	
 	@Test public void
 	returnsModifyPageWithSpecXParameter() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
-		Page instance = pageChooser.getPage( request );
+		Page instance = pageChooser.buildsPage( request );
 		assertTrue( "modify page instance", instance instanceof ModifyPage );
 		assertEquals( "spec-x param", "sample", ((ModifyPage)instance).getSpecX() );
 	}

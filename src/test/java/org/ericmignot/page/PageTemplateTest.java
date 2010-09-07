@@ -18,13 +18,13 @@ import org.junit.Test;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-public class PageTest {
+public class PageTemplateTest {
 
 	private Element doc;
 	
 	@Before public void
 	init() throws IOException  {
-		doc = doc( new Page() );
+		doc = doc( new PageTemplate() );
 	}
 	
 	@Test public void

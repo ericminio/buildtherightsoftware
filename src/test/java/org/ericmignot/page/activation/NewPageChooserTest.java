@@ -1,4 +1,4 @@
-package org.ericmignot.router;
+package org.ericmignot.page.activation;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,16 +8,17 @@ import static org.mockito.Mockito.when;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.NewPage;
+import org.ericmignot.page.activation.NewPageActivator;
 import org.junit.Before;
 import org.junit.Test;
 
 public class NewPageChooserTest {
 
-	private NewPageChooser pageChooser;
+	private NewPageActivator pageChooser;
 	
 	@Before public void
 	init() {
-		pageChooser = new NewPageChooser();
+		pageChooser = new NewPageActivator();
 	}
 	
 	@Test public void
@@ -25,7 +26,7 @@ public class NewPageChooserTest {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/new");
 		
-		assertTrue( "activation", pageChooser.isConcernedBy( request ) );
+		assertTrue( "activation", pageChooser.isActivatedBy( request ) );
 	}
 
 	private HttpServletRequest request( String uri ) {
@@ -36,16 +37,16 @@ public class NewPageChooserTest {
 	
 	@Test public void
 	noActivation() {
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( null ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/specs/newspec" ) ) );
-		assertFalse( "don't activate", pageChooser.isConcernedBy( request( "/specs/new/toto" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( null ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/specs/newspec" ) ) );
+		assertFalse( "don't activate", pageChooser.isActivatedBy( request( "/specs/new/toto" ) ) );
 	}
 	
 	@Test public void
 	returnsNewPage() {
-		assertTrue( pageChooser.getPage(null) instanceof NewPage );
+		assertTrue( pageChooser.buildsPage(null) instanceof NewPage );
 	}
 	
 }

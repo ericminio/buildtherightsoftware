@@ -17,14 +17,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
-public class ResultPageTest {
+public class ExecutePageTest {
 
-	private ResultPage page;
+	private ExecutePage page;
 	private TryThisCode launcher;
 	
 	@Before public void
 	init() {
-		page = new ResultPage( "sample" , "git://github.com/testaddict/mastermind.git" );
+		page = new ExecutePage( "sample" , "git://github.com/testaddict/mastermind.git" );
 		launcher = page.getLauncher();
 	}
 	
@@ -44,7 +44,7 @@ public class ResultPageTest {
 		when(launcherMock.getSpecX()).thenReturn("sample");
 		page.setLauncher(launcherMock);
 		
-		page.html();
+		page.content();
 		verify(launcherMock).go();
 	}
 	

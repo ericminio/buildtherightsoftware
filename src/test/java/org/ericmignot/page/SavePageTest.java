@@ -30,7 +30,7 @@ public class SavePageTest {
 	
 	@Test public void
 	defaultWorkingDirectory() {
-		assertThat( "default dir", page.getSpecXDirectory(), equalTo( Page.DEFAULT_WORKING_DIRECTORY ));
+		assertThat( "default dir", page.getSpecXDirectory(), equalTo( PageTemplate.DEFAULT_WORKING_DIRECTORY ));
 	}
 	
 	@Test public void
@@ -44,7 +44,7 @@ public class SavePageTest {
 		assertNotNull( "saver", page.getSpecSaver() );
 		SpecSaver saverMock = mock(SpecSaver.class);
 		page.setSpecSaver(saverMock);
-		page.html();
+		page.content();
 		verify(saverMock).setDirectory(page.getSpecXDirectory());
 		verify(saverMock).save( "sample", "toto" );
 	}

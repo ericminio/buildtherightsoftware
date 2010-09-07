@@ -2,10 +2,11 @@ package org.ericmignot.page;
 
 import java.io.IOException;
 
-public class NewPage extends Page {
 
-	public String html() throws IOException {
-		String template = super.html();
+public class NewPage extends PageTemplate {
+
+	public String content() throws IOException {
+		String template = super.content();
 		String page = template.replaceAll( "page-content", pageContent() );
 		return page;
 	}
