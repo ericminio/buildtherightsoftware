@@ -1,4 +1,4 @@
-package org.ericmignot.page.route;
+package org.ericmignot.route;
 
 import static org.ericmignot.util.HttpRequestInformationExtractor.containsPostParameter;
 import static org.ericmignot.util.HttpRequestInformationExtractor.removePrefixFromUri;
@@ -21,7 +21,8 @@ public class SaveRoute implements PageBuilder {
 	}
 
 	public PageTemplate buildsPage(HttpServletRequest request) {
-		return new SavePage( removePrefixFromUri( URI_PREFIX, request ), request.getParameter( SPEC_CONTENT ) );
+		return new SavePage( removePrefixFromUri( URI_PREFIX, request ), 
+				request.getParameter( SPEC_CONTENT ) );
 	}
 	
 }

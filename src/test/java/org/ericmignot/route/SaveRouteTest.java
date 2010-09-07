@@ -1,4 +1,4 @@
-package org.ericmignot.page.route;
+package org.ericmignot.route;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.jetty.Page;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.page.route.SaveRoute;
+import org.ericmignot.route.SaveRoute;
 import org.junit.Before;
 import org.junit.Test;
 

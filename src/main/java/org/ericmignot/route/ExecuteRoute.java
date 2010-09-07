@@ -1,4 +1,4 @@
-package org.ericmignot.page.route;
+package org.ericmignot.route;
 
 import static org.ericmignot.util.HttpRequestInformationExtractor.containsPostParameter;
 import static org.ericmignot.util.HttpRequestInformationExtractor.removePrefixFromUri;

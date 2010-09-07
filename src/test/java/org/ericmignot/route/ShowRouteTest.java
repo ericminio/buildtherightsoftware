@@ -1,4 +1,4 @@
-package org.ericmignot.page.route;
+package org.ericmignot.route;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.jetty.Page;
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.page.route.ShowRoute;
+import org.ericmignot.route.ShowRoute;
 import org.junit.Before;
 import org.junit.Test;
 

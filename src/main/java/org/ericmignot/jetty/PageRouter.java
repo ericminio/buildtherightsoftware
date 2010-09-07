@@ -6,12 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.page.route.CreateRoute;
-import org.ericmignot.page.route.ExecuteRoute;
-import org.ericmignot.page.route.ModifyRoute;
-import org.ericmignot.page.route.NewRoute;
-import org.ericmignot.page.route.SaveRoute;
-import org.ericmignot.page.route.ShowRoute;
+import org.ericmignot.route.CreateRoute;
+import org.ericmignot.route.ExecuteRoute;
+import org.ericmignot.route.ModifyRoute;
+import org.ericmignot.route.NewRoute;
+import org.ericmignot.route.SaveRoute;
+import org.ericmignot.route.ShowRoute;
 
 public class PageRouter {
 

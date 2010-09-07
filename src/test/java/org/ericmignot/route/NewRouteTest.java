@@ -1,4 +1,4 @@
-package org.ericmignot.page.route;
+package org.ericmignot.route;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.page.NewPage;
-import org.ericmignot.page.route.NewRoute;
+import org.ericmignot.route.NewRoute;
 import org.junit.Before;
 import org.junit.Test;
 
