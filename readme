@@ -1,6 +1,6 @@
 you need java, maven, git
 
 type :
-git clone git://github.com/testaddict/buildtherightsotware.git
-cd buildtherightsotware
+git clone git://github.com/testaddict/buildtherightsoftware.git
+cd buildtherightsoftware
 mvn clean test exec:java -Dexec.args="8080"
