@@ -27,7 +27,7 @@ public class ListPage extends PageTemplate {
 		String list = "<ul>";
 		for (int i=0; i<names.length; i++) {
 			String nameWithoutExtension = names[i].substring(0, names[i].indexOf( ".html" ));
-			list += "<li><a href=\"/specs/show/" + nameWithoutExtension + "\" >" + nameWithoutExtension + "</a></li>";
+			list += "<li><a class=\"list\" href=\"/specs/show/" + nameWithoutExtension + "\" >" + nameWithoutExtension + "</a></li>";
 		}
 		list += "</ul>";
 		return list;

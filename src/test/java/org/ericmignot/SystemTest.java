@@ -118,8 +118,8 @@ public class SystemTest {
 		findSpecListLinkAndClickIt();
 		uriShouldBe( "uri after click on spec list link", "/specs/list" );
 		pageShouldContain( "list header", "Spec list:" );
-		pageShouldContain( "test-system resource file calculator-sample.html", "<li><a href=\"/specs/show/calculator-sample\" >calculator-sample</a></li>" );
-		pageShouldContain( "test-system resource file sample.html", "<li><a href=\"/specs/show/sample\" >sample</a></li>" );
+		pageShouldContain( "test-system resource file calculator-sample.html", "<li><a class=\"list\" href=\"/specs/show/calculator-sample\" >calculator-sample</a></li>" );
+		pageShouldContain( "test-system resource file sample.html", "<li><a class=\"list\" href=\"/specs/show/sample\" >sample</a></li>" );
 	}
 	
 	
