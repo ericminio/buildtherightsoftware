@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ericmignot.page.ShowPage;
 import org.ericmignot.route.CreateRoute;
 import org.ericmignot.route.ExecuteRoute;
+import org.ericmignot.route.ListRoute;
 import org.ericmignot.route.ModifyRoute;
 import org.ericmignot.route.NewRoute;
 import org.ericmignot.route.SaveRoute;
@@ -25,6 +26,7 @@ public class PageRouter {
 		candidates.add( new SaveRoute() );
 		candidates.add( new NewRoute() );
 		candidates.add( new CreateRoute() );
+		candidates.add( new ListRoute() );
 	}
 	
 	public Page choosePage(HttpServletRequest request) {

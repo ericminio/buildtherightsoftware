@@ -15,6 +15,7 @@ import org.ericmignot.jetty.Page;
 import org.ericmignot.jetty.PageHandler;
 import org.ericmignot.jetty.PageRouter;
 import org.ericmignot.page.ExecutePage;
+import org.ericmignot.page.ListPage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.SavePage;
 import org.ericmignot.page.ShowPage;
@@ -111,9 +112,22 @@ public class SystemTest {
 		pageShouldContainTryThisCodeLink();
 	}
 	
+	@Test public void
+	canAccessSpecList() {
+		accessHomePage();
+		findSpecListLinkAndClickIt();
+		uriShouldBe( "uri after click on spec list link", "/specs/list" );
+		pageShouldContain( "list header", "Spec list:" );
+		pageShouldContain( "test-system resource file calculator-sample.html", "<li><a href=\"/specs/show/calculator-sample\" >calculator-sample</a></li>" );
+		pageShouldContain( "test-system resource file sample.html", "<li><a href=\"/specs/show/sample\" >sample</a></li>" );
+	}
 	
 	
-	
+
+	private void findSpecListLinkAndClickIt() {
+		WebElement specListLink = driver.findElement(By.name("specListLink"));
+		specListLink.click();
+	}
 
 	private void pageShouldContainTryThisCodeLink() {
 		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
@@ -227,6 +241,11 @@ public class SystemTest {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
+			}
+			if ( choosen instanceof ListPage ) {
+				ListPage listPage = (ListPage) choosen;
+				listPage.setSpecXDirectory( "target/test-classes/test-system/" );
+				return listPage;
 			}
 			
 			return choosen;

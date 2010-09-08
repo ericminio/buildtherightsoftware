@@ -24,7 +24,8 @@ public class NewPageTest {
 	@Test public void
 	containsFieldToSetSpecXName() throws IOException {
 		Element doc = doc( page );
-		assertThat( doc, hasSelector( "input", withAttribute("name", "specXName") ));
+		assertThat( doc, hasSelector( "input", withAttribute("name", "specXName"),
+												withAttribute("size", "80") ));
 	}
 	
 	@Test public void
