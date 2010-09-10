@@ -13,11 +13,19 @@ public class SpecSaver {
 		this.directory = path;
 	}
 
-	public void save(String specX, String specXContent) throws IOException {
+	public void saveContent(String specX, String specXContent) throws IOException {
 		String file = directory + specX + ".html";
 		PrintWriter out
 		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
 		out.print( specXContent );
+		out.flush();
+	}
+
+	public void saveLabel(String specX, String label) throws IOException {
+		String file = directory + specX + ".label";
+		PrintWriter out
+		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
+		out.print( label );
 		out.flush();
 	}
 

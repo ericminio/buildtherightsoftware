@@ -19,13 +19,15 @@ public class SavePageTest {
 	
 	@Before public void
 	init() {
-		page = new SavePage( "sample", "toto" );
+		page = new SavePage( "sample", "toto", "code" );
+		assertNotNull( "saver", page.getSpecSaver() );
 	}
 	
 	@Test public void
 	storesSpecXAndSpecContent() {
 		assertThat( "specX", page.getSpecX(), equalTo( "sample") );
 		assertThat( "specX", page.getSpecXContent(), equalTo( "toto") );
+		assertThat( "specX", page.getSpecXLabel(), equalTo( "code") );
 	}
 	
 	@Test public void
@@ -40,17 +42,26 @@ public class SavePageTest {
 	}
 	
 	@Test public void
-	callsTheSaverWhenRenderingThePage() throws IOException {
-		assertNotNull( "saver", page.getSpecSaver() );
+	savesTheContentWhenRenderingThePage() throws IOException {
 		SpecSaver saverMock = mock(SpecSaver.class);
 		page.setSpecSaver(saverMock);
 		page.content();
 		verify(saverMock).setDirectory(page.getSpecXDirectory());
-		verify(saverMock).save( "sample", "toto" );
+		verify(saverMock).saveContent( "sample", "toto" );
 	}
 	
 	@Test public void
-	finallyDisplaysTheNewSpecXContentAsShowPageWouldDoIt() {
-		assertTrue( "is a ShowPage", page instanceof ShowPage );
+	storesSpecXLabel() {
+		assertThat( "specX", page.getSpecXLabel(), equalTo( "code") );
 	}
+	
+	@Test public void
+	savesTheLabelWhenRenderingThePage() throws IOException {
+		SpecSaver saverMock = mock(SpecSaver.class);
+		page.setSpecSaver(saverMock);
+		page.content();
+		verify(saverMock).setDirectory(page.getSpecXDirectory());
+		verify(saverMock).saveLabel( "sample", "code" );
+	}
+	
 }

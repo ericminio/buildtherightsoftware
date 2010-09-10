@@ -22,8 +22,10 @@ public class CreateRoute implements PageBuilder {
 	}
 
 	public PageTemplate buildsPage(HttpServletRequest request) {
-		return new SavePage( getQueryStringValueOf( QUERY_STRING_PARAMETER, request ),
-				new PageFileReader().readFile( "target/html/newSpecTemplate.html" ));
+		return new SavePage( 
+				getQueryStringValueOf( QUERY_STRING_PARAMETER, request ),
+				new PageFileReader().readFile( "target/html/newSpecTemplate.html" ),
+				"" );
 	}
 	
 }

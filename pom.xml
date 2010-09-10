@@ -152,7 +152,7 @@
 						</excludes>
 					</instrumentation>
 					<check>
-						<totalLineRate>100</totalLineRate>
+						<totalLineRate>90</totalLineRate>
 					</check>
 				</configuration>
 				<executions>

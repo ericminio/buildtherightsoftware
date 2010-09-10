@@ -1,4 +1,4 @@
-package org.ericmignot;
+package org.ericmignot.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -22,29 +22,26 @@ import org.ericmignot.page.ShowPage;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class SystemTest {
+public abstract class SystemTest {
 
 	private static Server server;
 	private static Thread thread;
-	private WebDriver driver;
+	protected WebDriver driver;
 	
 	@BeforeClass public static void
 	setUp() throws Exception {
 		server = new Server(8080);
 		
 		PageHandler testPageHandler = new PageHandler();
-		testPageHandler.setPageRouter( new TestPageChooser() );
+		testPageHandler.setPageRouter( new FakePageRouter() );
         
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { 
-        		new FileHandler(), 
-        		testPageHandler });
+        handlers.setHandlers(new Handler[] { new FileHandler(), testPageHandler });
         server.setHandler(handlers);
  
         thread = new Thread(new Runnable() {
@@ -71,106 +68,57 @@ public class SystemTest {
 		driver = new HtmlUnitDriver(true);
 	}
 	
-	@Test public void
-	canShowASpec() {
-		showSpec( "calculator-sample" );
-		pageShouldContain( "rule for calculator", "<td>calculator</td>" );
-	}
 	
-	@Test public void
-	canExecuteASpecWithARemoteCode() throws InterruptedException {
-        showSpec( "execution-sample" );
-        findTryCodeLinkAndClickIt();
-        uriShouldBe( "execution uri", "/specs/execute/execution-sample" );
-        queryStringShouldBe( "execution query string", "repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git" );
-        pageShouldContain( "spec passes", "background-color: #AAFFAA;" );
-	}
-
-	@Test public void
-	canModifyASpec() {
-		accessSpecForModification("save-sample");
-		updateSpecContent( "toto" );
-		saveSpec();
-		uriShouldBe ( "save uri", "/specs/save/save-sample" );
-        pageShouldContainModifyLink();
-        pageShouldContain( "modification saved", "toto" );
-	}
-	
-	@Test public void
-	canCreateANewSpec() {
-		accessHomePage();
-		findNewLinkAndClickIt();
-		uriShouldBe( "uri after click on new link", "/specs/new" );
-		findSpecNameFieldAndEnterTheValue( "anewspec" );
-		createSpec();
-		
-		uriShouldBe( "create uri", "/specs/create" );
-		queryStringShouldBe( "creation query string", "specXName=anewspec" );
-		
-		pageShouldContainModifyLink();
-		pageShouldContain( "new spec template", "put your service name here" );
-		pageShouldContainTryThisCodeLink();
-	}
-	
-	@Test public void
-	canAccessSpecList() {
-		accessHomePage();
-		findSpecListLinkAndClickIt();
-		uriShouldBe( "uri after click on spec list link", "/specs/list" );
-		pageShouldContain( "list header", "Spec list:" );
-		pageShouldContain( "test-system resource file calculator-sample.html", "<li><a class=\"list\" href=\"/specs/show/calculator-sample\" >calculator-sample</a></li>" );
-		pageShouldContain( "test-system resource file sample.html", "<li><a class=\"list\" href=\"/specs/show/sample\" >sample</a></li>" );
-	}
 	
 	
 
-	private void findSpecListLinkAndClickIt() {
+	protected void findSpecListLinkAndClickIt() {
 		WebElement specListLink = driver.findElement(By.name("specListLink"));
 		specListLink.click();
 	}
 
-	private void pageShouldContainTryThisCodeLink() {
+	protected void pageShouldContainTryThisCodeLink() {
 		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
 	}
 	
-	private void findTryCodeLinkAndClickIt() {
+	protected void findTryCodeLinkAndClickIt() {
 		WebElement link = driver.findElement(By.name("tryCodeLink"));
         link.click();
 	}
 
-	private void showSpec(String specName) {
+	protected void showSpec(String specName) {
 		driver.get( "http://localhost:8080/specs/show/" + specName );
 	}
 	
-	private void createSpec() {
+	protected void createSpec() {
 		WebElement saveLink = driver.findElement(By.name( "createSpecXLink" ));
         saveLink.click();
 	}
-
-	private void findSpecNameFieldAndEnterTheValue(String nameOfTheNewSpec) {
-		WebElement newSpecNameField = driver.findElement( By.name( "specXName" ) );
-		typeInto( newSpecNameField, nameOfTheNewSpec );
+	
+	protected void findFieldAndEnterTheValue(String fieldName, String label) {
+		WebElement labelField = driver.findElement( By.name( fieldName ) );
+		typeInto( labelField, label );
 	}
 
-	private void findNewLinkAndClickIt() {
+	protected void findNewLinkAndClickIt() {
 		WebElement createLink = driver.findElement(By.name("newLink"));
 		createLink.click();
 	}
 
-	private void accessHomePage() {
+	protected void accessHomePage() {
 		driver.get("http://localhost:8080");
 	}
 
 
-	private void pageShouldContain(String message, String expected) {
+	protected void pageShouldContainTheText(String message, String expected) {
         assertThat( message, driver.getPageSource(), containsString( expected ) );
 	}
 
-	private void pageShouldContainModifyLink() {
+	protected void pageShouldContainModifyLink() {
         assertNotNull("modify link present", driver.findElement(By.name("modifyLink")));
 	}
 
-	private void uriShouldBe(String message, String expectedUri) {
+	protected void uriShouldBe(String message, String expectedUri) {
 		String url = driver.getCurrentUrl();
 		String uri = url;
 		if ( url.indexOf("?") != -1 ) {
@@ -179,7 +127,7 @@ public class SystemTest {
 		assertEquals( message, "http://localhost:8080" + expectedUri, uri );
 	}
 	
-	private void queryStringShouldBe(String message, String expectedQueryString) {
+	protected void queryStringShouldBe(String message, String expectedQueryString) {
 		String url = driver.getCurrentUrl();
 		String queryString = "";
 		if ( url.indexOf("?") != -1 ) {
@@ -188,22 +136,22 @@ public class SystemTest {
 		assertEquals( message, expectedQueryString, queryString );
 	}
 
-	private void saveSpec() {
+	protected void saveSpec() {
 		WebElement saveLink = driver.findElement(By.name("saveSpecXLink"));
         saveLink.click();
 	}
 
-	private void updateSpecContent(String newContent) {
+	protected void updateSpecContent(String newContent) {
 		WebElement textarea = driver.findElement(By.name("specX"));
 		textarea.clear();
 		typeInto( textarea, newContent );
 	}
 
-	private void accessSpecForModification(String specName) {
+	protected void accessSpecForModification(String specName) {
 		driver.get("http://localhost:8080/specs/modify/" + specName);
 	}
 
-	private void typeInto(WebElement field, final String aString) {
+	protected void typeInto(WebElement field, final String aString) {
 		CharSequence seq = new CharSequence() {
 			public CharSequence subSequence(int start, int end) {
 				return null;
@@ -218,7 +166,7 @@ public class SystemTest {
 		field.sendKeys(seq);
 	}
 	
-	private static class TestPageChooser extends PageRouter {
+	private static class FakePageRouter extends PageRouter {
 		
 		public Page choosePage(HttpServletRequest request) {
 			Page choosen = super.choosePage( request );

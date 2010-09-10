@@ -8,15 +8,21 @@ public class SavePage extends ShowPage {
 
 	private String specXContent;
 	private SpecSaver specSaver;
+	private String specXLabel;
 	
-	public SavePage(String specX, String specXContent) {
+	public SavePage(String specX, String specXContent, String labels) {
 		super(specX);
 		this.specXContent = specXContent;
+		this.specXLabel = labels;
 		this.specSaver = new SpecSaver();
 	}
 
 	public String getSpecXContent() {
 		return specXContent;
+	}
+	
+	public String getSpecXLabel() {
+		return specXLabel;
 	}
 
 	public void setSpecSaver(SpecSaver specSaver) {
@@ -29,7 +35,10 @@ public class SavePage extends ShowPage {
 
 	public String content() throws IOException {
 		specSaver.setDirectory( getSpecXDirectory() );
-		specSaver.save( getSpecX(), specXContent );
+		specSaver.saveContent( getSpecX(), specXContent );
+		specSaver.saveLabel( getSpecX(), specXLabel );
 		return super.content();
 	}
+
+
 }

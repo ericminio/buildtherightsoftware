@@ -21,8 +21,10 @@ public class PageFileReader {
 			reader.close();
 			fileReader.close();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
+		catch (IOException fileDoesntExist) {
+		}
+		catch (StringIndexOutOfBoundsException emptyFile) {
+			content = "";
 		}
 		return content;
 	}

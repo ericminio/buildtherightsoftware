@@ -46,12 +46,14 @@ public class CreateRouteTest {
 		assertFalse( "should not activate", pageChooser.isActivatedBy( request( "/", null ) ) );
 		assertFalse( "should not activate", pageChooser.isActivatedBy( request( "", null ) ) );
 		assertFalse( "should not activate", pageChooser.isActivatedBy( request( null, null ) ) );
+		assertFalse( "should not activate", pageChooser.isActivatedBy( request( null, "" ) ) );
 	}
 	
 	@Test public void
 	returnsCorrectPage() {
-		assertEquals( "mytestcreation", ((SavePage) pageChooser
-				.buildsPage( request("/specs/create", "specXName=mytestcreation") )).getSpecX() );
+		SavePage page = (SavePage) pageChooser.buildsPage( request("/specs/create", "specXName=mytestcreation") );
+		assertEquals( "mytestcreation", page.getSpecX() );
+		assertEquals( "", page.getSpecXLabel() );
 	}
 	
 }

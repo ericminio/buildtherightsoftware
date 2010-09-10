@@ -20,17 +20,32 @@ public class ShowPage extends PageTemplate {
 	}
 
 	protected String pageContent() throws IOException {
-		String content = "";
-		
-		String modifyLink = readFile( "target/html/modifyLink.html" );
-		content += modifyLink.replaceAll( "spec-x", getSpecX() );
-		
-		content += readFile( getFilePathToBeIncluded() );
-		
-		String invitation = readFile( "target/html/invitation.html" );
-		content += invitation.replaceAll( "spec-x", getSpecX() );
+		String content = 
+					modifyLink()
+					+ specLabel()
+					+ specContent() 
+					+ invitationToTryACode();
 		
 		return content;
+	}
+
+	private String specLabel() {
+		String label = readFile( getSpecXDirectory() + getSpecX() + ".label" );
+		return "<span class=\"label\">Labels: "+ label + "</span>";
+	}
+
+	protected String invitationToTryACode() {
+		String invitation = readFile( "target/html/invitation.html" );
+		return invitation.replaceAll( "spec-x", getSpecX() );
+	}
+
+	protected String specContent() {
+		return readFile( getFilePathToBeIncluded() );
+	}
+
+	protected String modifyLink() {
+		String modifyLink = readFile( "target/html/modifyLink.html" );
+		return modifyLink.replaceAll( "spec-x", getSpecX() );
 	}
 
 }

@@ -63,11 +63,13 @@ public class SaveRouteTest {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn("/specs/save/sample");
 		when(request.getParameter("specX")).thenReturn( "toto" );
+		when(request.getParameter("label")).thenReturn( "code" );
 		
 		Page instance = pageChooser.buildsPage( request );
 		assertTrue( "save page instance", instance instanceof SavePage );
 		SavePage savePage = (SavePage) instance;
-		assertThat( "specX", savePage.getSpecX(), equalTo( "sample" ) );
-		assertThat( "specX", savePage.getSpecXContent(), equalTo( "toto" ) );
+		assertThat( "name of the page to be saved", savePage.getSpecX(), equalTo( "sample" ) );
+		assertThat( "content of the page to be saved", savePage.getSpecXContent(), equalTo( "toto" ) );
+		assertThat( "label of the page to be saved", savePage.getSpecXLabel(), equalTo( "code" ) );
 	}
 }

@@ -14,6 +14,7 @@ public class SaveRoute implements PageBuilder {
 	
 	private static final String URI_PREFIX = "/specs/save/";
 	private static final String SPEC_CONTENT = "specX";
+	private static final String SPEC_LABEL = "label";
 
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return uriStartsWith( URI_PREFIX, request ) 
@@ -22,7 +23,8 @@ public class SaveRoute implements PageBuilder {
 
 	public PageTemplate buildsPage(HttpServletRequest request) {
 		return new SavePage( removePrefixFromUri( URI_PREFIX, request ), 
-				request.getParameter( SPEC_CONTENT ) );
+				request.getParameter( SPEC_CONTENT ), 
+				request.getParameter( SPEC_LABEL ));
 	}
 	
 }
