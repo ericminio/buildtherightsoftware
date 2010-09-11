@@ -1,5 +1,6 @@
 package org.ericmignot.page;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -47,14 +48,43 @@ public class ExecutePage extends ShowPage {
 		return super.content();
 	}
 
-	protected void workBeforeRenderingHtml() {
+	protected void workBeforeRenderingHtml() throws IOException {
 		try {
 			launcher.go();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected String pageContent() throws IOException {
+		String content = 
+					modifyLink()
+					+ specLabel()
+					+ specContent() 
+					+ invitationToTryACode()
+					+ coberturaReport();
+		return content;
+	}
+
+	protected String coberturaReport() {
+		String coberturaSection = "";
+		
+		String reportSummaryPath = launcher.getCompilerDirectory() + "/target/site/cobertura/frame-summary.html";
+		if ( new File( reportSummaryPath ).exists() ) {
+			String fullContent = readFile( reportSummaryPath );
+			String body = fullContent.substring( fullContent.indexOf("<body>") );
+			body = body.substring( 0, body.indexOf( "</body>" ));
+		
+			coberturaSection = removeScriptSection( body );
+			coberturaSection = removeScriptSection( coberturaSection );
+		}
+		return coberturaSection;
+	}
+
+	public String removeScriptSection(String content) {
+		String begin = content.substring( 0, content.indexOf( "<script") );
+		String end = content.substring( content.indexOf( "</script>") + 9 );
+		return begin + end;
 	}
 	
 }

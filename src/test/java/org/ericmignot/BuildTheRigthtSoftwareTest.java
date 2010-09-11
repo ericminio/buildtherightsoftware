@@ -2,8 +2,6 @@ package org.ericmignot;
 
 import org.ericmignot.util.SystemTest;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class BuildTheRigthtSoftwareTest extends SystemTest {
 
@@ -14,14 +12,15 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canExecuteASpecWithARemoteCode() throws InterruptedException {
+	canExecuteASpecWithARemoteCodeAndDisplayCoberturaSummaryReport() throws InterruptedException {
         showSpec( "execution-sample" );
         findTryCodeLinkAndClickIt();
         uriShouldBe( "execution uri", "/specs/execute/execution-sample" );
         queryStringShouldBe( "execution query string", "repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git" );
         pageShouldContainTheText( "spec passes", "background-color: #AAFFAA;" );
+        pageShouldContainTheText( "displays Cobertura report", "Coverage Report - All Packages" );
 	}
-
+	
 	@Test public void
 	canModifyASpec() {
 		accessSpecForModification("save-sample");

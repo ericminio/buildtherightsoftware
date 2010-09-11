@@ -1,6 +1,7 @@
 package org.ericmignot.page;
 
 import static com.pyxis.matchers.dom.DomMatchers.hasUniqueSelector;
+import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
 import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
 import static com.pyxis.matchers.dom.WithContentText.withContent;
 import static org.ericmignot.util.DocumentBuilder.doc;
@@ -34,7 +35,7 @@ public class PageTemplateTest {
 	
 	@Test public void
 	headerIncludesStylesReference() throws IOException, SAXException, ParserConfigurationException, FactoryConfigurationError {
-		assertThat(doc, hasUniqueSelector("link", withAttribute("href", "/style.css")));
+		assertThat(doc, hasSelector("link", withAttribute("href", "/style.css")));
 	}
 	
 	@Test public void

@@ -28,9 +28,6 @@ public class HttpRequestInformationExtractor {
 	}
 	
 	public static boolean containsGetParameter(String param, HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		
-		if (uri == null) return false;
 		String queryString = request.getQueryString();
 		if (queryString == null) return false;
 		if (! queryString.startsWith( param+"=" )) return false;

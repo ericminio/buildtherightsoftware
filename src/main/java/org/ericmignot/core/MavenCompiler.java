@@ -14,7 +14,7 @@ public class MavenCompiler {
 	public void mavenCleanAndCompile() throws IOException, InterruptedException {
 		File dir = new File( directory );
 		if ( dir.exists() ) {
-			Process process = Runtime.getRuntime().exec("mvn clean compile", null, dir);
+			Process process = Runtime.getRuntime().exec("mvn clean cobertura:cobertura", null, dir);
 			process.waitFor();
 		}
 	}

@@ -23,12 +23,12 @@ public class FileHandler extends AbstractHandler {
 		fileDirectories = new HashMap<String, String>();
 		fileDirectories.put(".png", "target/images");
 		fileDirectories.put(".css", "target/styles");
+		fileDirectories.put(".js", "target/js");
 	}
 	
 	protected String extractExtension(String path) {
-		if (path.length() > 3) {
-			String extension = path.substring(path.length() - 4, path.length());
-			return extension;
+		if (path.indexOf( "." ) != -1) {
+			return path.substring( path.indexOf( "." ) );
 		}
 		else {
 			return null;

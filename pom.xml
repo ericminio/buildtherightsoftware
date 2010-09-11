@@ -105,6 +105,11 @@
 				<directory>${basedir}/src/main/html</directory>
 				<targetPath>${basedir}/target/html</targetPath>
 			</resource>
+			
+			<resource>
+				<directory>${basedir}/src/main/js</directory>
+				<targetPath>${basedir}/target/js</targetPath>
+			</resource>
 
 			<resource>
 				<directory>${basedir}/src/main/specs</directory>

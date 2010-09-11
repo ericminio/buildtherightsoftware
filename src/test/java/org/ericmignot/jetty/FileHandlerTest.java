@@ -27,8 +27,9 @@ public class FileHandlerTest {
 	
 	@Test public void 
 	canExtractExtension() {
-		assertEquals("extension", ".png", fileHandler.extractExtension("logo.png"));
-		assertEquals("extension", null, fileHandler.extractExtension("/"));
+		assertEquals("3 letters extension", ".png", fileHandler.extractExtension("logo.png"));
+		assertEquals("no extension", null, fileHandler.extractExtension("/"));
+		assertEquals("2 letters extension", ".js", fileHandler.extractExtension("script.js"));
 	}
 	
 	@Test public void
@@ -49,6 +50,16 @@ public class FileHandlerTest {
 		fileHandler.handle("my.css", null, null, null);
 		verify(handlerMock).setResourceBase("target/styles");
 		verify(handlerMock).handle("my.css", null, null, null);
+	}
+	
+	@Test public void
+	servesUrlWithJsExtension() throws Exception {
+		ResourceHandler handlerMock = mock(ResourceHandler.class);
+		fileHandler.setResourceHandler(handlerMock);
+		
+		fileHandler.handle("my.js", null, null, null);
+		verify(handlerMock).setResourceBase("target/js");
+		verify(handlerMock).handle("my.js", null, null, null);
 	}
 	
 	@Test public void

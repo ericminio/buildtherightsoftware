@@ -61,4 +61,11 @@ public class ExecutePageTest {
 									     , withAttribute("href", "/specs/modify/sample") ));
 	}
 	
+	@Test public void
+	canRemoveAScriptSection() {
+		String content = "before<script toto>tutu</script>after";
+		assertEquals( "script removed", "beforeafter", page.removeScriptSection(content) );
+	}
+	
+	
 }

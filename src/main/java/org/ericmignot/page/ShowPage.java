@@ -29,7 +29,7 @@ public class ShowPage extends PageTemplate {
 		return content;
 	}
 
-	private String specLabel() {
+	protected String specLabel() {
 		String label = readFile( getSpecXDirectory() + getSpecX() + ".label" );
 		return "<span class=\"label\">Labels: "+ label + "</span>";
 	}

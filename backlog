@@ -15,6 +15,6 @@ item en cours de développement:
 backlog:
 --------
 
-. montrer un surefire report après exécution d'une spec
+. montrer un "quality report" après exécution d'une spec
 3. trouver toutes les spec-x qui contiennent un mot donné
 5. augmenter l'indicateur de pertinence d'une spec-x pour la voir avant les autres

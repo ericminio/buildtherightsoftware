@@ -39,4 +39,21 @@ public class MavenCompilerTest {
 		compiler.setDirectory( "toto" );
 		compiler.mavenCleanAndCompile();
 	}
+	
+	@Test public void
+	generatesACoberturaReport() {
+		String pomDirectory = "target/test-classes/test-compilation/mastermind/";
+		MavenCompiler compiler = new MavenCompiler();
+		compiler.setDirectory( pomDirectory );
+		try {
+			compiler.mavenCleanAndCompile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		File classes = new File( pomDirectory + "target/site/cobertura/frame-summary.html" );
+		assertTrue( "classes exist", classes.exists() );   
+	}
 }
