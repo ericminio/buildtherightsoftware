@@ -46,6 +46,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		pageShouldContainModifyLink();
 		pageShouldContainTheText( "new spec template", "put your service name here" );
 		pageShouldContainTryThisCodeLink();
+		pageShouldContainModifyLink();
 	}
 	
 	@Test public void
@@ -65,9 +66,8 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		findFieldAndEnterTheValue( "label", "game" );
 		saveSpec();
 		pageShouldContainTheText( "label mention", "<span class=\"label\">Labels: game</span>" );
+		accessSpecForModification( "sample" );
+		labelFieldShouldContainTheValue( "game" );
 	}
-	
-	
-	
-	
+
 }

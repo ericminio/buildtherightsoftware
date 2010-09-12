@@ -163,7 +163,14 @@ public abstract class SystemTest {
 				return aString.charAt(index);
 			}
 		};
+		field.clear();
 		field.sendKeys(seq);
+	}
+	
+	protected void labelFieldShouldContainTheValue(String value) {
+		WebElement element = driver.findElement(By.name("label"));
+		assertEquals( "label field", value, element.getValue() );
+		
 	}
 	
 	private static class FakePageRouter extends PageRouter {

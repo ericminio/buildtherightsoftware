@@ -16,15 +16,23 @@ public class ModifyPage extends PageTemplate {
 	}
 
 	private String pageContent() throws IOException {
-		String content = "";
-		
-		String editTemplate = readFile( "target/html/edit.html" );
-		String withCorrectFormAction = editTemplate.replaceAll( "action=\"execute-specX\"", "action=\"/specs/save/" + getSpecX() + "\"" );
-		String withCorrectTextAreaContent = withCorrectFormAction.replaceAll( "specX-content", readFile( getSpecXDirectory() + getSpecX() + ".html" ));
-		
-		content += withCorrectTextAreaContent;
-		
+		String content = readFile( "target/html/edit.html" );
+		content = updateFormAction(content);
+		content = updateSpecContent(content);
+		content = updateSpecLabel(content);
 		return content;
+	}
+
+	protected String updateSpecLabel(String content) {
+		return content.replaceAll( "specX-label", readFile( getSpecXDirectory() + getSpecX() + ".label" ));
+	}
+	
+	protected String updateSpecContent(String content) {
+		return content.replaceAll( "specX-content", readFile( getSpecXDirectory() + getSpecX() + ".html" ));
+	}
+
+	protected String updateFormAction(String content) {
+		return content.replaceAll( "action=\"execute-specX\"", "action=\"/specs/save/" + getSpecX() + "\"" );
 	}
 
 }

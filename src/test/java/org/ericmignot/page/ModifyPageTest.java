@@ -59,4 +59,11 @@ public class ModifyPageTest {
 									     , withText("Save") ));
 	}
 	
+	@Test public void
+	containsInputFieldToEnterLabels() throws IOException {
+		Element doc = doc( page );
+		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
+												, withAttribute("size", "80") ));
+	}
+	
 }
