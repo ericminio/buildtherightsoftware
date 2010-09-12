@@ -19,6 +19,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
         queryStringShouldBe( "execution query string", "repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git" );
         pageShouldContainTheText( "spec passes", "background-color: #AAFFAA;" );
         pageShouldContainTheText( "displays Cobertura report", "Coverage Report - All Packages" );
+        pageShouldContainModifyLink();
 	}
 	
 	@Test public void

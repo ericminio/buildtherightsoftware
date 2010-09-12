@@ -1,11 +1,7 @@
 package org.ericmignot.page;
 
-import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
-import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
-import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -15,7 +11,6 @@ import java.io.IOException;
 import org.ericmignot.core.TryThisCode;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Element;
 
 public class ExecutePageTest {
 
@@ -37,9 +32,15 @@ public class ExecutePageTest {
 	}
 	
 	@Test public void
+	resultFilePath() {
+		assertEquals( "result file", "specs/runs/" + page.getChrono() + "/mastermind/se/out/sample.html", page.getFilePathToBeIncluded() );
+	}
+	
+	@Test public void
 	launchSpecExecutionWhenRenderIsCalled() throws IOException, InterruptedException {
 		TryThisCode launcherMock = mock(TryThisCode.class);
 		when(launcherMock.getDirectory()).thenReturn("target/test-classes/test-page-result");
+		when(launcherMock.getCompilerDirectory()).thenReturn("target/test-classes/test-page-result");
 		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
 		when(launcherMock.getSpecX()).thenReturn("sample");
 		page.setLauncher(launcherMock);
@@ -49,23 +50,8 @@ public class ExecutePageTest {
 	}
 	
 	@Test public void
-	containsModifyLink() throws IOException {
-		TryThisCode launcherMock = mock(TryThisCode.class);
-		when(launcherMock.getDirectory()).thenReturn("target/test-classes/test-page-result");
-		when(launcherMock.getExecutionOutputDirectory()).thenReturn("");
-		when(launcherMock.getSpecX()).thenReturn("sample");
-		page.setLauncher(launcherMock);
-		
-		Element doc = doc( page );
-		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
-									     , withAttribute("href", "/specs/modify/sample") ));
+	coberturaReportFile() {
+		assertEquals( "cobertura report file", "specs/runs/" + page.getChrono() + "/mastermind/target/site/cobertura/frame-summary.html", page.getCoberturaReportPath() );
 	}
-	
-	@Test public void
-	canRemoveAScriptSection() {
-		String content = "before<script toto>tutu</script>after";
-		assertEquals( "script removed", "beforeafter", page.removeScriptSection(content) );
-	}
-	
 	
 }
