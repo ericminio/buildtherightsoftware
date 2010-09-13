@@ -40,6 +40,7 @@ public class ModifyPageTest {
 	
 	@Test public void
 	containsTextareaToEditSpecX() throws IOException {
+		page.setSpecXDirectory( "target/test-classes/test-system/" );
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "textarea", withAttribute("name", "specX")
 												, withAttribute("cols", "80")
@@ -48,6 +49,7 @@ public class ModifyPageTest {
 	
 	@Test public void
 	containsFormToSaveTheSpecX() throws IOException {
+		page.setSpecXDirectory( "target/test-classes/test-system/" );
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "form", withAttribute("name", "saveSpecXForm")
 											, withAttribute("method", "post") 
@@ -61,6 +63,7 @@ public class ModifyPageTest {
 	
 	@Test public void
 	containsInputFieldToEnterLabels() throws IOException {
+		page.setSpecXDirectory( "target/test-classes/test-system/" );
 		Element doc = doc( page );
 		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
 												, withAttribute("size", "80") ));
