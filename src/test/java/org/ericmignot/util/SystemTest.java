@@ -68,11 +68,26 @@ public abstract class SystemTest {
 		driver = new HtmlUnitDriver(true);
 	}
 	
+	protected void modifySpecLabel(String label) {
+		findFieldAndEnterTheValue( "label", label );
+	}
 	
+	protected void pageShouldContainCoberturaSummaryReport() {
+		pageShouldContainTheText( "displays Cobertura report", "Coverage Report - All Packages" );
+	}
 	
+	protected void specShouldPass() {
+		pageShouldContainTheText( "spec passes", "background-color: #AAFFAA;" );
+	}
+
+	protected void createNewSpec(String name) {
+		findFieldAndEnterTheValue( "specXName", name );
+		WebElement saveLink = driver.findElement(By.name( "createSpecXLink" ));
+        saveLink.click();
+	}
 	
 
-	protected void findSpecListLinkAndClickIt() {
+	protected void accessSpecList() {
 		WebElement specListLink = driver.findElement(By.name("specListLink"));
 		specListLink.click();
 	}
@@ -81,7 +96,7 @@ public abstract class SystemTest {
 		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
 	}
 	
-	protected void findTryCodeLinkAndClickIt() {
+	protected void executeSpecWithDefaultCode() {
 		WebElement link = driver.findElement(By.name("tryCodeLink"));
         link.click();
 	}
@@ -90,17 +105,14 @@ public abstract class SystemTest {
 		driver.get( "http://localhost:8080/specs/show/" + specName );
 	}
 	
-	protected void createSpec() {
-		WebElement saveLink = driver.findElement(By.name( "createSpecXLink" ));
-        saveLink.click();
-	}
+	
 	
 	protected void findFieldAndEnterTheValue(String fieldName, String label) {
 		WebElement labelField = driver.findElement( By.name( fieldName ) );
 		typeInto( labelField, label );
 	}
 
-	protected void findNewLinkAndClickIt() {
+	protected void activateNewSpecCreation() {
 		WebElement createLink = driver.findElement(By.name("newLink"));
 		createLink.click();
 	}

@@ -15,19 +15,19 @@ public class SpecSaver {
 
 	public void saveContent(String specX, String specXContent) throws IOException {
 		String file = directory + specX + ".html";
-		PrintWriter out
-		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
-		out.print( specXContent );
-		out.flush();
+		save(specXContent, file);
 	}
 
 	public void saveLabel(String specX, String label) throws IOException {
 		String file = directory + specX + ".label";
-		PrintWriter out
-		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
-		out.print( label );
-		out.flush();
+		save(label, file);
 	}
 
+	protected void save(String content, String file) throws IOException {
+		PrintWriter out
+		   = new PrintWriter(new BufferedWriter(new FileWriter( file )));
+		out.print( content );
+		out.flush();
+	}
 
 }
