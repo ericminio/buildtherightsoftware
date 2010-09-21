@@ -13,8 +13,16 @@ public class FileRepository implements Repository {
 
 	private String path;
 	
+	public FileRepository(String path) {
+		setPath( path );
+	}
+
 	public void setPath(String newPath) {
 		path = newPath;
+	}
+	
+	public String getPath() {
+		return path;
 	}
 
 	public void saveSpec(Spec spec) {
@@ -40,6 +48,8 @@ public class FileRepository implements Repository {
 		newSpec.setLabel( label );
 		return newSpec;
 	}
+
+	
 
 	
 }

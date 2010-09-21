@@ -28,7 +28,8 @@ public class SpecBuilder {
 	}
 	
 	public Spec build() {
-		HtmlParagraphSpec newSpec = new HtmlParagraphSpec(title, content);
+		HtmlParagraphSpec newSpec = new HtmlParagraphSpec(title);
+		newSpec.setContent( content);
 		newSpec.setLabel(label);
 		return newSpec;
 	}

@@ -18,7 +18,7 @@ import org.ericmignot.page.ExecutePage;
 import org.ericmignot.page.ListPage;
 import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.page.ShowPage;
+import org.ericmignot.store.FileRepository;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -38,6 +38,7 @@ public abstract class SystemTest {
 		server = new Server(8080);
 		
 		PageHandler testPageHandler = new PageHandler();
+		testPageHandler.setRepository( new FileRepository( "target/test-classes/test-system/" ));
 		testPageHandler.setPageRouter( new FakePageRouter() );
         
         HandlerList handlers = new HandlerList();
@@ -193,12 +194,7 @@ public abstract class SystemTest {
 				ExecutePage resultPage = (ExecutePage) choosen;
 				resultPage.setRunnerDirectory( "target/test-classes/test-system/" );
 				return resultPage;
-			} 
-			if ( choosen instanceof ShowPage ) {
-				ShowPage showPage = (ShowPage) choosen;
-				showPage.setSpecXDirectory( "target/test-classes/test-system/" );
-				return showPage;
-			}	
+			}
 			if ( choosen instanceof ModifyPage ) {
 				ModifyPage modifyPage = (ModifyPage) choosen;
 				modifyPage.setSpecXDirectory( "target/test-classes/test-system/" );

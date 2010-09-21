@@ -7,7 +7,7 @@ import org.ericmignot.core.TryThisCode;
 import static org.ericmignot.util.HtmlManipulator.extractBodyContent;
 import static org.ericmignot.util.HtmlManipulator.removeAllScriptSections;
 
-public class ExecutePage extends ShowPage {
+public class ExecutePage extends PageTemplate {
 
 	private TryThisCode launcher;
 	private String chrono;
@@ -44,11 +44,6 @@ public class ExecutePage extends ShowPage {
 			+ "/" + launcher.getSpecX() + ".html";
 	}
 
-	public String content() throws IOException {
-		workBeforeRenderingHtml();
-		return super.content();
-	}
-
 	protected void workBeforeRenderingHtml() throws IOException {
 		try {
 			launcher.go();
@@ -57,6 +52,13 @@ public class ExecutePage extends ShowPage {
 		}
 	}
 	
+	public String content() throws IOException {
+		workBeforeRenderingHtml();
+		String content = readFile( "target/html/template.html" );
+		content = content.replaceAll( "page-content", pageContent() );
+		return content;
+	}
+
 	protected String pageContent() throws IOException {
 		String content = 
 					modifyLink()
@@ -67,13 +69,19 @@ public class ExecutePage extends ShowPage {
 		return content;
 	}
 
-	public String getCoberturaReportPath() {
-		return launcher.getCompilerDirectory() + "/target/site/cobertura/frame-summary.html";
+	protected String specContent() {
+		return readFile( getFilePathToBeIncluded() );
 	}
-	
+
 	protected String coberturaReport() {
 		String fullContent = readFile( getCoberturaReportPath() );
 		String body = extractBodyContent( fullContent );
 		return removeAllScriptSections( body );
 	}
+	
+	public String getCoberturaReportPath() {
+		return launcher.getCompilerDirectory() + "/target/site/cobertura/frame-summary.html";
+	}
+	
+	
 }

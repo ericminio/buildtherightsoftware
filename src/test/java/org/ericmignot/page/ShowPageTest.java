@@ -2,93 +2,57 @@ package org.ericmignot.page;
 
 import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
 import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
+import static com.pyxis.matchers.dom.DomMatchers.withText;
 import static org.ericmignot.util.DocumentBuilder.doc;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import org.ericmignot.util.FileReader;
+import org.ericmignot.core.Spec;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.w3c.dom.Element;
 
 public class ShowPageTest {
 
 	private ShowPage page;
+	private Element doc;
 	
 	@Before public void
-	init() throws IOException {
-		page = new ShowPage( "sample" );
+	rendersASampleShowPage() throws IOException {
+		Spec spec = aSpec().withTitle( "sample-title" ).withContent( "sample content" ).withLabel( "sample-label" ).build();
+		
+		page = new ShowPage();
+		Writer out = new StringWriter();
+		page.render(spec, out);
+		doc = doc( out.toString() );
 	}
 	
 	@Test public void
-	specXIsStored() {
-		assertThat( "spec-x stored", page.getSpecX(), equalTo( "sample" ) );
-	}
-	
-	@Test public void
-	defaultWorkingDirectory() {
-		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( PageTemplate.DEFAULT_WORKING_DIRECTORY ) );
-	}
-	
-	@Test public void
-	workingDirectoryCanBeChanged() {
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		assertThat( "working dir", page.getSpecXDirectory(), equalTo( "target/test-classes/test-system/" ) );
-	}
-	
-	@Test public void
-	containsModifyLink() throws IOException {
-		Element doc = doc( page );
+	displaysModifySection() throws IOException {
 		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
-										 , withAttribute("href", "/specs/modify/sample") ));
+										 , withAttribute("href", "/specs/modify/sample-title") ));
 	}
 	
 	@Test public void
-	containsCodeSubmissionForm() throws IOException {
-		Element doc = doc( page );
+	displayCodeSubmissionSection() throws IOException {
 		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
-											, withAttribute("action", "/specs/execute/sample") ));
+											, withAttribute("action", "/specs/execute/sample-title") ));
 	}
 	
 	@Test public void
-	getSpecContentFromFileWhenRendering() throws IOException {
-		FileReader readerMock = mock(FileReader.class);
-		when(readerMock.readFile(Mockito.anyString())).thenReturn( "foo" );
-		page.setFileReader( readerMock );
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		
-		page.content();
-		verify(readerMock).readFile( "target/test-classes/test-system/sample.html" );
+	displaySpecLabel() {
+		assertThat( doc, hasSelector( "span", withAttribute("class", "label")
+				 						    , withText("Labels: sample-label") ));
 	}
 	
 	@Test public void
-	getSpecLabelFromFileWhenRendering() throws IOException {
-		FileReader readerMock = mock(FileReader.class);
-		when(readerMock.readFile(Mockito.anyString())).thenReturn( "foo" );
-		page.setFileReader( readerMock );
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		
-		page.content();
-		verify(readerMock).readFile( "target/test-classes/test-system/sample.label" );
-	}
-	
-	@Test public void
-	canAccessASpecWithoutLabelFileWithNoError() {
-		new File( "target/test-classes/test-system/sample.label" ).delete();
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		try {
-			page.content();
-		} catch (IOException e) {
-			fail( "should work without label file" );
-		}
+	displaySpecContent() {
+		assertThat( doc, hasSelector( "span", withAttribute("class", "spec")
+				 						    , withText("sample content") ));
 	}
 	
 }

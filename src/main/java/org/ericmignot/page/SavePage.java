@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.ericmignot.core.SpecSaver;
 
-public class SavePage extends ShowPage {
+public class SavePage extends PageTemplate {
 
 	private String specXContent;
 	private SpecSaver specSaver;
@@ -33,12 +33,31 @@ public class SavePage extends ShowPage {
 		return specSaver;
 	}
 
+	public String getFilePathToBeIncluded() {
+		return getSpecXDirectory() + getSpecX() + ".html";
+	}
+	
 	public String content() throws IOException {
 		specSaver.setDirectory( getSpecXDirectory() );
 		specSaver.saveContent( getSpecX(), specXContent );
 		specSaver.saveLabel( getSpecX(), specXLabel );
-		return super.content();
+		
+		String content = readFile( "target/html/template.html" );
+		content = content.replaceAll( "page-content", pageContent() );
+		return content;
 	}
 
+	protected String pageContent() throws IOException {
+		String content = 
+					modifyLink()
+					+ specLabel()
+					+ specContent()
+					+ invitationToTryACode();
+		return content;
+	}
+	
+	protected String specContent() {
+		return readFile( getFilePathToBeIncluded() );
+	}
 
 }

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestInformationExtractor {
 
-	public static boolean uriStartsWith(String prefix, HttpServletRequest request) {
+	public static boolean trueIfUriStartsWith(String prefix, HttpServletRequest request) {
 		String uri = request.getRequestURI();
 		
 		if (uri == null) return false;
@@ -36,7 +36,7 @@ public class HttpRequestInformationExtractor {
 		return true;
 	}
 	
-	public static String removePrefixFromUri(String prefix, HttpServletRequest request) {
+	public static String uriWithoutThePrefix(String prefix, HttpServletRequest request) {
 		return request.getRequestURI().substring( prefix.length() );
 	}
 	

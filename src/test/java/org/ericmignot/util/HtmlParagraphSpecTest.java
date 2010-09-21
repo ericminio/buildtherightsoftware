@@ -1,20 +1,20 @@
 package org.ericmignot.util;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 
 public class HtmlParagraphSpecTest {
 
-	private HtmlParagraphSpec spec = new HtmlParagraphSpec( "title", "<br>content</br>" );;
+	private HtmlParagraphSpec spec = new HtmlParagraphSpec( "title" );;
 	
 	@Test public void
-	keepsTitleAndContent() throws IOException {
+	canBeCreatedOnlyWithATitle() {
 		assertEquals( "title", spec.getTitle() );
-		assertEquals( "<br>content</br>", spec.getContent() );
+		assertNull( spec.getContent() );
+		assertNull( spec.getLabel() );
 	}
 	
 	@Test public void

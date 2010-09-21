@@ -8,6 +8,10 @@ public class HtmlParagraphSpec implements Spec {
 	private String content;
 	private String label;
 	
+	public HtmlParagraphSpec(String title) {
+		this( title, null );
+	}
+	
 	public HtmlParagraphSpec(String title, String content) {
 		this.title = title;
 		this.content = content;

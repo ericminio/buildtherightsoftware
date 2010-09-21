@@ -15,9 +15,8 @@ import org.junit.Test;
 
 public class FileRepositoryTest {
 
-	private FileRepository repository = new FileRepository();
-	private final String path = "test-directory";
-	private final File dir = new File( path );
+	private FileRepository repository = new FileRepository( "test-directory" );
+	private final File dir = new File( "test-directory" );
 	
 	@Before public void
 	createTestDirectory() {
@@ -36,7 +35,6 @@ public class FileRepositoryTest {
 	@Test public void
 	createsAFileWithSpecTitleAsFilenameAndHtmlExtensionWhenSavingASpec() {
 		Spec spec = aSpec().withTitle( "spec-title" ).build();
-		repository.setPath( path );
 		repository.saveSpec( spec );
 		assertTrue( new File( "test-directory/spec-title.html" ).exists() );
 	}
@@ -44,7 +42,6 @@ public class FileRepositoryTest {
 	@Test public void
 	savesTheSpecContentInTheFileWithHtmlExtension() {
 		Spec spec = aSpec().withTitle( "title" ).withContent( "my test content" ).build();
-		repository.setPath( path );
 		repository.saveSpec( spec );
 		assertEquals( "my test content", new FileReader().readFile( "test-directory/title.html" ) );
 	}
@@ -52,7 +49,6 @@ public class FileRepositoryTest {
 	@Test public void
 	createsAFileWithSpecTitleAsFilenameAndLabelExtensionWhenSavingASpec() {
 		Spec spec = aSpec().withTitle( "spec-title" ).build();
-		repository.setPath( path );
 		repository.saveSpec( spec );
 		assertTrue( new File( "test-directory/spec-title.label" ).exists() );
 	}
@@ -60,7 +56,6 @@ public class FileRepositoryTest {
 	@Test public void
 	savesTheSpecLabelInTheFileWithLabelExtension() {
 		Spec spec = aSpec().withTitle( "title" ).withLabel( "my test label" ).build();
-		repository.setPath( path );
 		repository.saveSpec( spec );
 		assertEquals( "my test label", new FileReader().readFile( "test-directory/title.label" ) );
 	}
@@ -68,7 +63,6 @@ public class FileRepositoryTest {
 	@Test public void
 	canRetrieveASpec() {
 		Spec spec = aSpec().withTitle( "title" ).withContent( "my test content" ).withLabel( "my test label" ).build();
-		repository.setPath( path );
 		repository.saveSpec( spec );
 		assertEquals( "title", repository.getSpecByTitle( "title" ).getTitle() );
 		assertEquals( "my test content", repository.getSpecByTitle( "title" ).getContent() );

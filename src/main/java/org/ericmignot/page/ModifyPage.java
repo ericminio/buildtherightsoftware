@@ -10,12 +10,18 @@ public class ModifyPage extends PageTemplate {
 	}
 
 	public String content() throws IOException {
-		String template = super.content();
-		String page = template.replaceAll( "page-content", pageContent() );
-		return page;
+		String content = readFile( "target/html/template.html" );
+		content = content.replaceAll( "page-content", pageContent() );
+		return content;
 	}
 
 	private String pageContent() throws IOException {
+		String content = 
+			modifyLink() + editContent();
+		return content;
+	}
+
+	protected String editContent() {
 		String content = readFile( "target/html/edit.html" );
 		content = updateFormAction(content);
 		content = updateSpecContent(content);

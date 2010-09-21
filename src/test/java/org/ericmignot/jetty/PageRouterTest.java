@@ -25,17 +25,6 @@ public class PageRouterTest {
 		pageRouter = new PageRouter();
 	}
 	
-	@Test public void
-	returnsDefaultSampleByDefault() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn( "/" );
-		
-		Page page = pageRouter.choosePage( request );
-		assertTrue( "serves show page", page instanceof ShowPage );
-		ShowPage showPage = (ShowPage) page;
-		assertThat( "spec", showPage.getSpecX(), equalTo( "sample" ));
-		
-	}
 	
 	@Test public void
 	returnsResultWhenSeExecutionIsCalled() {
@@ -44,14 +33,6 @@ public class PageRouterTest {
 		when(request.getParameter("repo")).thenReturn( "git://github.com/testaddict/mastermind.git" );
 		
 		assertTrue( "serves result page", pageRouter.choosePage( request ) instanceof ExecutePage );
-	}
-	
-	@Test public void
-	returnsShowPageWhenShowIsCalled() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn("/specs/show/sample");
-		
-		assertTrue( "serves show page", pageRouter.choosePage( request ) instanceof ShowPage );
 	}
 	
 	@Test public void

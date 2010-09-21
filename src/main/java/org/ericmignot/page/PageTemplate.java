@@ -47,5 +47,20 @@ public class PageTemplate implements Page {
 	public String readFile(String fileName) {
 		return fileReader.readFile( fileName );
 	}
+	
+	protected String modifyLink() {
+		String modifyLink = readFile( "target/html/modifyLink.html" );
+		return modifyLink.replaceAll( "spec-x", getSpecX() );
+	}
+	
+	protected String specLabel() {
+		String label = readFile( getSpecXDirectory() + getSpecX() + ".label" );
+		return "<span class=\"label\">Labels: "+ label + "</span>";
+	}
+
+	protected String invitationToTryACode() {
+		String invitation = readFile( "target/html/invitation.html" );
+		return invitation.replaceAll( "spec-x", getSpecX() );
+	}
 
 }

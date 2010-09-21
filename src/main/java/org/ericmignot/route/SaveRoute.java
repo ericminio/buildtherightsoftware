@@ -1,8 +1,8 @@
 package org.ericmignot.route;
 
 import static org.ericmignot.util.HttpRequestInformationExtractor.containsPostParameter;
-import static org.ericmignot.util.HttpRequestInformationExtractor.removePrefixFromUri;
-import static org.ericmignot.util.HttpRequestInformationExtractor.uriStartsWith;
+import static org.ericmignot.util.HttpRequestInformationExtractor.uriWithoutThePrefix;
+import static org.ericmignot.util.HttpRequestInformationExtractor.trueIfUriStartsWith;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,12 +17,12 @@ public class SaveRoute implements PageBuilder {
 	private static final String SPEC_LABEL = "label";
 
 	public boolean isActivatedBy(HttpServletRequest request) {
-		return uriStartsWith( URI_PREFIX, request ) 
+		return trueIfUriStartsWith( URI_PREFIX, request ) 
 			&& containsPostParameter( SPEC_CONTENT, request );
 	}
 
 	public PageTemplate buildsPage(HttpServletRequest request) {
-		return new SavePage( removePrefixFromUri( URI_PREFIX, request ), 
+		return new SavePage( uriWithoutThePrefix( URI_PREFIX, request ), 
 				request.getParameter( SPEC_CONTENT ), 
 				request.getParameter( SPEC_LABEL ));
 	}

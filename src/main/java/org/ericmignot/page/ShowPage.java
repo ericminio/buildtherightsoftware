@@ -1,51 +1,57 @@
 package org.ericmignot.page;
 
 import java.io.IOException;
+import java.io.Writer;
+
+import org.ericmignot.core.Spec;
+import org.ericmignot.jetty.View;
+import org.ericmignot.util.FileReader;
 
 
-public class ShowPage extends PageTemplate {
+public class ShowPage implements View {
 
-	public ShowPage(String specX) {
-		super( specX );
+	private FileReader fileReader;
+
+	public ShowPage() {
+		fileReader = new FileReader();
+	}
+	
+	public String readFile(String fileName) {
+		return fileReader.readFile( fileName );
 	}
 
-	public String getFilePathToBeIncluded() {
-		return getSpecXDirectory() + getSpecX() + ".html";
+	public void render(Spec spec, Writer out) {
+		try {
+			String modifyLink = readFile( "target/html/modifyLink.html" );
+			modifyLink = modifyLink.replaceAll( "spec-x", spec.getTitle() );
+			
+			String invitation = readFile( "target/html/invitation.html" );
+			invitation = invitation.replaceAll( "spec-x", spec.getTitle() );
+			
+			String label = "<span class=\"label\">Labels: "+ spec.getLabel() + "</span>";
+			
+			String specContent = "<span class=\"spec\">" + spec.getContent() + "</span>";
+			
+			String content = "\n" + modifyLink 
+							+ "\n" + label 
+							+ "\n" + specContent 
+							+ "\n" + invitation;
+			
+			String template = content();
+			String page = template.replaceAll( "page-content", content );
+			
+			
+			out.write( page );
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	public String content() throws IOException {
-		String template = super.content();
-		String page = template.replaceAll( "page-content", pageContent() );
-		return page;
-	}
-
-	protected String pageContent() throws IOException {
-		String content = 
-					modifyLink()
-					+ specLabel()
-					+ specContent() 
-					+ invitationToTryACode();
-		
+		String content = readFile( "target/html/template.html" );
 		return content;
 	}
-
-	protected String specLabel() {
-		String label = readFile( getSpecXDirectory() + getSpecX() + ".label" );
-		return "<span class=\"label\">Labels: "+ label + "</span>";
-	}
-
-	protected String invitationToTryACode() {
-		String invitation = readFile( "target/html/invitation.html" );
-		return invitation.replaceAll( "spec-x", getSpecX() );
-	}
-
-	protected String specContent() {
-		return readFile( getFilePathToBeIncluded() );
-	}
-
-	protected String modifyLink() {
-		String modifyLink = readFile( "target/html/modifyLink.html" );
-		return modifyLink.replaceAll( "spec-x", getSpecX() );
-	}
+	
 
 }

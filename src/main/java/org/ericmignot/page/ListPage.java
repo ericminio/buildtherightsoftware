@@ -12,9 +12,9 @@ public class ListPage extends PageTemplate {
 	}
 
 	public String content() throws IOException {
-		String template = super.content();
-		String page = template.replaceAll( "page-content", pageContent() );
-		return page;
+		String content = readFile( "target/html/template.html" );
+		content = content.replaceAll( "page-content", pageContent() );
+		return content;
 	}
 
 	protected String pageContent() throws IOException {
