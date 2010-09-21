@@ -3,13 +3,13 @@ package org.ericmignot.page;
 import java.io.IOException;
 
 import org.ericmignot.jetty.Page;
-import org.ericmignot.util.PageFileReader;
+import org.ericmignot.util.FileReader;
 
 public class PageTemplate implements Page {
 	
 	public static final String DEFAULT_WORKING_DIRECTORY = "specs/";
 	
-	private PageFileReader fileReader;
+	private FileReader fileReader;
 	private String specX;
 	private String specXDirectory;
 	
@@ -20,7 +20,7 @@ public class PageTemplate implements Page {
 	public PageTemplate(String specX) {
 		this.specX = specX;
 		this.specXDirectory = DEFAULT_WORKING_DIRECTORY;
-		fileReader = new PageFileReader();
+		fileReader = new FileReader();
 	}
 	
 	public String content() throws IOException {
@@ -40,7 +40,7 @@ public class PageTemplate implements Page {
 		this.specXDirectory = dir;
 	}
 	
-	public void setFileReader(PageFileReader fileReader) {
+	public void setFileReader(FileReader fileReader) {
 		this.fileReader = fileReader;
 	}
 	

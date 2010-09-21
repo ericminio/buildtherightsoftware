@@ -1,15 +1,14 @@
 package org.ericmignot.store;
 
+import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.util.Map;
 
 import org.ericmignot.core.Spec;
-import org.ericmignot.store.InMemoryRepository;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {
@@ -19,24 +18,18 @@ public class InMemoryRepositoryTest {
 	@Test public void
 	storesTheSpecInAnInternalMapUsingTheTitleAsTheKeyWhenSavingTheSpec() {
 		Map<String, Spec> mapMock = mock( Map.class );
-		repository.setStoringMap( mapMock );
+		repository.setSpecStoringMap( mapMock );
 		
-		Spec spec = aSpecWithTitle( "a title") ;
+		Spec spec = aSpec().withTitle( "a title").build() ;
 
 		repository.saveSpec( spec );
 		verify( mapMock ).put( "a title" , spec ); 
 	}
 	
-	protected Spec aSpecWithTitle(String title) {
-		Spec specMock = mock( Spec.class );
-		when( specMock.getTitle() ).thenReturn( title );
-		return specMock;
-	}
-	
 	@Test public void
 	canRetrieveSpecsByName() {
-		Spec first = aSpecWithTitle( "first" );
-		Spec second = aSpecWithTitle( "second" );
+		Spec first = aSpec().withTitle( "first" ).build();
+		Spec second = aSpec().withTitle( "second" ).build();
 		repository.saveSpec( first );
 		repository.saveSpec( second );
 		assertThat( repository.getSpecByTitle( "first" ), equalTo( first ) );

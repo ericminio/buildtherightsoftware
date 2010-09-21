@@ -10,10 +10,10 @@ public class InMemoryRepository implements Repository {
 	protected Map<String, Spec> specs;
 	
 	public InMemoryRepository() {
-		setStoringMap( new HashMap<String, Spec>() );
+		setSpecStoringMap( new HashMap<String, Spec>() );
 	}
 	
-	protected void setStoringMap(Map<String, Spec> map) {
+	protected void setSpecStoringMap(Map<String, Spec> map) {
 		this.specs = map;
 	}
 	

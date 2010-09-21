@@ -1,16 +1,13 @@
 package org.ericmignot.util;
 
 import org.ericmignot.core.Spec;
-import org.ericmignot.store.Repository;
 
 public class HtmlParagraphSpec implements Spec {
 
 	private String title;
 	private String content;
+	private String label;
 	
-	public HtmlParagraphSpec() {
-		
-	}
 	public HtmlParagraphSpec(String title, String content) {
 		this.title = title;
 		this.content = content;
@@ -24,8 +21,20 @@ public class HtmlParagraphSpec implements Spec {
 		return content;
 	}
 
-	public void saveIn(Repository repository) {
-		repository.saveSpec( this );
+	public void setTitle(String newTitle) {
+		title = newTitle;
+	}
+
+	public void setContent(String newContent) {
+		content = newContent;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String newLabel) {
+		label = newLabel;
 	}
 
 }

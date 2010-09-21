@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 
-import org.ericmignot.util.PageFileReader;
+import org.ericmignot.util.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -60,7 +60,7 @@ public class ShowPageTest {
 	
 	@Test public void
 	getSpecContentFromFileWhenRendering() throws IOException {
-		PageFileReader readerMock = mock(PageFileReader.class);
+		FileReader readerMock = mock(FileReader.class);
 		when(readerMock.readFile(Mockito.anyString())).thenReturn( "foo" );
 		page.setFileReader( readerMock );
 		page.setSpecXDirectory( "target/test-classes/test-system/" );
@@ -71,7 +71,7 @@ public class ShowPageTest {
 	
 	@Test public void
 	getSpecLabelFromFileWhenRendering() throws IOException {
-		PageFileReader readerMock = mock(PageFileReader.class);
+		FileReader readerMock = mock(FileReader.class);
 		when(readerMock.readFile(Mockito.anyString())).thenReturn( "foo" );
 		page.setFileReader( readerMock );
 		page.setSpecXDirectory( "target/test-classes/test-system/" );

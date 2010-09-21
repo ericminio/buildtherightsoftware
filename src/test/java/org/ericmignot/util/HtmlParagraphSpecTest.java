@@ -1,31 +1,37 @@
 package org.ericmignot.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
-import org.ericmignot.store.Repository;
 import org.junit.Test;
 
 
 public class HtmlParagraphSpecTest {
 
-	private HtmlParagraphSpec spec;
-	
-	@Test public void
-	delegatesSavingToTheGivenRepository() {
-		spec = new HtmlParagraphSpec();
-		Repository repoMock = mock( Repository.class );
-		spec.saveIn( repoMock );
-		verify( repoMock ).saveSpec( spec );
-	}
+	private HtmlParagraphSpec spec = new HtmlParagraphSpec( "title", "<br>content</br>" );;
 	
 	@Test public void
 	keepsTitleAndContent() throws IOException {
-		spec = new HtmlParagraphSpec( "title", "<br>content</br>" );
 		assertEquals( "title", spec.getTitle() );
 		assertEquals( "<br>content</br>", spec.getContent() );
+	}
+	
+	@Test public void
+	acceptTitleModification() {
+		spec.setTitle( "new title" );
+		assertEquals( "new title", spec.getTitle() );
+	}
+	
+	@Test public void
+	acceptContentModification() {
+		spec.setContent( "new content" );
+		assertEquals( "new content", spec.getContent() );
+	}
+	
+	@Test public void
+	acceptLabelModification() {
+		spec.setLabel( "new label" );
+		assertEquals( "new label", spec.getLabel() );
 	}
 }

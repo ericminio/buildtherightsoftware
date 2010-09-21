@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ericmignot.jetty.PageBuilder;
 import org.ericmignot.page.PageTemplate;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.util.PageFileReader;
+import org.ericmignot.util.FileReader;
 
 public class CreateRoute implements PageBuilder {
 	
@@ -24,7 +24,7 @@ public class CreateRoute implements PageBuilder {
 	public PageTemplate buildsPage(HttpServletRequest request) {
 		return new SavePage( 
 				getQueryStringValueOf( QUERY_STRING_PARAMETER, request ),
-				new PageFileReader().readFile( "target/html/newSpecTemplate.html" ),
+				new FileReader().readFile( "target/html/newSpecTemplate.html" ),
 				"" );
 	}
 	

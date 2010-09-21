@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import org.ericmignot.util.PageFileReader;
+import org.ericmignot.util.FileReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class SpecSaverTest {
 		saver.setDirectory( "target/test-classes/test-save-spec/" );
 		saver.saveContent( "sample", "toto" );
 		
-		String fileContent = new PageFileReader().readFile( "target/test-classes/test-save-spec/sample.html" );
+		String fileContent = new FileReader().readFile( "target/test-classes/test-save-spec/sample.html" );
 		assertThat( "spec saved", fileContent, equalTo( "toto" ));
 	}
 	
@@ -34,7 +34,7 @@ public class SpecSaverTest {
 		saver.setDirectory( "target/test-classes/test-save-spec/" );
 		saver.saveLabel( "sample", "code" );
 		
-		String fileContent = new PageFileReader().readFile( "target/test-classes/test-save-spec/sample.label" );
+		String fileContent = new FileReader().readFile( "target/test-classes/test-save-spec/sample.label" );
 		assertThat( "spec label saved", fileContent, equalTo( "code" ));
 	}
 	
@@ -42,7 +42,7 @@ public class SpecSaverTest {
 	supportsEmptyLabel() throws IOException {
 		saver.setDirectory( "target/test-classes/test-save-spec/" );
 		saver.saveLabel( "empty-label", "" );
-		new PageFileReader().readFile( "target/test-classes/test-save-spec/empty-label.label" );
+		new FileReader().readFile( "target/test-classes/test-save-spec/empty-label.label" );
 	}
 
 }

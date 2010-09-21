@@ -3,7 +3,7 @@ package org.ericmignot.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class PageFileReader {
+public class FileReader {
 
 	public String readFile(String fileName) {
 		String content = null;
