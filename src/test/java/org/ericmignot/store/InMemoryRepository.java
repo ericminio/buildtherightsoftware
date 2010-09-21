@@ -1,10 +1,9 @@
-package org.ericmignot.util;
+package org.ericmignot.store;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.ericmignot.core.Spec;
-import org.ericmignot.store.Repository;
 
 public class InMemoryRepository implements Repository {
 
@@ -14,7 +13,7 @@ public class InMemoryRepository implements Repository {
 		setStoringMap( new HashMap<String, Spec>() );
 	}
 	
-	public void setStoringMap(Map<String, Spec> map) {
+	protected void setStoringMap(Map<String, Spec> map) {
 		this.specs = map;
 	}
 	

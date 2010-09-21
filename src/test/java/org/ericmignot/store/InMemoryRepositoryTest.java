@@ -1,4 +1,4 @@
-package org.ericmignot.util;
+package org.ericmignot.store;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.Map;
 
 import org.ericmignot.core.Spec;
+import org.ericmignot.store.InMemoryRepository;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {
