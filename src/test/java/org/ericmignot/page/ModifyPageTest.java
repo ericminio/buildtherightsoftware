@@ -4,11 +4,14 @@ import static com.pyxis.matchers.dom.DomMatchers.hasSelector;
 import static com.pyxis.matchers.dom.DomMatchers.withAttribute;
 import static com.pyxis.matchers.dom.DomMatchers.withText;
 import static org.ericmignot.util.DocumentBuilder.doc;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
+import org.ericmignot.core.Spec;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
@@ -16,32 +19,20 @@ import org.w3c.dom.Element;
 public class ModifyPageTest {
 
 	private ModifyPage page;
+	private Element doc;
 	
 	@Before public void
-	init() throws IOException {
-		page = new ModifyPage( "sample" );
-	}
-	
-	@Test public void
-	specXIsStored() {
-		assertThat( "spec-x stored", page.getSpecX(), equalTo( "sample" ) );
-	}
-	
-	@Test public void
-	defaultWorkingDirectory() {
-		assertThat( "default working dir", page.getSpecXDirectory(), equalTo( PageTemplate.DEFAULT_WORKING_DIRECTORY ) );
-	}
-	
-	@Test public void
-	workingDirectoryCanBeChanged() {
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		assertThat( "working dir", page.getSpecXDirectory(), equalTo( "target/test-classes/test-system/" ) );
+	rendersASampleShowPage() throws IOException {
+		Spec spec = aSpec().withTitle( "sample-title" ).withContent( "sample content" ).withLabel( "sample-label" ).build();
+		
+		page = new ModifyPage();
+		Writer out = new StringWriter();
+		page.render(spec, out);
+		doc = doc( out.toString() );
 	}
 	
 	@Test public void
 	containsTextareaToEditSpecX() throws IOException {
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		Element doc = doc( page );
 		assertThat( doc, hasSelector( "textarea", withAttribute("name", "specX")
 												, withAttribute("cols", "80")
 												, withAttribute("rows", "20") ));
@@ -49,11 +40,9 @@ public class ModifyPageTest {
 	
 	@Test public void
 	containsFormToSaveTheSpecX() throws IOException {
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		Element doc = doc( page );
 		assertThat( doc, hasSelector( "form", withAttribute("name", "saveSpecXForm")
 											, withAttribute("method", "post") 
-											, withAttribute("action", "/specs/save/sample") ));
+											, withAttribute("action", "/specs/save/sample-title") ));
 		
 		assertThat( doc, hasSelector( "a", withAttribute("name", "saveSpecXLink")
 										 , withAttribute("href", "javascript:saveSpecXForm.submit()") 
@@ -63,8 +52,6 @@ public class ModifyPageTest {
 	
 	@Test public void
 	containsInputFieldToEnterLabels() throws IOException {
-		page.setSpecXDirectory( "target/test-classes/test-system/" );
-		Element doc = doc( page );
 		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
 												, withAttribute("size", "80") ));
 	}

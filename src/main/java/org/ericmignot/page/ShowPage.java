@@ -16,7 +16,7 @@ public class ShowPage implements View {
 		fileReader = new FileReader();
 	}
 	
-	public String readFile(String fileName) {
+	protected String readFile(String fileName) {
 		return fileReader.readFile( fileName );
 	}
 

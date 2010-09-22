@@ -36,14 +36,6 @@ public class PageRouterTest {
 	}
 	
 	@Test public void
-	returnsModifyPageWhenModifyIsCalled() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn("/specs/modify/sample");
-		
-		assertTrue( "serves modify page", pageRouter.choosePage( request ) instanceof ModifyPage );
-	}
-	
-	@Test public void
 	returnsSaveWhenSaveSpecIsCalled() {
 		String specXContent = "toto";
 		HttpServletRequest request = mock(HttpServletRequest.class);

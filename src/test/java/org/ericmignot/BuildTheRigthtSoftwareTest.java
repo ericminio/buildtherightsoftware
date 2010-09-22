@@ -5,6 +5,16 @@ import org.junit.Test;
 
 public class BuildTheRigthtSoftwareTest extends SystemTest {
 
+	
+	@Test public void
+	homPageDisplaysASampleSpec() {
+		accessHomePage();
+		
+		pageShouldContainModifyLink();
+		pageShouldContainTheText( "home page display a spec sample", "Rule for" );
+		pageShouldContainTryThisCodeLink();
+	}
+	
 	@Test public void
 	canShowASpec() {
 		showSpec( "calculator-sample" );

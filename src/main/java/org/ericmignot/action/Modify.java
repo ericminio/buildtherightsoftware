@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.ericmignot.core.Spec;
 import org.ericmignot.jetty.Action;
 import org.ericmignot.jetty.View;
-import org.ericmignot.page.ShowPage;
+import org.ericmignot.page.ModifyPage;
 import org.ericmignot.store.Repository;
 
-public class Show implements Action {
-
-	private static final String URI_PREFIX = "/specs/show/";
+public class Modify implements Action {
+	
+	private static final String URI_PREFIX = "/specs/modify/";
 	private View view;
-
-	public Show() {
-		setView( new ShowPage() );
+	
+	public Modify() {
+		setView( new ModifyPage() );
 	}
 	
 	protected void setView(View view) {
@@ -29,7 +29,7 @@ public class Show implements Action {
 	public View getView() {
 		return view;
 	}
-	
+
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return trueIfUriStartsWith( URI_PREFIX, request );
 	}
@@ -39,6 +39,4 @@ public class Show implements Action {
 		view.render( spec, out );
 	}
 	
-	
-
 }

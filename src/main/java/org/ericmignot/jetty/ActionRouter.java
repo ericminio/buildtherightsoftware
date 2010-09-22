@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ericmignot.action.Modify;
 import org.ericmignot.action.Show;
 
 
@@ -15,6 +16,7 @@ public class ActionRouter {
 	public ActionRouter() {
 		candidates = new ArrayList<Action>();
 		candidates.add( new Show() );
+		candidates.add( new Modify() );
 	}
 	
 	public Action chooseAction(HttpServletRequest request) {

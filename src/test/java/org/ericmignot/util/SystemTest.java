@@ -195,11 +195,6 @@ public abstract class SystemTest {
 				resultPage.setRunnerDirectory( "target/test-classes/test-system/" );
 				return resultPage;
 			}
-			if ( choosen instanceof ModifyPage ) {
-				ModifyPage modifyPage = (ModifyPage) choosen;
-				modifyPage.setSpecXDirectory( "target/test-classes/test-system/" );
-				return modifyPage;
-			}
 			if ( choosen instanceof SavePage ) {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );

@@ -1,12 +1,34 @@
 package org.ericmignot.page;
 
 import java.io.IOException;
+import java.io.Writer;
+
+import org.ericmignot.core.Spec;
+import org.ericmignot.jetty.View;
+import org.ericmignot.util.FileReader;
 
 
-public class ModifyPage extends PageTemplate {
+public class ModifyPage implements View {
 
-	public ModifyPage(String specX) {
-		super( specX );
+	private FileReader fileReader;
+	private Spec spec;
+
+	public ModifyPage() {
+		fileReader = new FileReader();
+	}
+	
+	public String readFile(String fileName) {
+		return fileReader.readFile( fileName );
+	}
+	
+	public void render(Spec spec, Writer out) {
+		this.spec = spec;
+		try {
+			out.write( content() );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String content() throws IOException {
@@ -15,10 +37,15 @@ public class ModifyPage extends PageTemplate {
 		return content;
 	}
 
-	private String pageContent() throws IOException {
+	protected String pageContent() throws IOException {
 		String content = 
 			modifyLink() + editContent();
 		return content;
+	}
+	
+	protected String modifyLink() {
+		String modifyLink = readFile( "target/html/modifyLink.html" );
+		return modifyLink.replaceAll( "spec-x", spec.getTitle() );
 	}
 
 	protected String editContent() {
@@ -30,15 +57,15 @@ public class ModifyPage extends PageTemplate {
 	}
 
 	protected String updateSpecLabel(String content) {
-		return content.replaceAll( "specX-label", readFile( getSpecXDirectory() + getSpecX() + ".label" ));
+		return content.replaceAll( "specX-label", spec.getLabel() );
 	}
 	
 	protected String updateSpecContent(String content) {
-		return content.replaceAll( "specX-content", readFile( getSpecXDirectory() + getSpecX() + ".html" ));
+		return content.replaceAll( "specX-content", spec.getContent() );
 	}
 
 	protected String updateFormAction(String content) {
-		return content.replaceAll( "action=\"execute-specX\"", "action=\"/specs/save/" + getSpecX() + "\"" );
+		return content.replaceAll( "action=\"execute-specX\"", "action=\"/specs/save/" + spec.getTitle() + "\"" );
 	}
 
 }

@@ -50,6 +50,11 @@ public class PageHandler extends AbstractHandler {
 			return;
 		}
 		
+		displaySampleSpecByDefault(response);
+	}
+
+	protected void displaySampleSpecByDefault(HttpServletResponse response)
+			throws IOException {
 		HttpServletRequest redirect = mock(HttpServletRequest.class);
 		when(redirect.getRequestURI()).thenReturn("/specs/show/sample");
 		Show show = new Show();
