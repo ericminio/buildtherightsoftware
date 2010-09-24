@@ -1,26 +1,17 @@
 package org.ericmignot.page;
 
+import static org.ericmignot.util.FileUtils.readFile;
+
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.jetty.View;
-import org.ericmignot.util.FileReader;
-
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.View;
 
 public class ModifyPage implements View {
 
-	private FileReader fileReader;
 	private Spec spec;
 
-	public ModifyPage() {
-		fileReader = new FileReader();
-	}
-	
-	public String readFile(String fileName) {
-		return fileReader.readFile( fileName );
-	}
-	
 	public void setSpec(Spec spec) {
 		this.spec = spec;
 	}
@@ -29,7 +20,6 @@ public class ModifyPage implements View {
 		try {
 			out.write( content() );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

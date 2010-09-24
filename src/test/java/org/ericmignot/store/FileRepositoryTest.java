@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.util.FileReader;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.util.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class FileRepositoryTest {
 	savesTheSpecContentInTheFileWithHtmlExtension() {
 		Spec spec = aSpec().withTitle( "title" ).withContent( "my test content" ).build();
 		repository.saveSpec( spec );
-		assertEquals( "my test content", new FileReader().readFile( "test-directory/title.html" ) );
+		assertEquals( "my test content", new FileUtils().readFile( "test-directory/title.html" ) );
 	}
 	
 	@Test public void
@@ -57,7 +57,7 @@ public class FileRepositoryTest {
 	savesTheSpecLabelInTheFileWithLabelExtension() {
 		Spec spec = aSpec().withTitle( "title" ).withLabel( "my test label" ).build();
 		repository.saveSpec( spec );
-		assertEquals( "my test label", new FileReader().readFile( "test-directory/title.label" ) );
+		assertEquals( "my test label", new FileUtils().readFile( "test-directory/title.label" ) );
 	}
 	
 	@Test public void

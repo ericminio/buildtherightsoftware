@@ -1,26 +1,21 @@
 package org.ericmignot.page;
 
+import static org.ericmignot.util.FileUtils.readFile;
 import static org.ericmignot.util.HtmlManipulator.extractBodyContent;
 import static org.ericmignot.util.HtmlManipulator.removeAllScriptSections;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.jetty.View;
-import org.ericmignot.util.FileReader;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.View;
 
 public class ResultPage implements View {
 
-	private FileReader fileReader;
 	private String directory;
 	private String chrono;
 	private Spec spec;
 	private String gitRepositoryName;
-	
-	public ResultPage() {
-		fileReader = new FileReader();
-	}
 	
 	public void setWorkingDirectory(String directory) {
 		this.directory = directory;
@@ -79,12 +74,5 @@ public class ResultPage implements View {
 		String body = extractBodyContent( fullContent );
 		return removeAllScriptSections( body );
 	}
-	
-	public String readFile(String fileName) {
-		return fileReader.readFile( fileName );
-	}
-
-	
-	
 	
 }

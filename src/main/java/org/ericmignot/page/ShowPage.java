@@ -1,25 +1,16 @@
 package org.ericmignot.page;
 
+import static org.ericmignot.util.FileUtils.readFile;
+
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.jetty.View;
-import org.ericmignot.util.FileReader;
-
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.View;
 
 public class ShowPage implements View {
 
-	private FileReader fileReader;
 	private Spec spec;
-
-	public ShowPage() {
-		fileReader = new FileReader();
-	}
-	
-	protected String readFile(String fileName) {
-		return fileReader.readFile( fileName );
-	}
 
 	public void setSpec(Spec spec) {
 		this.spec = spec;

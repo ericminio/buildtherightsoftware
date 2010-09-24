@@ -3,8 +3,8 @@ package org.ericmignot.util;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.store.SpecRepository;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.SpecRepository;
 import org.mockito.Mockito;
 
 public class RepositoryMockBuilder {

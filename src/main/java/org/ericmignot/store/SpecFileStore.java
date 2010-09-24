@@ -1,13 +1,15 @@
 package org.ericmignot.store;
 
+import static org.ericmignot.util.FileUtils.readFile;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.ericmignot.core.Spec;
-import org.ericmignot.util.FileReader;
-import org.ericmignot.util.HtmlParagraphSpec;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.domain.HtmlParagraphSpec;
 
 public class SpecFileStore implements SpecRepository {
 
@@ -42,8 +44,8 @@ public class SpecFileStore implements SpecRepository {
 	}
 
 	public Spec getSpecByTitle(String title) {
-		String content = new FileReader().readFile( path + "/" + title + ".html" );
-		String label = new FileReader().readFile( path + "/" + title + ".label" );
+		String content = readFile( path + "/" + title + ".html" );
+		String label = readFile( path + "/" + title + ".label" );
 		HtmlParagraphSpec newSpec = new HtmlParagraphSpec( title, content );
 		newSpec.setLabel( label );
 		return newSpec;

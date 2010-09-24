@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Map;
 
-import org.ericmignot.core.Spec;
+import org.ericmignot.adapters.Spec;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {

@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class FileReaderTest {
 
-	private FileReader fileReader;
+	private FileUtils fileReader;
 	
 	@Before public void
 	init() {
-		fileReader = new FileReader();
+		fileReader = new FileUtils();
 	}
 	
 	@Test public void

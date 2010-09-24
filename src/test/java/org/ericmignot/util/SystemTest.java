@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.ericmignot.jetty.FileHandler;
-import org.ericmignot.jetty.Page;
-import org.ericmignot.jetty.PageHandler;
-import org.ericmignot.jetty.PageRouter;
-import org.ericmignot.page.ListPage;
-import org.ericmignot.page.SavePage;
+import org.ericmignot.adapters.LegacyPage;
+import org.ericmignot.application.StaticFileHandler;
+import org.ericmignot.application.LegacyRouter;
+import org.ericmignot.application.FeatureHandler;
+import org.ericmignot.page.LegacyListPage;
+import org.ericmignot.page.LegacySavePage;
 import org.ericmignot.store.SpecFileStore;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,13 +25,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+
 public abstract class SystemTest {
 
 	private static Server server;
 	private static Thread thread;
 	protected WebDriver driver;
 	
-	private static PageHandler testPageHandler;
+	private static FeatureHandler testPageHandler;
 	
 	protected void setWorkingDirectory(String directory) {
 		testPageHandler.setWorkingDirectory( directory );
@@ -41,12 +42,12 @@ public abstract class SystemTest {
 	setUp() throws Exception {
 		server = new Server(8080);
 		
-		testPageHandler = new PageHandler();
+		testPageHandler = new FeatureHandler();
 		testPageHandler.setRepository( new SpecFileStore( "target/test-classes/test-system/" ));
-		testPageHandler.setPageRouter( new FakePageRouter() );
+		testPageHandler.setLegacyRouter( new FakePageRouter() );
         
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { new FileHandler(), testPageHandler });
+        handlers.setHandlers(new Handler[] { new StaticFileHandler(), testPageHandler });
         server.setHandler(handlers);
  
         thread = new Thread(new Runnable() {
@@ -190,17 +191,17 @@ public abstract class SystemTest {
 		
 	}
 	
-	private static class FakePageRouter extends PageRouter {
+	private static class FakePageRouter extends LegacyRouter {
 		
-		public Page choosePage(HttpServletRequest request) {
-			Page choosen = super.choosePage( request );
-			if ( choosen instanceof SavePage ) {
-				SavePage savePage = (SavePage) choosen;
+		public LegacyPage choosePage(HttpServletRequest request) {
+			LegacyPage choosen = super.choosePage( request );
+			if ( choosen instanceof LegacySavePage ) {
+				LegacySavePage savePage = (LegacySavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
 			}
-			if ( choosen instanceof ListPage ) {
-				ListPage listPage = (ListPage) choosen;
+			if ( choosen instanceof LegacyListPage ) {
+				LegacyListPage listPage = (LegacyListPage) choosen;
 				listPage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return listPage;
 			}

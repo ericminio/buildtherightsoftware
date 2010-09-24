@@ -1,6 +1,7 @@
 package org.ericmignot.util;
 
-import org.ericmignot.core.Spec;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.domain.HtmlParagraphSpec;
 
 public class SpecBuilder {
 

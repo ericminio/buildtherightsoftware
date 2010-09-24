@@ -3,7 +3,8 @@ package org.ericmignot.store;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ericmignot.core.Spec;
+import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.SpecRepository;
 
 public class InMemoryRepository implements SpecRepository {
 
