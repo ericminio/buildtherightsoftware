@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.ericmignot.core.Spec;
-import org.ericmignot.store.FileRepository;
+import org.ericmignot.store.SpecFileStore;
 import org.ericmignot.store.InMemoryRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,6 @@ public class PageHandlerTest {
 	@Before public void
 	init() throws IOException {
 		pageHandler = new PageHandler();
-		
 		useInMemoryRepositoryWithASingleSampleSpec();
 		
 		httpRequestMock = mock(HttpServletRequest.class);
@@ -43,12 +42,6 @@ public class PageHandlerTest {
 		when(httpResponseMock.getWriter()).thenReturn(printWriterMock);
 	}
 
-	protected void useInMemoryRepositoryWithASingleSampleSpec() {
-		pageHandler.setRepository( new InMemoryRepository() );
-		Spec sample = aSpec().withTitle( "sample" ).build();
-		pageHandler.getRepository().saveSpec( sample );
-	}
-	
 	@Test public void
 	alwaysHandleTheRequest() throws IOException, ServletException {
 		Request requestMock = mock(Request.class);
@@ -71,16 +64,10 @@ public class PageHandlerTest {
 		verify(pageChooserMock).choosePage(httpRequestMock);
 	}
 
-	protected ActionRouter anActionRouterThatNeverIdentifyAction() {
-		ActionRouter actionRouterMock = mock( ActionRouter.class );
-		when(actionRouterMock.chooseAction(httpRequestMock)).thenReturn(null);
-		return actionRouterMock;
-	}
-	
 	@Test public void 
 	dontAskPageChooserWhichPageToServeWhenActionChooserFindsCandidate() throws IOException, ServletException {
-		Action actionMock = mock(Action.class);
-		ActionRouter actionRouterMock = anActionRouterThatIdentifiesAnAction(actionMock);
+		Controller controller = mock(Controller.class);
+		ActionRouter actionRouterMock = anActionRouterThatIdentifiesAnAction(controller);
 		pageHandler.setActionRouter( actionRouterMock );
 		
 		PageRouter pageChooser = mock(PageRouter.class);
@@ -90,24 +77,38 @@ public class PageHandlerTest {
 		
 		pageHandler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
 		verify(actionRouterMock).chooseAction(httpRequestMock);
-		verify(actionMock).work(httpRequestMock, pageHandler.getRepository(), printWriterMock);
+		verify(controller).handle(httpRequestMock, pageHandler.getRepository(), printWriterMock);
 		verify(pageChooser, never()).choosePage(httpRequestMock);
 	}
+	
+	@Test public void
+	useFileRepositoryInProduction() {
+		assertTrue( new PageHandler().getRepository() instanceof SpecFileStore );
+	}
+	
+	@Test public void
+	usesSpecsDirectoryInProduction() {
+		assertEquals( "specs", ((SpecFileStore) new PageHandler().getRepository()).getPath() );
+	}
 
+	protected void useInMemoryRepositoryWithASingleSampleSpec() {
+		pageHandler.setRepository( new InMemoryRepository() );
+		Spec sample = aSpec().withTitle( "sample" ).build();
+		pageHandler.getRepository().saveSpec( sample );
+	}
+	
+	protected ActionRouter anActionRouterThatNeverIdentifyAction() {
+		ActionRouter actionRouterMock = mock( ActionRouter.class );
+		when(actionRouterMock.chooseAction(httpRequestMock)).thenReturn(null);
+		return actionRouterMock;
+	}
+	
 	protected ActionRouter anActionRouterThatIdentifiesAnAction(
-			Action actionMock) {
+			Controller actionMock) {
 		ActionRouter actionRouterMock = mock( ActionRouter.class );
 		when(actionRouterMock.chooseAction(httpRequestMock)).thenReturn(actionMock);
 		return actionRouterMock;
 	}
 	
-	@Test public void
-	useFileRepositoryInProduction() {
-		assertTrue( new PageHandler().getRepository() instanceof FileRepository );
-	}
 	
-	@Test public void
-	usesSpecsDirectoryInProduction() {
-		assertEquals( "specs", ((FileRepository) new PageHandler().getRepository()).getPath() );
-	}
 }

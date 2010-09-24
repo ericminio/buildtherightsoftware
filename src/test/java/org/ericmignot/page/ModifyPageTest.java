@@ -27,7 +27,8 @@ public class ModifyPageTest {
 		
 		page = new ModifyPage();
 		Writer out = new StringWriter();
-		page.render(spec, out);
+		page.setSpec(spec);
+		page.render(out);
 		doc = doc( out.toString() );
 	}
 	

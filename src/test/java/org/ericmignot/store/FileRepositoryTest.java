@@ -15,7 +15,7 @@ import org.junit.Test;
 
 public class FileRepositoryTest {
 
-	private FileRepository repository = new FileRepository( "test-directory" );
+	private SpecFileStore repository = new SpecFileStore( "test-directory" );
 	private final File dir = new File( "test-directory" );
 	
 	@Before public void

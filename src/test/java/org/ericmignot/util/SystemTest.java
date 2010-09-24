@@ -14,11 +14,9 @@ import org.ericmignot.jetty.FileHandler;
 import org.ericmignot.jetty.Page;
 import org.ericmignot.jetty.PageHandler;
 import org.ericmignot.jetty.PageRouter;
-import org.ericmignot.page.ExecutePage;
 import org.ericmignot.page.ListPage;
-import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.store.FileRepository;
+import org.ericmignot.store.SpecFileStore;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -33,12 +31,18 @@ public abstract class SystemTest {
 	private static Thread thread;
 	protected WebDriver driver;
 	
+	private static PageHandler testPageHandler;
+	
+	protected void setWorkingDirectory(String directory) {
+		testPageHandler.setWorkingDirectory( directory );
+	}
+	
 	@BeforeClass public static void
 	setUp() throws Exception {
 		server = new Server(8080);
 		
-		PageHandler testPageHandler = new PageHandler();
-		testPageHandler.setRepository( new FileRepository( "target/test-classes/test-system/" ));
+		testPageHandler = new PageHandler();
+		testPageHandler.setRepository( new SpecFileStore( "target/test-classes/test-system/" ));
 		testPageHandler.setPageRouter( new FakePageRouter() );
         
         HandlerList handlers = new HandlerList();
@@ -190,11 +194,6 @@ public abstract class SystemTest {
 		
 		public Page choosePage(HttpServletRequest request) {
 			Page choosen = super.choosePage( request );
-			if ( choosen instanceof ExecutePage ) {
-				ExecutePage resultPage = (ExecutePage) choosen;
-				resultPage.setRunnerDirectory( "target/test-classes/test-system/" );
-				return resultPage;
-			}
 			if ( choosen instanceof SavePage ) {
 				SavePage savePage = (SavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );

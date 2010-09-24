@@ -11,6 +11,7 @@ import org.ericmignot.util.FileReader;
 public class ShowPage implements View {
 
 	private FileReader fileReader;
+	private Spec spec;
 
 	public ShowPage() {
 		fileReader = new FileReader();
@@ -20,7 +21,11 @@ public class ShowPage implements View {
 		return fileReader.readFile( fileName );
 	}
 
-	public void render(Spec spec, Writer out) {
+	public void setSpec(Spec spec) {
+		this.spec = spec;
+	}
+	
+	public void render(Writer out) {
 		try {
 			String modifyLink = readFile( "target/html/modifyLink.html" );
 			modifyLink = modifyLink.replaceAll( "spec-x", spec.getTitle() );

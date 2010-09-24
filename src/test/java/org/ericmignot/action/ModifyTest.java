@@ -12,47 +12,43 @@ import java.io.Writer;
 
 import org.ericmignot.core.Spec;
 import org.ericmignot.jetty.View;
-import org.ericmignot.page.ModifyPage;
-import org.ericmignot.store.Repository;
+import org.ericmignot.store.SpecRepository;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ModifyTest {
 
-	private Modify action;
+	private ModifyController controller;
 	
 	@Before public void
 	init() {
-		action = new Modify();
+		controller = new ModifyController();
 	}
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", action.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample" ).build() ) );
-		assertTrue( "activation", action.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample-calculator").build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/specs/modify" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/" ).build() ) );
-	}
-	
-	@Test public void
-	theRenderingViewIsAModifyPage() {
-		assertTrue( action.getView() instanceof ModifyPage );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample-calculator").build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/" ).build() ) );
 	}
 	
 	@Test public void
 	rendersTheViewDuringWork() {
 		View viewMock = mock( View.class );
-		action.setView( viewMock );
+		controller.setView( viewMock );
+		
 		Writer writerMock = mock( Writer.class );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
-		Repository repoMock = aMockRepo().withOneSpec( spec ).build();
+		SpecRepository repoMock = aMockRepo().withOneSpec( spec ).build();
 		
-		action.work( aMockRequest().withThisUri( "/specs/modify/sample").build(), repoMock, writerMock );
+		controller.handle( aMockRequest().withThisUri( "/specs/modify/sample").build(), repoMock, writerMock );
 		verify( repoMock ).getSpecByTitle( "sample" );
-		verify( viewMock ).render( spec, writerMock );
+		verify( viewMock ).setSpec( spec );
+		verify( viewMock ).render( writerMock );
 	}
 }

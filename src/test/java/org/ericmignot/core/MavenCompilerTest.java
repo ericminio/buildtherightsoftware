@@ -12,48 +12,33 @@ public class MavenCompilerTest {
 
 	@Before public void
 	copyResources() throws IOException, InterruptedException {
+		rmDir( "target/test-classes/test-compilation/mastermind/target" );
 		Process process = Runtime.getRuntime().exec("mvn resources:testResources", null, new File(".") );
 		process.waitFor();
-	}
-	
-	@Test public void
-	canCompile()  {
+		
 		String pomDirectory = "target/test-classes/test-compilation/mastermind/";
 		MavenCompiler compiler = new MavenCompiler();
-		compiler.setDirectory( pomDirectory );
-		try {
-			compiler.mavenCleanAndCompile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		File classes = new File( pomDirectory + "target/classes" );
-		assertTrue( "classes exist", classes.exists() );   
-	}       
+		compiler.setWorkingDirectory( pomDirectory );
+		compiler.work();
+	}
 	
-	@Test public void
-	nopWhenDirectoryDoesNotExist() throws IOException, InterruptedException {
-		MavenCompiler compiler = new MavenCompiler();
-		compiler.setDirectory( "toto" );
-		compiler.mavenCleanAndCompile();
+	protected void rmDir(String dir) {
+		String[] files = new File( dir ).list();
+		if (files != null) {
+			for (String fileName : files) {
+				if ( new File( dir + "/" + fileName ).isDirectory() ) {
+					rmDir( dir + "/" + fileName );
+				}
+				new File( dir + "/" + fileName ).delete();
+			}
+		}
+		new File( dir ).delete();
 	}
 	
 	@Test public void
-	generatesACoberturaReport() {
-		String pomDirectory = "target/test-classes/test-compilation/mastermind/";
-		MavenCompiler compiler = new MavenCompiler();
-		compiler.setDirectory( pomDirectory );
-		try {
-			compiler.mavenCleanAndCompile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		File classes = new File( pomDirectory + "target/site/cobertura/frame-summary.html" );
-		assertTrue( "classes exist", classes.exists() );   
-	}
+	compilesAndCreateCoberturaReport()  {
+		assertTrue( "classes exist", new File( "target/test-classes/test-compilation/mastermind/target/classes" ).exists() );   
+		assertTrue( "cobertura report exist", new File( "target/test-classes/test-compilation/mastermind/target/site/cobertura/frame-summary.html" ).exists() );   
+	}  
+	
 }

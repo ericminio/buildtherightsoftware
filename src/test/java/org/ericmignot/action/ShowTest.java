@@ -13,46 +13,47 @@ import java.io.Writer;
 import org.ericmignot.core.Spec;
 import org.ericmignot.jetty.View;
 import org.ericmignot.page.ShowPage;
-import org.ericmignot.store.Repository;
+import org.ericmignot.store.SpecRepository;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ShowTest {
 
-	private Show action;
+	private ShowController controller;
 	
 	@Before public void
 	init() {
-		action = new Show();
+		controller = new ShowController();
 	}
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", action.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample").build() ) );
-		assertTrue( "activation", action.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample-calculator").build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/specs/show" ).build() ) );
-		assertFalse( "don't activate", action.isActivatedBy( aMockRequest().withThisUri( "/specs/show/" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample").build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample-calculator").build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/" ).build() ) );
 	}
 	
 	@Test public void
 	theRenderingViewIsAShowView() {
-		assertTrue( action.getView() instanceof ShowPage );
+		assertTrue( controller.getView() instanceof ShowPage );
 	}
 	
 	@Test public void
 	rendersTheViewDuringWork() {
 		View viewMock = mock( View.class );
-		action.setView( viewMock );
+		controller.setView( viewMock );
 		Writer writerMock = mock( Writer.class );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
-		Repository repoMock = aMockRepo().withOneSpec( spec ).build();
+		SpecRepository repoMock = aMockRepo().withOneSpec( spec ).build();
 		
-		action.work( aMockRequest().withThisUri( "/specs/show/sample").build(), repoMock, writerMock );
+		controller.handle( aMockRequest().withThisUri( "/specs/show/sample").build(), repoMock, writerMock );
 		verify( repoMock ).getSpecByTitle( "sample" );
-		verify( viewMock ).render( spec, writerMock );
+		verify( viewMock ).setSpec( spec );
+		verify( viewMock ).render( writerMock );
 	}
 }

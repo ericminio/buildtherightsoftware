@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.ericmignot.action.Show;
-import org.ericmignot.core.Spec;
-import org.ericmignot.store.FileRepository;
-import org.ericmignot.store.Repository;
-import org.ericmignot.util.HtmlParagraphSpec;
+import org.ericmignot.action.ShowController;
+import org.ericmignot.store.SpecFileStore;
+import org.ericmignot.store.SpecRepository;
 
 public class PageHandler extends AbstractHandler {
+	
 	private ActionRouter actionRouter;
 	private PageRouter pageRouter;
-	private Repository repository;
+	private SpecRepository repository;
 
 	public PageHandler() {
 		setActionRouter(new ActionRouter());
 		setPageRouter(new PageRouter());
-		setRepository(new FileRepository("specs"));
+		setWorkingDirectory("specs");
 	}
 
-	public void setRepository(Repository repository) {
+	public void setRepository(SpecRepository repository) {
 		this.repository = repository;
 	}
 
@@ -39,26 +38,34 @@ public class PageHandler extends AbstractHandler {
 		response.setStatus(HttpServletResponse.SC_OK);
 		baseRequest.setHandled(true);
 
-		Action action = actionRouter.chooseAction(request);
-		if (action != null) {
-			action.work(request, repository, response.getWriter());
-			return;
+		System.out.println( request.getRequestURI() );
+		
+		try {
+		Controller controller = actionRouter.chooseAction(request);
+		if (controller != null) {
+			controller.handle(request, repository, response.getWriter());
 		}
-		Page choosen = pageRouter.choosePage(request);
-		if (choosen != null) {
-			response.getWriter().println(choosen.content());
-			return;
+		else {
+			Page choosen = pageRouter.choosePage(request);
+			if (choosen != null) {
+				response.getWriter().println(choosen.content());
+			}
+			else {
+				displaySampleSpecByDefault(response);
+			}
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		displaySampleSpecByDefault(response);
 	}
 
 	protected void displaySampleSpecByDefault(HttpServletResponse response)
 			throws IOException {
 		HttpServletRequest redirect = mock(HttpServletRequest.class);
 		when(redirect.getRequestURI()).thenReturn("/specs/show/sample");
-		Show show = new Show();
-		show.work(redirect, repository, response.getWriter());
+		ShowController show = new ShowController();
+		show.handle(redirect, repository, response.getWriter());
 	}
 
 	public PageRouter getPageRouter() {
@@ -69,12 +76,22 @@ public class PageHandler extends AbstractHandler {
 		this.pageRouter = router;
 	}
 
-	public Repository getRepository() {
+	public SpecRepository getRepository() {
 		return repository;
 	}
 
 	public void setActionRouter(ActionRouter actionRouter) {
 		this.actionRouter = actionRouter;
+	}
+
+	public void setWorkingDirectory(String directory) {
+		actionRouter.setWorkingDirectory( directory );
+		setRepository(new SpecFileStore( directory ) );
+		
+		LabelMigration migration = new LabelMigration();
+		migration.setWorkingDirectory( directory );
+		migration.work();
+		
 	}
 
 }

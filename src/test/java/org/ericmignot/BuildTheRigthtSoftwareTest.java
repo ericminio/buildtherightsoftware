@@ -1,10 +1,15 @@
 package org.ericmignot;
 
 import org.ericmignot.util.SystemTest;
+import org.junit.Before;
 import org.junit.Test;
 
 public class BuildTheRigthtSoftwareTest extends SystemTest {
 
+	@Before public void
+	setWorkingDirectory() {
+		setWorkingDirectory( "target/test-classes/test-system" );
+	}
 	
 	@Test public void
 	homPageDisplaysASampleSpec() {
@@ -35,7 +40,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
         executeSpecWithDefaultCode();
         specShouldPass();
         pageShouldContainCoberturaSummaryReport();
-        pageShouldContainModifyLink();
 	}
 	
 	@Test public void
@@ -49,6 +53,16 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	@Test public void
 	canModifyASpec() {
 		accessSpecForModification("save-sample");
+		updateSpecContent( "toto" );
+		saveSpec();
+        pageShouldContainModifyLink();
+        pageShouldContainTheText( "modification saved", "toto" );
+	}
+	
+	@Test public void
+	canModifyASpecInProductionDirectory() {
+		setWorkingDirectory( "specs" );
+		accessSpecForModification( "deployment-test" );
 		updateSpecContent( "toto" );
 		saveSpec();
         pageShouldContainModifyLink();

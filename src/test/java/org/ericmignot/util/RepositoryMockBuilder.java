@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.ericmignot.core.Spec;
-import org.ericmignot.store.Repository;
+import org.ericmignot.store.SpecRepository;
 import org.mockito.Mockito;
 
 public class RepositoryMockBuilder {
@@ -20,8 +20,8 @@ public class RepositoryMockBuilder {
 		return this;
 	}
 	
-	public Repository build() {
-		Repository repoMock = mock( Repository.class );
+	public SpecRepository build() {
+		SpecRepository repoMock = mock( SpecRepository.class );
 		when(repoMock.getSpecByTitle( Mockito.anyString() ) ).thenReturn( spec );
 		return repoMock;
 	}

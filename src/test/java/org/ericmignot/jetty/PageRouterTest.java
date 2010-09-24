@@ -1,18 +1,13 @@
 package org.ericmignot.jetty;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.page.ExecutePage;
-import org.ericmignot.page.ModifyPage;
 import org.ericmignot.page.NewPage;
 import org.ericmignot.page.SavePage;
-import org.ericmignot.page.ShowPage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,16 +18,6 @@ public class PageRouterTest {
 	@Before public void
 	init() {
 		pageRouter = new PageRouter();
-	}
-	
-	
-	@Test public void
-	returnsResultWhenSeExecutionIsCalled() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn("/specs/execute/sample");
-		when(request.getParameter("repo")).thenReturn( "git://github.com/testaddict/mastermind.git" );
-		
-		assertTrue( "serves result page", pageRouter.choosePage( request ) instanceof ExecutePage );
 	}
 	
 	@Test public void

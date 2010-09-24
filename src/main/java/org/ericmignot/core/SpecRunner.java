@@ -3,15 +3,15 @@ package org.ericmignot.core;
 import java.io.File;
 import java.io.IOException;
 
-public class SpecRunner {
+public class SpecRunner implements FileWorker {
 
 	private String directory;
 	
 	private String classesRelativePath;
-	private String specXRelativePath;
+	private String specFileRelativePath;
 	private String outRelativePath;
 	
-	public void setDirectory(String path) {
+	public void setWorkingDirectory(String path) {
 		this.directory = path;
 	}
 	
@@ -19,23 +19,30 @@ public class SpecRunner {
 		this.classesRelativePath = classesRelativePath;
 	}
 
-	public void setSpecXRelativeFile(String specXRelativePath) {
-		this.specXRelativePath = specXRelativePath;
+	public void setSpecFileRelativeFile(String specFileRelativePath) {
+		this.specFileRelativePath = specFileRelativePath;
 	}
 	
 	public void setOutputRelativeDirectory(String outRelativePath) {
 		this.outRelativePath = outRelativePath;
 	}
 
-	public void executeSpecification() throws IOException, InterruptedException {
+	public void work() {
 		File dir = new File( directory );
 		String command = "java -cp greenpepper-core-2.7.jar:" + 
 			classesRelativePath +
 			" com.greenpepper.runner.Main" +
-			" " + specXRelativePath +
+			" " + specFileRelativePath +
 			" -o " + outRelativePath ;
-		Process process = Runtime.getRuntime().exec( command, null, dir );
-		process.waitFor();
+		try {
+			Process process;
+			process = Runtime.getRuntime().exec( command, null, dir );
+			process.waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

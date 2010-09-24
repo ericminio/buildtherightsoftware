@@ -6,5 +6,7 @@ import org.ericmignot.core.Spec;
 
 public interface View {
 
-	public void render(Spec spec, Writer out);
+	public void setSpec(Spec spec);
+	
+	public void render(Writer out);
 }

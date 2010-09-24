@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.ericmignot.core.Spec;
 
-public class InMemoryRepository implements Repository {
+public class InMemoryRepository implements SpecRepository {
 
 	protected Map<String, Spec> specs;
 	

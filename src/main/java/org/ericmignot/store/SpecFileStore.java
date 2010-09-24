@@ -9,11 +9,11 @@ import org.ericmignot.core.Spec;
 import org.ericmignot.util.FileReader;
 import org.ericmignot.util.HtmlParagraphSpec;
 
-public class FileRepository implements Repository {
+public class SpecFileStore implements SpecRepository {
 
 	private String path;
 	
-	public FileRepository(String path) {
+	public SpecFileStore(String path) {
 		setPath( path );
 	}
 
@@ -48,8 +48,5 @@ public class FileRepository implements Repository {
 		newSpec.setLabel( label );
 		return newSpec;
 	}
-
-	
-
 	
 }

@@ -21,8 +21,11 @@ public class ModifyPage implements View {
 		return fileReader.readFile( fileName );
 	}
 	
-	public void render(Spec spec, Writer out) {
+	public void setSpec(Spec spec) {
 		this.spec = spec;
+	}
+	
+	public void render(Writer out) {
 		try {
 			out.write( content() );
 		} catch (IOException e) {
