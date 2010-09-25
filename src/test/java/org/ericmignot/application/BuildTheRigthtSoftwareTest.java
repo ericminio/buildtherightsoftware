@@ -3,6 +3,7 @@ package org.ericmignot.application;
 import org.ericmignot.util.SystemTest;
 import org.junit.Before;
 import org.junit.Test;
+import static org.ericmignot.util.FileUtils.saveContentInFile;
 
 public class BuildTheRigthtSoftwareTest extends SystemTest {
 
@@ -60,8 +61,10 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canModifyASpecInProductionDirectory() {
+	canModifyASpecInProductionDirectory() throws java.io.IOException {
 		setWorkingDirectory( "specs" );
+		saveContentInFile( "titi", "specs/deployment-test.html" );
+		saveContentInFile( "label", "specs/deployment-test.label" );
 		accessSpecForModification( "deployment-test" );
 		updateSpecContent( "toto" );
 		saveSpec();
