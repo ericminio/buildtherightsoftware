@@ -61,18 +61,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canModifyASpecInProductionDirectory() throws java.io.IOException {
-		setWorkingDirectory( "specs" );
-		saveContentInFile( "titi", "specs/deployment-test.html" );
-		saveContentInFile( "label", "specs/deployment-test.label" );
-		accessSpecForModification( "deployment-test" );
-		updateSpecContent( "toto" );
-		saveSpec();
-        pageShouldContainModifyLink();
-        pageShouldContainTheText( "modification saved", "toto" );
-	}
-	
-	@Test public void
 	specCreationScenarioUris() {
 		accessHomePage();
 		activateNewSpecCreation();
