@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.LegacyPage;
 import org.ericmignot.route.LegacyCreateRoute;
-import org.ericmignot.route.LegacyListRoute;
 import org.ericmignot.route.LegacyNewRoute;
 import org.ericmignot.route.LegacyPageBuilder;
 import org.ericmignot.route.LegacySaveRoute;
@@ -21,7 +20,6 @@ public class LegacyRouter {
 		candidates.add( new LegacySaveRoute() );
 		candidates.add( new LegacyNewRoute() );
 		candidates.add( new LegacyCreateRoute() );
-		candidates.add( new LegacyListRoute() );
 	}
 	
 	public LegacyPage choosePage(HttpServletRequest request) {

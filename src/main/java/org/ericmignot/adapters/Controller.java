@@ -14,6 +14,6 @@ public interface Controller {
 	
 	public void setAction(Action action);
 	
-	public void setView(View view);
+	public void setRenderer(Renderer renderer);
 	
 }

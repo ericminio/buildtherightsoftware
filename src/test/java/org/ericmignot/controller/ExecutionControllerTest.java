@@ -32,7 +32,7 @@ public class ExecutionControllerTest {
 		controller = new ExecutionController();
 		
 		spec = aSpec().withTitle( "sample" ).build();
-		repoMock = aMockRepo().withOneSpec( spec ).build();
+		repoMock = aMockRepo().withSpec( spec ).build();
 		
 		requestMock = aMockRequest().withThisUri( "/specs/execute/sample" )
 									.withThisGitRepoParam( "git://github.com/testaddict/mastermind.git" )
@@ -59,7 +59,7 @@ public class ExecutionControllerTest {
 		controller.setAction( executeMock );
 		
 		ResultPage resultPageMock = mock( ResultPage.class );
-		controller.setView( resultPageMock );
+		controller.setRenderer( resultPageMock );
 		
 		Writer writerMock = mock( Writer.class );
 		

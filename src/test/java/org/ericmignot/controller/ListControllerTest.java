@@ -10,44 +10,45 @@ import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
 
+import org.ericmignot.adapters.ListRenderer;
 import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRenderer;
 import org.ericmignot.adapters.SpecRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ModifyControllerTest {
+public class ListControllerTest {
 
-	private ModifyController controller;
+	private ListController controller;
+	private Writer writerMock;
 	
 	@Before public void
 	init() {
-		controller = new ModifyController();
+		controller = new ListController();
+		writerMock = mock( Writer.class );
 	}
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample" ).build() ) );
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/sample-calculator").build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list").build() ) );
+		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list/toto").build() ) );
+		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/listtoto").build() ) );
 		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
 		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
 		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/modify/" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/" ).build() ) );
 	}
 	
 	@Test public void
 	rendersTheViewDuringWork() {
-		SpecRenderer viewMock = mock( SpecRenderer.class );
-		controller.setRenderer( viewMock );
-		
-		Writer writerMock = mock( Writer.class );
+		ListRenderer rendererMock = mock( ListRenderer.class );
+		controller.setRenderer( rendererMock );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
 		SpecRepository repoMock = aMockRepo().withSpec( spec ).build();
 		
-		controller.handle( aMockRequest().withThisUri( "/specs/modify/sample").build(), repoMock, writerMock );
-		verify( viewMock ).setSpec( spec );
-		verify( viewMock ).render( writerMock );
+		controller.handle( aMockRequest().withThisUri( "/specs/list").build(), repoMock, writerMock );
+		verify( rendererMock ).setRepository( repoMock );
+		verify( rendererMock ).render( writerMock );
 	}
 }

@@ -1,5 +1,6 @@
 package org.ericmignot.store;
 
+import static org.ericmignot.util.FileUtils.readFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -11,12 +12,9 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
-import org.ericmignot.store.LabelMigration;
-import org.ericmignot.util.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class LabelMigrationTest {
 
@@ -87,7 +85,7 @@ public class LabelMigrationTest {
 		
 		migration.setWorkingDirectory( workingDirectory );
 		migration.work();
-		assertEquals( "a label that I don't want to lose", new FileUtils().readFile( workingDirectory + "/toto.label" ) );
+		assertEquals( "a label that I don't want to lose", readFile( workingDirectory + "/toto.label" ) );
 	}
 	
 	@Test public void

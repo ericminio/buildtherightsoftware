@@ -7,12 +7,13 @@ import java.io.File;
 import org.ericmignot.domain.GitPuller;
 import org.junit.Before;
 import org.junit.Test;
+import static org.ericmignot.util.FileUtils.removeDir;
 
 public class GitDownloadTest {
 
 	@Before public void
 	init() {
-		rmDir( "target/test-classes/test-git-donwload/mastermind" );
+		removeDir( "target/test-classes/test-git-donwload/mastermind" );
 	}
 	
 	@Test public void
@@ -24,16 +25,6 @@ public class GitDownloadTest {
 		
 		File mastermind = new File( "target/test-classes/test-git-donwload/mastermind" );
 		assertTrue( "git clone", mastermind.isDirectory() ); 
-	}
-	
-	protected void rmDir(String dir) {
-		String[] files = new File( dir ).list();
-		if (files != null) {
-			for (String path : files) {
-				new File( path ).delete();
-			}
-		}
-		new File( dir ).delete();
 	}
 	
 }

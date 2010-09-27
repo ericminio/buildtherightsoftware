@@ -3,13 +3,12 @@ package org.ericmignot.page;
 import java.io.IOException;
 
 import org.ericmignot.adapters.LegacyPage;
-import org.ericmignot.util.FileUtils;
+import static org.ericmignot.util.FileUtils.readFile;
 
 public class LegacyPageTemplate implements LegacyPage {
 	
 	public static final String DEFAULT_WORKING_DIRECTORY = "specs/";
 	
-	private FileUtils fileReader;
 	private String specX;
 	private String specXDirectory;
 	
@@ -20,7 +19,6 @@ public class LegacyPageTemplate implements LegacyPage {
 	public LegacyPageTemplate(String specX) {
 		this.specX = specX;
 		this.specXDirectory = DEFAULT_WORKING_DIRECTORY;
-		fileReader = new FileUtils();
 	}
 	
 	public String content() throws IOException {
@@ -38,14 +36,6 @@ public class LegacyPageTemplate implements LegacyPage {
 
 	public void setSpecXDirectory(String dir) {
 		this.specXDirectory = dir;
-	}
-	
-	public void setFileReader(FileUtils fileReader) {
-		this.fileReader = fileReader;
-	}
-	
-	public String readFile(String fileName) {
-		return fileReader.readFile( fileName );
 	}
 	
 	protected String modifyLink() {

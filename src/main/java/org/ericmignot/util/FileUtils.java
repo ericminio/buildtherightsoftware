@@ -2,6 +2,7 @@ package org.ericmignot.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,4 +39,18 @@ public class FileUtils {
 		out.print( content );
 		out.flush();
 	}
+	
+	public static void removeDir(String dir) {
+		String[] files = new File( dir ).list();
+		if (files != null) {
+			for (String fileName : files) {
+				if ( new File( dir + "/" + fileName ).isDirectory() ) {
+					removeDir( dir + "/" + fileName );
+				}
+				new File( dir + "/" + fileName ).delete();
+			}
+		}
+		new File( dir ).delete();
+	}
+	
 }

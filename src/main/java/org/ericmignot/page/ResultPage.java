@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.View;
+import org.ericmignot.adapters.Renderer;
 
-public class ResultPage implements View {
+public class ResultPage implements Renderer {
 
 	private String directory;
 	private String chrono;

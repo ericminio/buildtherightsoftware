@@ -1,6 +1,8 @@
 package org.ericmignot.store;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.ericmignot.adapters.Spec;
@@ -24,6 +26,10 @@ public class InMemoryRepository implements SpecRepository {
 
 	public Spec getSpecByTitle(String title) {
 		return specs.get( title );
+	}
+
+	public List<Spec> getSpecs() {
+		return new ArrayList<Spec>( specs.values() );
 	}
 
 	

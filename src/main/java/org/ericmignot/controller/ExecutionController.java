@@ -14,7 +14,7 @@ import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.adapters.View;
+import org.ericmignot.adapters.Renderer;
 import org.ericmignot.domain.Execute;
 import org.ericmignot.page.ResultPage;
 
@@ -29,7 +29,7 @@ public class ExecutionController implements Controller {
 	
 	public ExecutionController() {
 		setAction( new Execute() );
-		setView( new ResultPage() );
+		setRenderer( new ResultPage() );
 	}
 	
 	public boolean isActivatedBy(HttpServletRequest request) {
@@ -62,7 +62,7 @@ public class ExecutionController implements Controller {
 		this.execute = (Execute) action;
 	}
 
-	public void setView(View view) {
+	public void setRenderer(Renderer view) {
 		this.resultPage = (ResultPage) view;
 	}
 

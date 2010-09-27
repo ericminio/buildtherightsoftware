@@ -1,7 +1,7 @@
 package org.ericmignot.page;
 
 import java.io.IOException;
-
+import static org.ericmignot.util.FileUtils.readFile;
 
 public class LegacyNewPage extends LegacyPageTemplate {
 

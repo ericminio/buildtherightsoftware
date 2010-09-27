@@ -54,7 +54,7 @@ public class ModifyPageTest {
 	@Test public void
 	containsInputFieldToEnterLabels() throws IOException {
 		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
-												, withAttribute("size", "80") ));
+											 , withAttribute("size", "80") ));
 	}
 	
 }

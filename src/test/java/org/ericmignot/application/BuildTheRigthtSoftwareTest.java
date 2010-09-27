@@ -3,7 +3,6 @@ package org.ericmignot.application;
 import org.ericmignot.util.SystemTest;
 import org.junit.Before;
 import org.junit.Test;
-import static org.ericmignot.util.FileUtils.saveContentInFile;
 
 public class BuildTheRigthtSoftwareTest extends SystemTest {
 
@@ -87,7 +86,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessHomePage();
 		accessSpecList();
 		uriShouldBe( "uri after click on spec list link", "/specs/list" );
-		pageShouldContainTheText( "list header", "Spec list:" );
 		pageShouldContainTheText( "test-system resource file calculator-sample.html", "<li><a class=\"list\" href=\"/specs/show/calculator-sample\" >calculator-sample</a></li>" );
 		pageShouldContainTheText( "test-system resource file sample.html", "<li><a class=\"list\" href=\"/specs/show/sample\" >sample</a></li>" );
 	}

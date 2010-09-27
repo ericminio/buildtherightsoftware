@@ -3,9 +3,13 @@ package org.ericmignot.store;
 import static org.ericmignot.util.FileUtils.readFile;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRepository;
@@ -49,6 +53,20 @@ public class SpecFileStore implements SpecRepository {
 		HtmlParagraphSpec newSpec = new HtmlParagraphSpec( title, content );
 		newSpec.setLabel( label );
 		return newSpec;
+	}
+
+	public List<Spec> getSpecs() {
+		List<Spec> specs = new ArrayList<Spec>();
+		File[] files = new File(path).listFiles( new FileFilter() {
+			public boolean accept(File pathname) {
+				return pathname.getName().endsWith( ".html" );
+			}
+		});
+		for (File file : files) {
+			String name = file.getName().substring( 0, file.getName().indexOf(".html") );
+			specs.add( getSpecByTitle(name) );
+		}
+		return specs;
 	}
 	
 }

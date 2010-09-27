@@ -39,19 +39,19 @@ public class ShowPageTest {
 	}
 	
 	@Test public void
-	displayCodeSubmissionSection() throws IOException {
+	displaysCodeSubmissionSection() throws IOException {
 		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
 											, withAttribute("action", "/specs/execute/sample-title") ));
 	}
 	
 	@Test public void
-	displaySpecLabel() {
+	displaysSpecLabel() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "label")
 				 						    , withText("Labels: sample-label") ));
 	}
 	
 	@Test public void
-	displaySpecContent() {
+	displaysSpecContent() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "spec")
 				 						    , withText("sample content") ));
 	}

@@ -11,10 +11,9 @@ import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.adapters.LegacyPage;
-import org.ericmignot.application.StaticFileHandler;
-import org.ericmignot.application.LegacyRouter;
 import org.ericmignot.application.FeatureHandler;
-import org.ericmignot.page.LegacyListPage;
+import org.ericmignot.application.LegacyRouter;
+import org.ericmignot.application.StaticFileHandler;
 import org.ericmignot.page.LegacySavePage;
 import org.ericmignot.store.SpecFileStore;
 import org.junit.AfterClass;
@@ -199,11 +198,6 @@ public abstract class SystemTest {
 				LegacySavePage savePage = (LegacySavePage) choosen;
 				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
 				return savePage;
-			}
-			if ( choosen instanceof LegacyListPage ) {
-				LegacyListPage listPage = (LegacyListPage) choosen;
-				listPage.setSpecXDirectory( "target/test-classes/test-system/" );
-				return listPage;
 			}
 			
 			return choosen;

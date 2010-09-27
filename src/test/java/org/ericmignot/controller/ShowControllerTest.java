@@ -11,9 +11,8 @@ import static org.mockito.Mockito.verify;
 import java.io.Writer;
 
 import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.SpecRenderer;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.adapters.View;
-import org.ericmignot.page.ShowPage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,21 +37,15 @@ public class ShowControllerTest {
 	}
 	
 	@Test public void
-	theRenderingViewIsAShowView() {
-		assertTrue( controller.getView() instanceof ShowPage );
-	}
-	
-	@Test public void
 	rendersTheViewDuringWork() {
-		View viewMock = mock( View.class );
-		controller.setView( viewMock );
+		SpecRenderer viewMock = mock( SpecRenderer.class );
+		controller.setRenderer( viewMock );
 		Writer writerMock = mock( Writer.class );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
-		SpecRepository repoMock = aMockRepo().withOneSpec( spec ).build();
+		SpecRepository repoMock = aMockRepo().withSpec( spec ).build();
 		
 		controller.handle( aMockRequest().withThisUri( "/specs/show/sample").build(), repoMock, writerMock );
-		verify( repoMock ).getSpecByTitle( "sample" );
 		verify( viewMock ).setSpec( spec );
 		verify( viewMock ).render( writerMock );
 	}

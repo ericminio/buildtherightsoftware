@@ -10,21 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.SpecRenderer;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.adapters.View;
+import org.ericmignot.adapters.Renderer;
 import org.ericmignot.page.ModifyPage;
 
 public class ModifyController implements Controller {
 	
 	private static final String URI_PREFIX = "/specs/modify/";
-	private View view;
+	private SpecRenderer view;
 	
 	public ModifyController() {
-		setView( new ModifyPage() );
+		setRenderer( new ModifyPage() );
 	}
 	
-	public void setView(View view) {
-		this.view = view;
+	public void setRenderer(Renderer view) {
+		this.view = (SpecRenderer) view;
 	}
 
 	public boolean isActivatedBy(HttpServletRequest request) {

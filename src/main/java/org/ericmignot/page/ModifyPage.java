@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.View;
+import org.ericmignot.adapters.SpecRenderer;
 
-public class ModifyPage implements View {
+public class ModifyPage implements SpecRenderer {
 
 	private Spec spec;
 
@@ -18,21 +18,21 @@ public class ModifyPage implements View {
 	
 	public void render(Writer out) {
 		try {
-			out.write( content() );
+			String template = pageTemplate();
+			String page = template.replaceAll( "page-content", pageContent() );
+			out.write( page );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public String content() throws IOException {
+	protected String pageTemplate() throws IOException {
 		String content = readFile( "target/html/template.html" );
-		content = content.replaceAll( "page-content", pageContent() );
 		return content;
 	}
-
+	
 	protected String pageContent() throws IOException {
-		String content = 
-			modifyLink() + editContent();
+		String content = modifyLink() + editContent();
 		return content;
 	}
 	

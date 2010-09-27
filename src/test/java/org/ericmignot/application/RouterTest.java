@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.ericmignot.application.Router;
 import org.ericmignot.controller.ExecutionController;
+import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
 import org.ericmignot.controller.ShowController;
 import org.junit.Before;
@@ -40,6 +41,13 @@ public class RouterTest {
 				aMockRequest().withThisUri( "/specs/execute/sample")
 							  .withThisGitRepoParam( "git://github.com/testaddict/mastermind.git" ).build() ) 
 				instanceof ExecutionController );
+	}
+	
+	@Test public void
+	returnsListWhenSpecListIsCalled() {
+		assertTrue( "activate Lis", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/specs/list").build() ) 
+				instanceof ListController );
 	}
 	
 }

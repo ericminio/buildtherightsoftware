@@ -3,6 +3,7 @@ package org.ericmignot.page;
 import java.io.IOException;
 
 import org.ericmignot.domain.LegacySpecSaver;
+import static org.ericmignot.util.FileUtils.readFile;
 
 public class LegacySavePage extends LegacyPageTemplate {
 
