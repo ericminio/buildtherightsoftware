@@ -16,12 +16,12 @@ import org.w3c.dom.Element;
 
 public class NewPageTest {
 
-	private NewPage page;
+	private NewSpecFormPage page;
 	private Element doc;
 	
 	@Before public void
 	init() throws IOException {
-		page = new NewPage( );
+		page = new NewSpecFormPage( );
 		
 		Writer out = new StringWriter();
 		page.render( out);
@@ -30,7 +30,7 @@ public class NewPageTest {
 	
 	@Test public void
 	containsFieldToSetSpecName() throws IOException {
-		assertThat( doc, hasSelector( "input", withAttribute("name", "specXName"),
+		assertThat( doc, hasSelector( "input", withAttribute("name", "spec"),
 												withAttribute("size", "80") ));
 	}
 	

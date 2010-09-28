@@ -10,14 +10,14 @@ import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Renderer;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.page.NewPage;
+import org.ericmignot.page.NewSpecFormPage;
 
 public class NewController implements Controller {
 
 	private Renderer renderer;
 	
 	public NewController() {
-		setRenderer( new NewPage() );
+		setRenderer( new NewSpecFormPage() );
 	}
 	
 	public boolean isActivatedBy(HttpServletRequest request) {

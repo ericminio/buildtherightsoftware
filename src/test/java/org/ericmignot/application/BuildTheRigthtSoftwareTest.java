@@ -67,7 +67,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		
 		createNewSpec( "anewspec" );
 		uriShouldBe( "create uri", "/specs/create" );
-		queryStringShouldBe( "creation query string", "specXName=anewspec" );
+		queryStringShouldBe( "creation query string", "spec=anewspec" );
 	}
 
 	@Test public void

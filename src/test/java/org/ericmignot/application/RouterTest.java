@@ -4,6 +4,7 @@ import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
 import static org.junit.Assert.assertTrue;
 
 import org.ericmignot.application.Router;
+import org.ericmignot.controller.CreationController;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
@@ -56,6 +57,14 @@ public class RouterTest {
 		assertTrue( "activate New", actionRouter.chooseController( 
 				aMockRequest().withThisUri( "/specs/new").build() ) 
 				instanceof NewController );
+	}
+	
+	@Test public void
+	returnsCreationWhenCreationIsCalled() {
+		assertTrue( "activate Creation", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/specs/create")
+							  .withThisSpecTitleParam( "the-game-of-the-future" ).build() ) 
+				instanceof CreationController );
 	}
 	
 }

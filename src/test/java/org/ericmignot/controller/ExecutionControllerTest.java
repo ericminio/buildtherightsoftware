@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.domain.Execute;
+import org.ericmignot.domain.Execution;
 import org.ericmignot.page.ResultPage;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +55,7 @@ public class ExecutionControllerTest {
 
 	@Test public void
 	launchesExecutionAndRendersResult() {
-		Execute executeMock = mock( Execute.class );
+		Execution executeMock = mock( Execution.class );
 		controller.setAction( executeMock );
 		
 		ResultPage resultPageMock = mock( ResultPage.class );

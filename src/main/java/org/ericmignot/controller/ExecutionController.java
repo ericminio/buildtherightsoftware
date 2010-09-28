@@ -15,7 +15,7 @@ import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRepository;
 import org.ericmignot.adapters.Renderer;
-import org.ericmignot.domain.Execute;
+import org.ericmignot.domain.Execution;
 import org.ericmignot.page.ResultPage;
 
 public class ExecutionController implements Controller {
@@ -24,11 +24,11 @@ public class ExecutionController implements Controller {
 	public static final String REPO_URL = "repo";
 	
 	private String directory;
-	private Execute execute;
+	private Execution execute;
 	private ResultPage resultPage;
 	
 	public ExecutionController() {
-		setAction( new Execute() );
+		setAction( new Execution() );
 		setRenderer( new ResultPage() );
 	}
 	
@@ -59,7 +59,7 @@ public class ExecutionController implements Controller {
 	}
 
 	public void setAction(Action action) {
-		this.execute = (Execute) action;
+		this.execute = (Execution) action;
 	}
 
 	public void setRenderer(Renderer view) {

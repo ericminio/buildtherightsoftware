@@ -5,7 +5,7 @@ import static org.ericmignot.util.GitUtils.extractGitRepositoryName;
 import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Spec;
 
-public class Execute implements Action {
+public class Execution implements Action {
 	
 	private String directory;
 	private String chrono;
@@ -16,7 +16,7 @@ public class Execute implements Action {
 	private MavenCompiler compiler;
 	private GreenPepperRunner runner;
 	
-	public Execute() {
+	public Execution() {
 		setGitPuller( new GitPuller() );
 		setCompiler( new MavenCompiler() );
 		setRunner( new GreenPepperRunner() );

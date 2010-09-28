@@ -10,5 +10,5 @@ public interface SpecRepository {
 	public Spec getSpecByTitle(String title);
 	
 	public List<Spec> getSpecs();
-	
+
 }

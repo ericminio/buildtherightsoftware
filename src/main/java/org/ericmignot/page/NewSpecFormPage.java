@@ -7,7 +7,7 @@ import org.ericmignot.adapters.Renderer;
 
 import static org.ericmignot.util.FileUtils.readFile;
 
-public class NewPage implements Renderer {
+public class NewSpecFormPage implements Renderer {
 
 	public void render(Writer out) {
 		try {

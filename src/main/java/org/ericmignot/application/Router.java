@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.Controller;
+import org.ericmignot.controller.CreationController;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
@@ -24,6 +25,7 @@ public class Router {
 		candidates.add( new ExecutionController() );
 		candidates.add( new ListController() );
 		candidates.add( new NewController() );
+		candidates.add( new CreationController() );
 	}
 	
 	public Controller chooseController(HttpServletRequest request) {

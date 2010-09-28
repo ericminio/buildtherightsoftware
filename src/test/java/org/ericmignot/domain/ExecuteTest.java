@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
-import org.ericmignot.domain.Execute;
+import org.ericmignot.domain.Execution;
 import org.ericmignot.domain.GitPuller;
 import org.ericmignot.domain.GreenPepperRunner;
 import org.ericmignot.domain.MavenCompiler;
@@ -15,11 +15,11 @@ import org.junit.Test;
 
 public class ExecuteTest {
 
-	private Execute action;
+	private Execution action;
 	
 	@Before public void
 	init() {
-		action = new Execute();
+		action = new Execution();
 		action.setWorkingDirectory( "working-directory" );
 		action.setChrono( "test-chrono" );
 		action.setSpec( aSpec().withTitle( "sample" ).build() );

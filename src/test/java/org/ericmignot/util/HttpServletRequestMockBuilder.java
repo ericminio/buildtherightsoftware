@@ -29,6 +29,11 @@ public class HttpServletRequestMockBuilder {
 		return this;
 	} 
 	
+	public HttpServletRequestMockBuilder withThisSpecTitleParam(String title) {
+		this.queryString = "spec=" + title;
+		return this;
+	}
+
 	public HttpServletRequest build() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		when(request.getRequestURI()).thenReturn( uri );
@@ -36,4 +41,5 @@ public class HttpServletRequestMockBuilder {
 		when(request.getParameter("repo")).thenReturn( repo );
 		return request;
 	}
+
 }
