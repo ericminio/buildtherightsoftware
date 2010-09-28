@@ -44,18 +44,14 @@ public class ResultPage implements Renderer {
 
 	public void render(Writer out) {
 		try {
-			out.write( content() );
+			String template = readFile( "target/html/template.html" );
+			String page = template.replaceAll( "page-content", pageContent() );
+			out.write( page );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
-	public String content() throws IOException {
-		String content = readFile( "target/html/template.html" );
-		content = content.replaceAll( "page-content", pageContent() );
-		return content;
-	}
-
+	
 	protected String pageContent() throws IOException {
 		String content = specLabel() + specContent() + coberturaReport();
 		return content;

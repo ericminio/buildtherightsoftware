@@ -18,18 +18,13 @@ public class ShowPage implements SpecRenderer {
 	
 	public void render(Writer out) {
 		try {
-			String template = pageTemplate();
+			String template = readFile( "target/html/template.html" );
 			String page = template.replaceAll( "page-content", pageContent() );
 			out.write( page );
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	protected String pageTemplate() throws IOException {
-		String content = readFile( "target/html/template.html" );
-		return content;
 	}
 	
 	protected String pageContent() {

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.LegacyPage;
 import org.ericmignot.application.LegacyRouter;
-import org.ericmignot.page.LegacyNewPage;
+import org.ericmignot.page.NewPage;
 import org.ericmignot.page.LegacySavePage;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,14 +32,6 @@ public class LegacyRouterTest {
 		
 		LegacyPage page = pageRouter.choosePage( request );
 		assertTrue( "serves save page", page instanceof LegacySavePage );
-	}
-	
-	@Test public void
-	returnsNewWhenNewIsCalled() {
-		HttpServletRequest request = mock(HttpServletRequest.class);
-		when(request.getRequestURI()).thenReturn("/specs/new");
-		
-		assertTrue( "serves new page", pageRouter.choosePage( request ) instanceof LegacyNewPage );
 	}
 	
 	@Test public void

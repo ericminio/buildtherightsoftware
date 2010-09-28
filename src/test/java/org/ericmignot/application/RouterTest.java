@@ -7,6 +7,7 @@ import org.ericmignot.application.Router;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
+import org.ericmignot.controller.NewController;
 import org.ericmignot.controller.ShowController;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,9 +46,16 @@ public class RouterTest {
 	
 	@Test public void
 	returnsListWhenSpecListIsCalled() {
-		assertTrue( "activate Lis", actionRouter.chooseController( 
+		assertTrue( "activate List", actionRouter.chooseController( 
 				aMockRequest().withThisUri( "/specs/list").build() ) 
 				instanceof ListController );
+	}
+	
+	@Test public void
+	returnsNewWhenNewIsCalled() {
+		assertTrue( "activate New", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/specs/new").build() ) 
+				instanceof NewController );
 	}
 	
 }

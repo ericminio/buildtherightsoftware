@@ -113,6 +113,7 @@ public abstract class SystemTest {
 	
 	
 	protected void findFieldAndEnterTheValue(String fieldName, String label) {
+		System.out.println( driver.getPageSource() );
 		WebElement labelField = driver.findElement( By.name( fieldName ) );
 		typeInto( labelField, label );
 	}

@@ -18,7 +18,7 @@ public class ModifyPage implements SpecRenderer {
 	
 	public void render(Writer out) {
 		try {
-			String template = pageTemplate();
+			String template = readFile( "target/html/template.html" );
 			String page = template.replaceAll( "page-content", pageContent() );
 			out.write( page );
 		} catch (IOException e) {
@@ -26,11 +26,6 @@ public class ModifyPage implements SpecRenderer {
 		}
 	}
 
-	protected String pageTemplate() throws IOException {
-		String content = readFile( "target/html/template.html" );
-		return content;
-	}
-	
 	protected String pageContent() throws IOException {
 		String content = modifyLink() + editContent();
 		return content;

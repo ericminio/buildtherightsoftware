@@ -78,7 +78,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		pageShouldContainModifyLink();
 		pageShouldContainTheText( "new spec template", "put your service name here" );
 		pageShouldContainTryThisCodeLink();
-		pageShouldContainModifyLink();
 	}
 	
 	@Test public void

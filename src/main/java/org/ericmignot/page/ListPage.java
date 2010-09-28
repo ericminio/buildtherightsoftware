@@ -20,7 +20,7 @@ public class ListPage implements ListRenderer {
 
 	public void render(Writer out) {
 		try {
-			String template = pageTemplate();
+			String template = readFile( "target/html/template.html" );
 			String page = template.replaceAll( "page-content", pageContent() );
 			out.write( page );
 		} catch (IOException e) {
@@ -28,11 +28,6 @@ public class ListPage implements ListRenderer {
 		}
 	}
 
-	protected String pageTemplate() throws IOException {
-		String template = readFile( "target/html/template.html" );
-		return template;
-	}
-	
 	protected String pageContent() throws IOException {
 		String list = "<ul>";
 		List<Spec> specs = repository.getSpecs();

@@ -9,6 +9,7 @@ import org.ericmignot.adapters.Controller;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
+import org.ericmignot.controller.NewController;
 import org.ericmignot.controller.ShowController;
 
 
@@ -22,6 +23,7 @@ public class Router {
 		candidates.add( new ModifyController() );
 		candidates.add( new ExecutionController() );
 		candidates.add( new ListController() );
+		candidates.add( new NewController() );
 	}
 	
 	public Controller chooseController(HttpServletRequest request) {

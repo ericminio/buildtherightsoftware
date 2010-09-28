@@ -7,30 +7,35 @@ import static org.ericmignot.util.DocumentBuilder.doc;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
-public class LegacyNewPageTest {
+public class NewPageTest {
 
-	private LegacyNewPage page;
+	private NewPage page;
+	private Element doc;
 	
 	@Before public void
 	init() throws IOException {
-		page = new LegacyNewPage( );
+		page = new NewPage( );
+		
+		Writer out = new StringWriter();
+		page.render( out);
+		doc = doc( out.toString() );
 	}
 	
 	@Test public void
-	containsFieldToSetSpecXName() throws IOException {
-		Element doc = doc( page );
+	containsFieldToSetSpecName() throws IOException {
 		assertThat( doc, hasSelector( "input", withAttribute("name", "specXName"),
 												withAttribute("size", "80") ));
 	}
 	
 	@Test public void
-	containsFormToSaveTheNewSpecX() throws IOException {
-		Element doc = doc( page );
+	containsFormToSaveTheNewSpec() throws IOException {
 		assertThat( doc, hasSelector( "form", withAttribute("name", "newSpecXForm")
 											, withAttribute("method", "get") 
 											, withAttribute("action", "/specs/create") ));
