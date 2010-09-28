@@ -10,6 +10,8 @@ public class HttpServletRequestMockBuilder {
 	private String uri;
 	private String repo;
 	private String queryString;
+	private String content;
+	private String label;
 	
 	public static HttpServletRequestMockBuilder aMockRequest() {
 		HttpServletRequestMockBuilder builder = new HttpServletRequestMockBuilder();
@@ -20,6 +22,16 @@ public class HttpServletRequestMockBuilder {
 	
 	public HttpServletRequestMockBuilder withThisUri(String uri) {
 		this.uri = uri;
+		return this;
+	}
+	
+	public HttpServletRequestMockBuilder withThisLabel(String label) {
+		this.label = label;
+		return this;
+	}
+	
+	public HttpServletRequestMockBuilder withThisContent(String content) {
+		this.content = content;
 		return this;
 	}
 	
@@ -39,6 +51,8 @@ public class HttpServletRequestMockBuilder {
 		when(request.getRequestURI()).thenReturn( uri );
 		when(request.getQueryString()).thenReturn( queryString );
 		when(request.getParameter("repo")).thenReturn( repo );
+		when(request.getParameter("label")).thenReturn( label );
+		when(request.getParameter("content")).thenReturn( content );
 		return request;
 	}
 

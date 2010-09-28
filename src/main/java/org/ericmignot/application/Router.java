@@ -11,21 +11,25 @@ import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
 import org.ericmignot.controller.NewController;
+import org.ericmignot.controller.SaveController;
 import org.ericmignot.controller.ShowController;
 
 
 public class Router {
 
 	private List<Controller> candidates;
+	private ExecutionController executionController;
 	
 	public Router() {
 		candidates = new ArrayList<Controller>();
 		candidates.add( new ShowController() );
 		candidates.add( new ModifyController() );
-		candidates.add( new ExecutionController() );
+		executionController = new ExecutionController();
+		candidates.add( executionController );
 		candidates.add( new ListController() );
 		candidates.add( new NewController() );
 		candidates.add( new CreationController() );
+		candidates.add( new SaveController() );
 	}
 	
 	public Controller chooseController(HttpServletRequest request) {
@@ -38,9 +42,7 @@ public class Router {
 	}
 
 	public void setWorkingDirectory(String directory) {
-		for (Controller controller : candidates) {
-			controller.setWorkingDirectory(directory);
-		}
+		executionController.setWorkingDirectory(directory);
 	}
 	
 }

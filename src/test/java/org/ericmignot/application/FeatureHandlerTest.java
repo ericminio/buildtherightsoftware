@@ -4,7 +4,6 @@ import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -16,13 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
-import org.ericmignot.adapters.Controller;
+import org.ericmignot.adapters.ActionController;
 import org.ericmignot.adapters.Spec;
-import org.ericmignot.application.Router;
-import org.ericmignot.application.LegacyRouter;
-import org.ericmignot.application.FeatureHandler;
-import org.ericmignot.store.SpecFileStore;
 import org.ericmignot.store.InMemoryRepository;
+import org.ericmignot.store.SpecFileStore;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,33 +53,16 @@ public class FeatureHandlerTest {
 	}
 	
 	@Test public void 
-	askPageChooserWhichPageToServeWhenActionChooserDontFindCandidate() throws IOException, ServletException {
-		Router actionRouterMock = anActionRouterThatNeverIdentifyAction();
-		pageHandler.setRouter( actionRouterMock );
-		
-		LegacyRouter pageChooserMock = mock(LegacyRouter.class);
-		pageHandler.setLegacyRouter(pageChooserMock);
-		
-		pageHandler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
-		verify(actionRouterMock).chooseController(httpRequestMock);
-		verify(pageChooserMock).choosePage(httpRequestMock);
-	}
-
-	@Test public void 
 	dontAskPageChooserWhichPageToServeWhenActionChooserFindsCandidate() throws IOException, ServletException {
-		Controller controller = mock(Controller.class);
+		ActionController controller = mock(ActionController.class);
 		Router actionRouterMock = anActionRouterThatIdentifiesAnAction(controller);
 		pageHandler.setRouter( actionRouterMock );
-		
-		LegacyRouter pageChooser = mock(LegacyRouter.class);
-		pageHandler.setLegacyRouter(pageChooser);
 		
 		when(httpRequestMock.getRequestURI()).thenReturn("/specs/show/sample");
 		
 		pageHandler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
 		verify(actionRouterMock).chooseController(httpRequestMock);
 		verify(controller).handle(httpRequestMock, pageHandler.getRepository(), printWriterMock);
-		verify(pageChooser, never()).choosePage(httpRequestMock);
 	}
 	
 	@Test public void
@@ -102,14 +81,8 @@ public class FeatureHandlerTest {
 		pageHandler.getRepository().saveSpec( sample );
 	}
 	
-	protected Router anActionRouterThatNeverIdentifyAction() {
-		Router actionRouterMock = mock( Router.class );
-		when(actionRouterMock.chooseController(httpRequestMock)).thenReturn(null);
-		return actionRouterMock;
-	}
-	
 	protected Router anActionRouterThatIdentifiesAnAction(
-			Controller actionMock) {
+			ActionController actionMock) {
 		Router actionRouterMock = mock( Router.class );
 		when(actionRouterMock.chooseController(httpRequestMock)).thenReturn(actionMock);
 		return actionRouterMock;

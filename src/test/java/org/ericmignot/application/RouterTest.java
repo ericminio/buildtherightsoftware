@@ -9,6 +9,7 @@ import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
 import org.ericmignot.controller.NewController;
+import org.ericmignot.controller.SaveController;
 import org.ericmignot.controller.ShowController;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +66,15 @@ public class RouterTest {
 				aMockRequest().withThisUri( "/specs/create")
 							  .withThisSpecTitleParam( "the-game-of-the-future" ).build() ) 
 				instanceof CreationController );
+	}
+	
+	@Test public void
+	returnsSaveWhenSaveIsCalled() {
+		assertTrue( "activate Save", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/specs/save/toto" )
+							  .withThisLabel( "game" )
+							  .withThisContent( "tetris" ).build() ) 
+				instanceof SaveController );
 	}
 	
 }

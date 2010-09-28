@@ -9,7 +9,6 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Renderer;
 import org.ericmignot.adapters.SpecRenderer;
@@ -28,13 +27,6 @@ public class CreationController implements Controller {
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return uriIs( "/specs/create", request ) 
 			&& containsGetParameter( "spec", request );
-	}
-
-	public void setWorkingDirectory(String directory) {
-		
-	}
-
-	public void setAction(Action action) {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {

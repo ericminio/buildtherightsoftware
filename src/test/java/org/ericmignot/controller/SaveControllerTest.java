@@ -1,6 +1,5 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.FileUtils.readFile;
 import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
 import static org.ericmignot.util.SpecMatcher.aSpecMatcher;
 import static org.junit.Assert.assertFalse;
@@ -13,40 +12,48 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRenderer;
 import org.ericmignot.adapters.SpecRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CreationControllerTest {
+import static org.ericmignot.util.SpecBuilder.aSpec;
+import static org.ericmignot.util.RepositoryMockBuilder.aMockRepo;
 
-	private CreationController controller;
+public class SaveControllerTest {
+
+	private SaveController controller;
 	private HttpServletRequest requestMock;
 	private SpecRepository repo;
 	private Writer writerMock;
 	
 	@Before public void
 	init() {
-		controller = new CreationController();
-		requestMock = aMockRequest().withThisUri( "/specs/create" )
-									.withThisSpecTitleParam( "toto" )
+		controller = new SaveController();
+		requestMock = aMockRequest().withThisUri( "/specs/save/toto" )
+									.withThisLabel( "game" )
+									.withThisContent( "tetris" )
 					  .build(); 
-		repo = mock( SpecRepository.class );
+		Spec spec = aSpec().withTitle( "toto" ).build();
+		repo = aMockRepo().withSpec(spec).build();
+		
 		writerMock = mock( Writer.class );
 	}
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create" ).withThisSpecTitleParam( "spec-name" ).build() ) );
-
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/toto" )
+																		  .withThisLabel( "game" )
+																		  .withThisContent( "tetris" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create/toto" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/toto" ).build() ) );
 	}
 
 	@Test public void
@@ -56,7 +63,8 @@ public class CreationControllerTest {
 		
 		controller.handle( requestMock, repo, writerMock );
 		verify( repo ).saveSpec( argThat( aSpecMatcher().withTitle( "toto" )
-												 .withContent( readFile( "target/html/newSpecContent.html" ) ) ) );
+												 .withLabel( "game" )
+												 .withContent( "tetris" ) ) );
 		verify( renderer ).setSpec( argThat( aSpecMatcher().withTitle( "toto" ) ) );
 		verify( renderer ).render( writerMock );
 	}

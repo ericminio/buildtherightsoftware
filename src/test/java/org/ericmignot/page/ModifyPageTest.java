@@ -33,14 +33,22 @@ public class ModifyPageTest {
 	}
 	
 	@Test public void
-	containsTextareaToEditSpecX() throws IOException {
-		assertThat( doc, hasSelector( "textarea", withAttribute("name", "specX")
-												, withAttribute("cols", "80")
-												, withAttribute("rows", "20") ));
+	containsInputFieldToEditLabel() throws IOException {
+		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
+											 , withAttribute("size", "80") 
+											 , withAttribute("value", "sample-label") ));
 	}
 	
 	@Test public void
-	containsFormToSaveTheSpecX() throws IOException {
+	containsTextareaToEditContent() throws IOException {
+		assertThat( doc, hasSelector( "textarea", withAttribute("name", "content")
+												, withAttribute("cols", "80")
+												, withAttribute("rows", "20")
+												, withText( "sample content" )));
+	}
+	
+	@Test public void
+	containsFormToSaveTheSpec() throws IOException {
 		assertThat( doc, hasSelector( "form", withAttribute("name", "saveSpecXForm")
 											, withAttribute("method", "post") 
 											, withAttribute("action", "/specs/save/sample-title") ));
@@ -49,12 +57,6 @@ public class ModifyPageTest {
 										 , withAttribute("href", "javascript:saveSpecXForm.submit()") 
 										 , withAttribute("class", "button")
 									     , withText("Save") ));
-	}
-	
-	@Test public void
-	containsInputFieldToEnterLabels() throws IOException {
-		assertThat( doc, hasSelector( "input", withAttribute("name", "label")
-											 , withAttribute("size", "80") ));
 	}
 	
 }

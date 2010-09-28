@@ -7,12 +7,11 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
+import org.ericmignot.adapters.Renderer;
 import org.ericmignot.adapters.Spec;
 import org.ericmignot.adapters.SpecRenderer;
 import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.adapters.Renderer;
 import org.ericmignot.page.ModifyPage;
 
 public class ModifyController implements Controller {
@@ -38,8 +37,4 @@ public class ModifyController implements Controller {
 		view.render( out );
 	}
 
-	public void setAction(Action action) {}
-
-	public void setWorkingDirectory(String directory) {}
-	
 }

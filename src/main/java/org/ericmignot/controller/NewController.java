@@ -6,7 +6,6 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Action;
 import org.ericmignot.adapters.Controller;
 import org.ericmignot.adapters.Renderer;
 import org.ericmignot.adapters.SpecRepository;
@@ -24,13 +23,9 @@ public class NewController implements Controller {
 		return uriIs( "/specs/new", request );
 	}
 
-	public void setWorkingDirectory(String directory) {}
-
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
 		renderer.render( out );
 	}
-
-	public void setAction(Action action) {}
 
 	public void setRenderer(Renderer renderer) {
 		this.renderer = renderer;

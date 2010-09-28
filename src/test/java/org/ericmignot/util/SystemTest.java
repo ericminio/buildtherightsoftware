@@ -5,16 +5,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.ericmignot.adapters.LegacyPage;
 import org.ericmignot.application.FeatureHandler;
-import org.ericmignot.application.LegacyRouter;
 import org.ericmignot.application.StaticFileHandler;
-import org.ericmignot.page.LegacySavePage;
 import org.ericmignot.store.SpecFileStore;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,7 +38,6 @@ public abstract class SystemTest {
 		
 		testPageHandler = new FeatureHandler();
 		testPageHandler.setRepository( new SpecFileStore( "target/test-classes/test-system/" ));
-		testPageHandler.setLegacyRouter( new FakePageRouter() );
         
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { new StaticFileHandler(), testPageHandler });
@@ -159,7 +153,7 @@ public abstract class SystemTest {
 	}
 
 	protected void updateSpecContent(String newContent) {
-		WebElement textarea = driver.findElement(By.name("specX"));
+		WebElement textarea = driver.findElement(By.name("content"));
 		textarea.clear();
 		typeInto( textarea, newContent );
 	}
@@ -188,20 +182,6 @@ public abstract class SystemTest {
 		WebElement element = driver.findElement(By.name("label"));
 		assertEquals( "label field", value, element.getValue() );
 		
-	}
-	
-	private static class FakePageRouter extends LegacyRouter {
-		
-		public LegacyPage choosePage(HttpServletRequest request) {
-			LegacyPage choosen = super.choosePage( request );
-			if ( choosen instanceof LegacySavePage ) {
-				LegacySavePage savePage = (LegacySavePage) choosen;
-				savePage.setSpecXDirectory( "target/test-classes/test-system/" );
-				return savePage;
-			}
-			
-			return choosen;
-		}
 	}
 	
 }
