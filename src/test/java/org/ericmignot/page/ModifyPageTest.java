@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;

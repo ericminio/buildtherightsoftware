@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.store.SpecRepository;
 
 public class RepositoryMockBuilder {
 

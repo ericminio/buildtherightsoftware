@@ -3,9 +3,9 @@ package org.ericmignot.domain;
 import java.io.File;
 import java.io.IOException;
 
-import org.ericmignot.adapters.FileWorker;
+import org.ericmignot.adapters.domain.SpecRunner;
 
-public class GreenPepperRunner implements FileWorker {
+public class GreenPepperRunner implements SpecRunner {
 
 	private String directory;
 	

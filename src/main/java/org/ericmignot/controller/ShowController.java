@@ -7,14 +7,14 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Controller;
-import org.ericmignot.adapters.Renderer;
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRenderer;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.Renderer;
+import org.ericmignot.adapters.ui.SpecRenderer;
+import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.page.ShowPage;
 
-public class ShowController implements Controller {
+public class ShowController implements UserRequest {
 
 	private static final String URI_PREFIX = "/specs/show/";
 	private SpecRenderer view;

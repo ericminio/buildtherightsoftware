@@ -1,10 +1,12 @@
-package org.ericmignot.adapters;
+package org.ericmignot.adapters.ui;
 
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface Controller {
+import org.ericmignot.adapters.store.SpecRepository;
+
+public interface UserRequest {
 
 	public boolean isActivatedBy(HttpServletRequest request);
 	

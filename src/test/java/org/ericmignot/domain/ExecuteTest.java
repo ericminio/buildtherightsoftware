@@ -39,7 +39,7 @@ public class ExecuteTest {
 		
 		action.work();
 		verify( gitDownloadMock ).setWorkingDirectory( "working-directory/runs/test-chrono" );
-		verify( gitDownloadMock ).setGitUrl( "git://github.com/testaddict/mastermind.git" );
+		verify( gitDownloadMock ).setUrl( "git://github.com/testaddict/mastermind.git" );
 		verify( gitDownloadMock ).work();
 		verify( compilerMock ).setWorkingDirectory( "working-directory/runs/test-chrono/mastermind" );
 		verify( compilerMock ).work();

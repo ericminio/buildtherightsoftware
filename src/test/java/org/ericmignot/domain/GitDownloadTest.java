@@ -20,7 +20,7 @@ public class GitDownloadTest {
 	canCloneARemoteGitRepository() {
 		GitPuller fetcher = new GitPuller();
 		fetcher.setWorkingDirectory( "target/test-classes/test-git-donwload" );
-		fetcher.setGitUrl( "git://github.com/testaddict/mastermind.git" );
+		fetcher.setUrl( "git://github.com/testaddict/mastermind.git" );
 		fetcher.work();
 		
 		File mastermind = new File( "target/test-classes/test-git-donwload/mastermind" );

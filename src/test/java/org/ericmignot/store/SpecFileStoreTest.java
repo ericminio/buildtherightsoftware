@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

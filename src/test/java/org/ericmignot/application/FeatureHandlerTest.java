@@ -15,13 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
-import org.ericmignot.adapters.ActionController;
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.store.InMemoryRepository;
 import org.ericmignot.store.SpecFileStore;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class FeatureHandlerTest {
 
@@ -54,7 +53,7 @@ public class FeatureHandlerTest {
 	
 	@Test public void 
 	givesTheBallToTheCorrectController() throws IOException, ServletException {
-		ActionController controller = mock(ActionController.class);
+		UserRequest controller = mock(UserRequest.class);
 		Router routerMock = aRouterThatIdentifiesTheController(controller);
 		handler.setRouter( routerMock );
 		
@@ -81,8 +80,7 @@ public class FeatureHandlerTest {
 		handler.getRepository().saveSpec( sample );
 	}
 	
-	protected Router aRouterThatIdentifiesTheController(
-			ActionController controller) {
+	protected Router aRouterThatIdentifiesTheController(UserRequest controller) {
 		Router actionRouterMock = mock( Router.class );
 		when(actionRouterMock.chooseController(httpRequestMock)).thenReturn(controller);
 		return actionRouterMock;

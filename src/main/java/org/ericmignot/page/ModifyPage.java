@@ -5,8 +5,8 @@ import static org.ericmignot.util.FileUtils.readFile;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRenderer;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.ui.SpecRenderer;
 
 public class ModifyPage implements SpecRenderer {
 

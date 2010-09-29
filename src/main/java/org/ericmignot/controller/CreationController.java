@@ -9,14 +9,14 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Controller;
-import org.ericmignot.adapters.Renderer;
-import org.ericmignot.adapters.SpecRenderer;
-import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.domain.HtmlParagraphSpec;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.Renderer;
+import org.ericmignot.adapters.ui.SpecRenderer;
+import org.ericmignot.adapters.ui.UserRequest;
+import org.ericmignot.domain.PlainTextSpec;
 import org.ericmignot.page.ShowPage;
 
-public class CreationController implements Controller {
+public class CreationController implements UserRequest {
 
 	private SpecRenderer renderer;
 	
@@ -30,7 +30,7 @@ public class CreationController implements Controller {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
-		HtmlParagraphSpec spec = new HtmlParagraphSpec( getQueryStringValueOf( "spec", request ) );
+		PlainTextSpec spec = new PlainTextSpec( getQueryStringValueOf( "spec", request ) );
 		spec.setContent( readFile( "target/html/newSpecContent.html" ) );
 		
 		repository.saveSpec( spec );

@@ -3,13 +3,13 @@ package org.ericmignot.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.ericmignot.domain.HtmlParagraphSpec;
+import org.ericmignot.domain.PlainTextSpec;
 import org.junit.Test;
 
 
-public class HtmlParagraphSpecTest {
+public class PlainTextSpecTest {
 
-	private HtmlParagraphSpec spec = new HtmlParagraphSpec( "title" );;
+	private PlainTextSpec spec = new PlainTextSpec( "title" );;
 	
 	@Test public void
 	canBeCreatedOnlyWithATitle() {

@@ -1,6 +1,6 @@
 package org.ericmignot.util;
 
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
 import org.hamcrest.Description;
 import org.mockito.ArgumentMatcher;
 

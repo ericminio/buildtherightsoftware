@@ -10,9 +10,9 @@ import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRenderer;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.SpecRenderer;
 import org.junit.Before;
 import org.junit.Test;
 

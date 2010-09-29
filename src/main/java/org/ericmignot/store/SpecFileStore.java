@@ -11,9 +11,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRepository;
-import org.ericmignot.domain.HtmlParagraphSpec;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.domain.PlainTextSpec;
 
 public class SpecFileStore implements SpecRepository {
 
@@ -50,7 +50,7 @@ public class SpecFileStore implements SpecRepository {
 	public Spec getSpecByTitle(String title) {
 		String content = readFile( path + "/" + title + ".html" );
 		String label = readFile( path + "/" + title + ".label" );
-		HtmlParagraphSpec newSpec = new HtmlParagraphSpec( title, content );
+		PlainTextSpec newSpec = new PlainTextSpec( title, content );
 		newSpec.setLabel( label );
 		return newSpec;
 	}

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
-import org.ericmignot.adapters.FileWorker;
+import org.ericmignot.adapters.domain.FileWorker;
 
 public class LabelMigration implements FileWorker {
 

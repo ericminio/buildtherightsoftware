@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.ericmignot.adapters.Controller;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.controller.ShowController;
 import org.ericmignot.store.LabelMigration;
 import org.ericmignot.store.SpecFileStore;
@@ -39,7 +39,7 @@ public class FeatureHandler extends AbstractHandler {
 		baseRequest.setHandled(true);
 
 		try {
-		Controller controller = router.chooseController(request);
+		UserRequest controller = router.chooseController(request);
 		if (controller != null) {
 			controller.handle(request, repository, response.getWriter());
 		}

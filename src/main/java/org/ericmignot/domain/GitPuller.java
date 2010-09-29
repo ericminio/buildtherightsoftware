@@ -3,9 +3,9 @@ package org.ericmignot.domain;
 import java.io.File;
 import java.io.IOException;
 
-import org.ericmignot.adapters.FileWorker;
+import org.ericmignot.adapters.domain.RemoteSourcePuller;
 
-public class GitPuller implements FileWorker {
+public class GitPuller implements RemoteSourcePuller {
 
 	private String directory;
 	private String gitUrl;
@@ -14,8 +14,8 @@ public class GitPuller implements FileWorker {
 		this.directory = dir;
 	}
 	
-	public void setGitUrl(String gitUrl) {
-		this.gitUrl = gitUrl;
+	public void setUrl(String url) {
+		this.gitUrl = url;
 	}
 
 	public void work() {

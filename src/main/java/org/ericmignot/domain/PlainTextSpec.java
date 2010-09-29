@@ -1,18 +1,18 @@
 package org.ericmignot.domain;
 
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
 
-public class HtmlParagraphSpec implements Spec {
+public class PlainTextSpec implements Spec {
 
 	private String title;
 	private String content;
 	private String label;
 	
-	public HtmlParagraphSpec(String title) {
+	public PlainTextSpec(String title) {
 		this( title, null );
 	}
 	
-	public HtmlParagraphSpec(String title, String content) {
+	public PlainTextSpec(String title, String content) {
 		this.title = title;
 		this.content = content;
 	}

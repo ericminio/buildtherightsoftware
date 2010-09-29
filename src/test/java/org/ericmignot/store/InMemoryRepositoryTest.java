@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import java.util.Map;
 
-import org.ericmignot.adapters.Spec;
+import org.ericmignot.adapters.domain.Spec;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {

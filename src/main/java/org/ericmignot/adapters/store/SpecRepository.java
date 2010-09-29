@@ -1,6 +1,8 @@
-package org.ericmignot.adapters;
+package org.ericmignot.adapters.store;
 
 import java.util.List;
+
+import org.ericmignot.adapters.domain.Spec;
 
 
 public interface SpecRepository {

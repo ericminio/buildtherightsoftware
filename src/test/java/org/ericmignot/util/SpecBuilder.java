@@ -1,7 +1,7 @@
 package org.ericmignot.util;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.domain.HtmlParagraphSpec;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.domain.PlainTextSpec;
 
 public class SpecBuilder {
 
@@ -29,7 +29,7 @@ public class SpecBuilder {
 	}
 	
 	public Spec build() {
-		HtmlParagraphSpec newSpec = new HtmlParagraphSpec(title);
+		PlainTextSpec newSpec = new PlainTextSpec(title);
 		newSpec.setContent( content);
 		newSpec.setLabel(label);
 		return newSpec;

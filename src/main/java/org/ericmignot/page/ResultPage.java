@@ -7,8 +7,8 @@ import static org.ericmignot.util.HtmlManipulator.removeAllScriptSections;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.Renderer;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.ui.Renderer;
 
 public class ResultPage implements Renderer {
 

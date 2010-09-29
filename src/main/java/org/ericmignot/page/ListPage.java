@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-import org.ericmignot.adapters.ListRenderer;
-import org.ericmignot.adapters.Spec;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.ListRenderer;
 
 public class ListPage implements ListRenderer {
 

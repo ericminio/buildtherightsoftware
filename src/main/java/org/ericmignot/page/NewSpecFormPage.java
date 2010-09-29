@@ -3,7 +3,7 @@ package org.ericmignot.page;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ericmignot.adapters.Renderer;
+import org.ericmignot.adapters.ui.Renderer;
 
 import static org.ericmignot.util.FileUtils.readFile;
 

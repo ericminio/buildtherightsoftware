@@ -1,4 +1,4 @@
-package org.ericmignot.adapters;
+package org.ericmignot.adapters.ui;
 
 import java.io.Writer;
 

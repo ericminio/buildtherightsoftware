@@ -1,4 +1,4 @@
-package org.ericmignot.adapters;
+package org.ericmignot.adapters.domain;
 
 public interface Spec {
 

@@ -6,12 +6,12 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ericmignot.adapters.Controller;
-import org.ericmignot.adapters.Renderer;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.Renderer;
+import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.page.NewSpecFormPage;
 
-public class NewController implements Controller {
+public class NewController implements UserRequest {
 
 	private Renderer renderer;
 	

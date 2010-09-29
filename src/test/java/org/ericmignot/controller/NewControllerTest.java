@@ -8,8 +8,8 @@ import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
 
-import org.ericmignot.adapters.Renderer;
-import org.ericmignot.adapters.SpecRepository;
+import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.adapters.ui.Renderer;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -3,9 +3,9 @@ package org.ericmignot.domain;
 import java.io.File;
 import java.io.IOException;
 
-import org.ericmignot.adapters.FileWorker;
+import org.ericmignot.adapters.domain.Compiler;
 
-public class MavenCompiler implements FileWorker {
+public class MavenCompiler implements Compiler {
 
 	private String directory;
 
@@ -13,12 +13,16 @@ public class MavenCompiler implements FileWorker {
 		this.directory = path;
 	}
 
+	public String getCompilerCommand() {
+		return "mvn clean cobertura:cobertura";
+	}
+	
 	public void work() {
 		File dir = new File( directory );
 		if ( dir.exists() ) {
 			try {
 				Process process;
-				process = Runtime.getRuntime().exec("mvn clean cobertura:cobertura", null, dir);
+				process = Runtime.getRuntime().exec( getCompilerCommand(), null, dir);
 				process.waitFor();
 			} catch (IOException e) {
 				e.printStackTrace();
