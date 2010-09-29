@@ -9,18 +9,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.ericmignot.adapters.LegacyPage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 public class DocumentBuilder {
 
-	public static Element doc( LegacyPage page ) throws IOException {
-		String content = page.content();
-		return doc( content );
-	}
-	
 	public static Element doc( String content ) throws IOException {
 		InputStream is = null;
 		try {
