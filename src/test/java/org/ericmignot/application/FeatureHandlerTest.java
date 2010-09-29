@@ -25,7 +25,7 @@ import org.junit.Test;
 
 public class FeatureHandlerTest {
 
-	private FeatureHandler pageHandler;
+	private FeatureHandler handler;
 	
 	private HttpServletRequest httpRequestMock;
 	private HttpServletResponse httpResponseMock;
@@ -33,7 +33,7 @@ public class FeatureHandlerTest {
 	
 	@Before public void
 	init() throws IOException {
-		pageHandler = new FeatureHandler();
+		handler = new FeatureHandler();
 		useInMemoryRepositoryWithASingleSampleSpec();
 		
 		httpRequestMock = mock(HttpServletRequest.class);
@@ -46,23 +46,23 @@ public class FeatureHandlerTest {
 	@Test public void
 	alwaysHandleTheRequest() throws IOException, ServletException {
 		Request requestMock = mock(Request.class);
-		pageHandler.handle(null, requestMock, httpRequestMock, httpResponseMock);
+		handler.handle(null, requestMock, httpRequestMock, httpResponseMock);
 		verify(httpResponseMock).setContentType("text/html;charset=utf-8");
 		verify(httpResponseMock).setStatus(HttpServletResponse.SC_OK);
 		verify(requestMock).setHandled(true);
 	}
 	
 	@Test public void 
-	dontAskPageChooserWhichPageToServeWhenActionChooserFindsCandidate() throws IOException, ServletException {
+	givesTheBallToTheCorrectController() throws IOException, ServletException {
 		ActionController controller = mock(ActionController.class);
-		Router actionRouterMock = anActionRouterThatIdentifiesAnAction(controller);
-		pageHandler.setRouter( actionRouterMock );
+		Router routerMock = aRouterThatIdentifiesTheController(controller);
+		handler.setRouter( routerMock );
 		
 		when(httpRequestMock.getRequestURI()).thenReturn("/specs/show/sample");
 		
-		pageHandler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
-		verify(actionRouterMock).chooseController(httpRequestMock);
-		verify(controller).handle(httpRequestMock, pageHandler.getRepository(), printWriterMock);
+		handler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
+		verify(routerMock).chooseController(httpRequestMock);
+		verify(controller).handle(httpRequestMock, handler.getRepository(), printWriterMock);
 	}
 	
 	@Test public void
@@ -76,15 +76,15 @@ public class FeatureHandlerTest {
 	}
 
 	protected void useInMemoryRepositoryWithASingleSampleSpec() {
-		pageHandler.setRepository( new InMemoryRepository() );
+		handler.setRepository( new InMemoryRepository() );
 		Spec sample = aSpec().withTitle( "sample" ).build();
-		pageHandler.getRepository().saveSpec( sample );
+		handler.getRepository().saveSpec( sample );
 	}
 	
-	protected Router anActionRouterThatIdentifiesAnAction(
-			ActionController actionMock) {
+	protected Router aRouterThatIdentifiesTheController(
+			ActionController controller) {
 		Router actionRouterMock = mock( Router.class );
-		when(actionRouterMock.chooseController(httpRequestMock)).thenReturn(actionMock);
+		when(actionRouterMock.chooseController(httpRequestMock)).thenReturn(controller);
 		return actionRouterMock;
 	}
 	
