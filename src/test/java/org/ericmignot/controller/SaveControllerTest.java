@@ -1,7 +1,7 @@
 package org.ericmignot.controller;
 
 import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
-import static org.ericmignot.util.SpecMatcher.aSpecMatcher;
+import static org.ericmignot.util.SpecMatcher.isASpecMatcher;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.argThat;
@@ -62,10 +62,10 @@ public class SaveControllerTest {
 		controller.setRenderer( renderer );
 		
 		controller.handle( requestMock, repo, writerMock );
-		verify( repo ).saveSpec( argThat( aSpecMatcher().withTitle( "toto" )
+		verify( repo ).saveSpec( argThat( isASpecMatcher().withTitle( "toto" )
 												 .withLabel( "game" )
 												 .withContent( "tetris" ) ) );
-		verify( renderer ).setSpec( argThat( aSpecMatcher().withTitle( "toto" ) ) );
+		verify( renderer ).setSpec( argThat( isASpecMatcher().withTitle( "toto" ) ) );
 		verify( renderer ).render( writerMock );
 	}
 	

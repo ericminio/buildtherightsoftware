@@ -35,7 +35,7 @@ public class SpecMatcher extends ArgumentMatcher<Spec> {
 		}
 	}
 	
-	public static SpecMatcher aSpecMatcher() {
+	public static SpecMatcher isASpecMatcher() {
 		return new SpecMatcher();
 	}
 	
