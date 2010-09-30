@@ -55,8 +55,4 @@ public class StaticFileHandler extends AbstractHandler {
 		resourceHandler.doStart();
 	}
 
-	public ResourceHandler getResourceHandler() {
-		return resourceHandler;
-	}
-
 }

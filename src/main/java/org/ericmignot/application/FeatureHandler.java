@@ -38,7 +38,6 @@ public class FeatureHandler extends AbstractHandler {
 		response.setStatus(HttpServletResponse.SC_OK);
 		baseRequest.setHandled(true);
 
-		try {
 		UserRequest controller = router.chooseController(request);
 		if (controller != null) {
 			controller.handle(request, repository, response.getWriter());
@@ -46,10 +45,6 @@ public class FeatureHandler extends AbstractHandler {
 		else {
 				displaySampleSpecByDefault(response);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	protected void displaySampleSpecByDefault(HttpServletResponse response)

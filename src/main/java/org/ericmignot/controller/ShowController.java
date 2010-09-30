@@ -27,10 +27,6 @@ public class ShowController implements UserRequest {
 		this.view = (SpecRenderer) view;
 	}
 
-	public Renderer getView() {
-		return view;
-	}
-	
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return trueIfUriStartsWith( URI_PREFIX, request );
 	}
