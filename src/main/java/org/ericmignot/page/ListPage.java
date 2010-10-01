@@ -12,10 +12,13 @@ import org.ericmignot.adapters.ui.ListRenderer;
 
 public class ListPage implements ListRenderer {
 
-	private SpecRepository repository;
+	private List<Spec> specs;
 	
 	public void setRepository(SpecRepository repo) {
-		this.repository = repo;
+	}
+	
+	public void setSpecs(List<Spec> specs) {
+		this.specs = specs;
 	}
 
 	public void render(Writer out) {
@@ -30,7 +33,6 @@ public class ListPage implements ListRenderer {
 
 	protected String pageContent() throws IOException {
 		String list = "<ul>";
-		List<Spec> specs = repository.getSpecs();
 		for (Spec spec : specs) {
 			list += "<li><a class=\"list\" href=\"/specs/show/" + spec.getTitle() + "\" >" + spec.getTitle() + "</a></li>";
 		}

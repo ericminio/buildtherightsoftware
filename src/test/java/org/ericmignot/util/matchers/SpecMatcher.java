@@ -1,30 +1,31 @@
-package org.ericmignot.util;
+package org.ericmignot.util.matchers;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.hamcrest.Description;
-import org.mockito.ArgumentMatcher;
+import org.hamcrest.TypeSafeMatcher;
 
-public class SpecMatcher extends ArgumentMatcher<Spec> {
+public class SpecMatcher extends TypeSafeMatcher<Spec> {
 
 	private String expectedTitle;
 	private String expectedContent;
 	private String expectedLabel;
 	
 	@Override
-	public boolean matches(Object argument) {
+	protected boolean matchesSafely(Spec spec) {
 		boolean match = true;
-		if (argument == null) match = false;
+		if (spec == null) match = false;
 		
-		if (! expectedTitle.equalsIgnoreCase( ((Spec) argument).getTitle() )) match = false;
+		if (! expectedTitle.equalsIgnoreCase( spec.getTitle() )) match = false;
 		
-		if ((expectedContent != null) && !expectedContent.equalsIgnoreCase( ((Spec) argument).getContent() )) match = false;
+		if ((expectedContent != null) 
+				&& !expectedContent.equalsIgnoreCase( spec.getContent() )) match = false;
 		
-		if ((expectedLabel != null) && !expectedLabel.equalsIgnoreCase( ((Spec) argument).getLabel() )) match = false;
+		if ((expectedLabel != null) 
+				&& !expectedLabel.equalsIgnoreCase( spec.getLabel() )) match = false;
 		
 		return match;
 	}
 	
-	@Override
 	public void describeTo(Description matchDescription) {
 		matchDescription.appendText( "a spec with title " ).appendValue( expectedTitle );
 		if (expectedLabel != null) {
@@ -35,7 +36,7 @@ public class SpecMatcher extends ArgumentMatcher<Spec> {
 		}
 	}
 	
-	public static SpecMatcher isASpecMatcher() {
+	public static SpecMatcher isASpec() {
 		return new SpecMatcher();
 	}
 	

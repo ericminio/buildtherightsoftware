@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
+import java.util.List;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
@@ -38,15 +39,16 @@ public class ListControllerTest {
 	}
 	
 	@Test public void
-	rendersTheViewDuringWork() {
+	initializesTheViewWithTheSpecsBeforeRendering() {
 		ListRenderer rendererMock = mock( ListRenderer.class );
 		controller.setRenderer( rendererMock );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
 		SpecRepository repoMock = aMockRepo().withSpec( spec ).build();
+		List<Spec> specs = repoMock.getSpecs();
 		
-		controller.handle( aMockRequest().withThisUri( "/specs/list").build(), repoMock, writerMock );
-		verify( rendererMock ).setRepository( repoMock );
+		controller.handle( null, repoMock, writerMock );
+		verify( rendererMock ).setSpecs( specs );
 		verify( rendererMock ).render( writerMock );
 	}
 }

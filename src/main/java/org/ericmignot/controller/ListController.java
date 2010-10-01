@@ -24,9 +24,8 @@ public class ListController implements UserRequest {
 		return uriIs( "/specs/list", request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository,
-			Writer out) {
-		renderer.setRepository( repository );
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+		renderer.setSpecs( repository.getSpecs() );
 		renderer.render( out );
 	}
 

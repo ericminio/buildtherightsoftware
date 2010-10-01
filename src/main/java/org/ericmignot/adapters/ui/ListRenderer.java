@@ -1,10 +1,12 @@
 package org.ericmignot.adapters.ui;
 
-import org.ericmignot.adapters.store.SpecRepository;
+import java.util.List;
+
+import org.ericmignot.adapters.domain.Spec;
 
 public interface ListRenderer extends Renderer {
 
-	void setRepository(SpecRepository repository);
+	public void setSpecs(List<Spec> specs);
 
 }
 

@@ -2,7 +2,7 @@ package org.ericmignot.controller;
 
 import static org.ericmignot.util.FileUtils.readFile;
 import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
-import static org.ericmignot.util.SpecMatcher.isASpecMatcher;
+import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.argThat;
@@ -55,9 +55,9 @@ public class CreationControllerTest {
 		controller.setRenderer( renderer );
 		
 		controller.handle( requestMock, repo, writerMock );
-		verify( repo ).saveSpec( argThat( isASpecMatcher().withTitle( "toto" )
+		verify( repo ).saveSpec( argThat( isASpec().withTitle( "toto" )
 												 .withContent( readFile( "target/html/newSpecContent.html" ) ) ) );
-		verify( renderer ).setSpec( argThat( isASpecMatcher().withTitle( "toto" ) ) );
+		verify( renderer ).setSpec( argThat( isASpec().withTitle( "toto" ) ) );
 		verify( renderer ).render( writerMock );
 	}
 	
