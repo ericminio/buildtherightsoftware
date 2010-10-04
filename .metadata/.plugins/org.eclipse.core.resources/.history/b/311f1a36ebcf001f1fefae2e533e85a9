@@ -1,0 +1,20 @@
+<p>
+Enter a spec name with no space:
+</p>
+
+<p>
+
+<form name="newSpecXForm" method="get" action="/specs/create" >
+
+	<input name="spec" type="text" size="80" />
+	
+</form>
+
+</p>
+
+<p>
+
+	<a name="createSpecXLink" href="javascript:newSpecXForm.submit()" class="button">Create</a>
+
+</p>
+

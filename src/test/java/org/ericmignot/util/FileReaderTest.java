@@ -13,6 +13,6 @@ public class FileReaderTest {
 	@Test public void
 	canReadInvitationFileSection() throws IOException {
 		String content = readFile( "target/html/invitation.html" );
-		assertThat( content, containsString( "Can you make it ?" ));
+		assertThat( content, containsString( "Can you make it ?" ) );
 	}
 }

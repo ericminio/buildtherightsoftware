@@ -27,22 +27,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	specExecutionUri() {
-		showSpec( "execution-sample" );
-        executeSpecWithDefaultCode();
-        uriShouldBe( "execution uri", "/specs/execute/execution-sample" );
-        queryStringShouldBe( "execution query string", "repo=git%3A%2F%2Fgithub.com%2Ftestaddict%2Fmastermind.git" );
-	}
-	
-	@Test public void
-	canExecuteASpecWithARemoteCodeAndDisplayCoberturaSummaryReport() throws InterruptedException {
-        showSpec( "execution-sample" );
-        executeSpecWithDefaultCode();
-        specShouldPass();
-        pageShouldContainCoberturaSummaryReport();
-	}
-	
-	@Test public void
 	specModificationUri() {
 		accessSpecForModification("save-sample");
 		updateSpecContent( "toto" );

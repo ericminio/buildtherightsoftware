@@ -1,0 +1,6 @@
+package org.eric.mignot.deployment;
+
+
+public class ExternalToolsAvailabilityTest {
+
+}

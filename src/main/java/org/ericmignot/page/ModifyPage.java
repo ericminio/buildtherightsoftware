@@ -33,7 +33,7 @@ public class ModifyPage implements SpecRenderer {
 	
 	protected String modifyLink() {
 		String modifyLink = readFile( "target/html/modifyLink.html" );
-		return modifyLink.replaceAll( "spec-x", spec.getTitle() );
+		return modifyLink.replaceAll( "spec-x", spec.getTitle() ); 
 	}
 
 	protected String editContent() {

@@ -1,6 +1,6 @@
 package org.ericmignot.domain;
 
-import static org.ericmignot.util.GitUtils.extractGitRepositoryName;
+import static org.ericmignot.util.GitUtils.git;
 
 import org.ericmignot.adapters.domain.FileWorker;
 import org.ericmignot.adapters.domain.Spec;
@@ -39,7 +39,7 @@ public class Execution implements FileWorker {
 	}
 
 	public void work() {
-		String gitRepositoryName = extractGitRepositoryName( gitUrl );
+		String gitRepositoryName = git( gitUrl ).extractRepositoryName();
 		
 		puller.setWorkingDirectory( directory + "/runs/" + chrono );
 		puller.setUrl( gitUrl );

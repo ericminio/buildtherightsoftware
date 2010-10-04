@@ -13,11 +13,6 @@ item en cours de développement:
 5. ETQ visiteur, je peux voir toutes les spec-x associées au libellé game
 3. montrer un "quality report" après exécution d'une spec
 
-pending refactoring before delivery:
-- bascule dans nouvelle structure les features : liste, new
-- lecture des résultats depuis le repository
-
-
 
 backlog:
 --------

@@ -1,0 +1,57 @@
+package org.eric.mignot.deployment;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
+
+public class ExternalToolsAvailabilityTest { 
+
+	@Test public void
+	gitIsPresent() {
+		
+		try {
+			Process process;
+			process = Runtime.getRuntime().exec( "mvn --version > test-maven", null, new File( "." ));
+			process.waitFor();
+			String testMavenFileContent = readFile( "test-maven" );
+			assertThat( testMavenFileContent, containsString( "Apache Maven 2") );
+			
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String readFile(String fileName) {
+		String content = null;
+		try {
+			java.io.FileReader fileReader = new java.io.FileReader(fileName);
+			BufferedReader reader = new BufferedReader(fileReader);
+	
+			StringBuffer buffer = new StringBuffer();
+			String str;
+			while ((str = reader.readLine()) != null) {
+				buffer.append(str);
+				buffer.append("\n");
+			}
+			content = buffer.substring( 0, buffer.length() - 1 );
+			reader.close();
+			fileReader.close();
+		}
+		catch (IOException fileDoesntExist) {
+		}
+		catch (StringIndexOutOfBoundsException emptyFile) {
+			content = "";
+		}
+		return content;
+	}
+}

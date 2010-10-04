@@ -4,17 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import static org.junit.Assert.assertNull;
+import static org.ericmignot.util.GitUtils.git;
 
 public class GitTest {
 
 	@Test public void
 	canExtractGitRepositoryFromAGitUrl() {
-		assertEquals( "mastermind", GitUtils.extractGitRepositoryName( "git://github.com/testaddict/mastermind.git" ) );
-		assertEquals( "toto", GitUtils.extractGitRepositoryName( "git://github.com/testaddict/toto.git" ) );
+		assertEquals( "mastermind", git("git://github.com/testaddict/mastermind.git").extractRepositoryName() );
+		assertEquals( "toto", git("git://github.com/testaddict/toto.git").extractRepositoryName() );
 	}
 	
 	@Test public void
 	returnsNullIfProjectNameCannotBeExtracted() {
-		assertNull( GitUtils.extractGitRepositoryName( "git://github.com" ) );
+		assertNull( git("git://github.com").extractRepositoryName() );
 	}
+	
 }

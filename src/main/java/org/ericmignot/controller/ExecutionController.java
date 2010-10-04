@@ -1,6 +1,6 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.GitUtils.extractGitRepositoryName;
+import static org.ericmignot.util.GitUtils.git;
 import static org.ericmignot.util.HttpRequestInformationExtractor.containsGetParameter;
 import static org.ericmignot.util.HttpRequestInformationExtractor.trueIfUriStartsWith;
 import static org.ericmignot.util.HttpRequestInformationExtractor.uriWithoutThePrefix;
@@ -49,7 +49,7 @@ public class ExecutionController implements UserRequest {
 		resultPage.setWorkingDirectory( directory );
 		resultPage.setChrono( chrono );
 		resultPage.setSpec(spec);
-		resultPage.setGitRepositoryName( extractGitRepositoryName( request.getParameter(REPO_URL) ) );
+		resultPage.setGitRepositoryName( git( request.getParameter(REPO_URL) ).extractRepositoryName() );
 		resultPage.render( out);
 	}
 	

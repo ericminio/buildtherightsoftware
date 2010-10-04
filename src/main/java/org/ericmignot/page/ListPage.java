@@ -7,15 +7,11 @@ import java.io.Writer;
 import java.util.List;
 
 import org.ericmignot.adapters.domain.Spec;
-import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.ListRenderer;
 
 public class ListPage implements ListRenderer {
 
 	private List<Spec> specs;
-	
-	public void setRepository(SpecRepository repo) {
-	}
 	
 	public void setSpecs(List<Spec> specs) {
 		this.specs = specs;
