@@ -1,7 +1,7 @@
 package org.ericmignot.controller;
 
 import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
-import static org.ericmignot.util.RepositoryMockBuilder.aMockRepo;
+import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +44,7 @@ public class ListControllerTest {
 		controller.setRenderer( rendererMock );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
-		SpecRepository repoMock = aMockRepo().withSpec( spec ).build();
+		SpecRepository repoMock = aRepo().withSpec( spec ).build();
 		List<Spec> specs = repoMock.getSpecs();
 		
 		controller.handle( null, repoMock, writerMock );

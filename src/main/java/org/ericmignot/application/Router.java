@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.controller.CreationController;
+import org.ericmignot.controller.DefaultController;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
@@ -38,7 +39,7 @@ public class Router {
 				return candidate;
 			}
 		}
-		return null;
+		return new DefaultController();
 	}
 
 	public void setWorkingDirectory(String directory) {

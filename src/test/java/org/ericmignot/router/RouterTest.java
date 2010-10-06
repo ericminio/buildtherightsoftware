@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.ericmignot.application.Router;
 import org.ericmignot.controller.CreationController;
+import org.ericmignot.controller.DefaultController;
 import org.ericmignot.controller.ExecutionController;
 import org.ericmignot.controller.ListController;
 import org.ericmignot.controller.ModifyController;
@@ -22,6 +23,13 @@ public class RouterTest {
 	@Before public void
 	init() {
 		actionRouter = new Router();
+	}
+	
+	@Test public void
+	returnsDefaultControllerWhenHomeIsCalled() {
+		assertTrue( "activate Show sample", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/").build() ) 
+				instanceof DefaultController );
 	}
 	
 	@Test public void

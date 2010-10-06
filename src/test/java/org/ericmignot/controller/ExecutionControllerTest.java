@@ -1,7 +1,7 @@
 package org.ericmignot.controller;
 
 import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
-import static org.ericmignot.util.RepositoryMockBuilder.aMockRepo;
+import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -32,7 +32,7 @@ public class ExecutionControllerTest {
 		controller = new ExecutionController();
 		
 		spec = aSpec().withTitle( "sample" ).build();
-		repoMock = aMockRepo().withSpec( spec ).build();
+		repoMock = aRepo().withSpec( spec ).build();
 		
 		requestMock = aMockRequest().withThisUri( "/specs/execute/sample" )
 									.withThisGitRepoParam( "git://github.com/testaddict/mastermind.git" )

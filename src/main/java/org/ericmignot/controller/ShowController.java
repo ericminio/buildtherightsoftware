@@ -17,7 +17,7 @@ import org.ericmignot.page.ShowPage;
 public class ShowController implements UserRequest {
 
 	private static final String URI_PREFIX = "/specs/show/";
-	private SpecRenderer view;
+	protected SpecRenderer view;
 
 	public ShowController() {
 		setRenderer( new ShowPage() );

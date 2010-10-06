@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
-import static org.ericmignot.util.RepositoryMockBuilder.aMockRepo;
+import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 
 public class SaveControllerTest {
 
@@ -36,7 +36,7 @@ public class SaveControllerTest {
 									.withThisContent( "tetris" )
 					  .build(); 
 		Spec spec = aSpec().withTitle( "toto" ).build();
-		repo = aMockRepo().withSpec(spec).build();
+		repo = aRepo().withSpec(spec).build();
 		
 		writerMock = mock( Writer.class );
 	}

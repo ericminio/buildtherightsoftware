@@ -18,7 +18,7 @@ public class RepositoryMockBuilder {
 		specs = new HashMap<String, Spec>(); 
 	}
 	
-	public static RepositoryMockBuilder aMockRepo() {
+	public static RepositoryMockBuilder aRepo() {
 		return new RepositoryMockBuilder();
 	}
 	
