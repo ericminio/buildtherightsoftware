@@ -4,12 +4,14 @@ import static org.ericmignot.util.FileUtils.readFile;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.ui.ListRenderer;
 
-public class ListPage implements ListRenderer {
+public class LabelListPage implements ListRenderer {
 
 	private List<Spec> specs;
 	
@@ -29,11 +31,27 @@ public class ListPage implements ListRenderer {
 
 	protected String pageContent() throws IOException {
 		String list = "<ul>";
-		for (Spec spec : specs) {
-			list += "<li><a class=\"list\" href=\"/specs/show/" + spec.getTitle() + "\" >" + spec.getTitle() + "</a></li>";
+		Map<String, Integer> labels = labelSummary();
+		for (String	label : labels.keySet()) {
+			list += "<li><a class=\"label-filter\" href=\"/specs/list?label=" 
+				+ label + "\" >" + label + " (" + labels.get(label) + ")</a></li>";
 		}
 		list += "</ul>";
 		return list;
+	}
+
+	public Map<String, Integer> labelSummary() {
+		Map<String, Integer> labels = new HashMap<String, Integer>();
+		for (Spec spec : specs) {
+			if (labels.containsKey( spec.getLabel() )) {
+				int more = labels.get( spec.getLabel() ) + 1;
+				labels.put( spec.getLabel(), more );
+			}
+			else {
+				labels.put( spec.getLabel(), 1 );
+			}
+		}
+		return labels;
 	}
 
 }

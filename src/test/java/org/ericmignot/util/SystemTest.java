@@ -10,7 +10,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.ericmignot.application.FeatureHandler;
 import org.ericmignot.application.StaticFileHandler;
-import org.ericmignot.store.SpecFileStore;
+import org.ericmignot.store.DeletableSpecFileStore;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -27,8 +27,10 @@ public abstract class SystemTest {
 	protected WebDriver driver;
 	
 	private static FeatureHandler testPageHandler;
+	protected static DeletableSpecFileStore repository;
 	
 	protected void setWorkingDirectory(String directory) {
+		repository = new DeletableSpecFileStore( directory );
 		testPageHandler.setWorkingDirectory( directory );
 	}
 	
@@ -37,7 +39,7 @@ public abstract class SystemTest {
 		server = new Server(8080);
 		
 		testPageHandler = new FeatureHandler();
-		testPageHandler.setRepository( new SpecFileStore( "target/test-classes/test-system/" ));
+		testPageHandler.setRepository( repository );
         
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[] { new StaticFileHandler(), testPageHandler });
@@ -60,6 +62,10 @@ public abstract class SystemTest {
 	tearDown() throws Exception {
 		server.stop();
 		thread.stop();
+	}
+	
+	protected void having(SpecBuilder specBuilder) {
+		repository.saveSpec( specBuilder.build() );
 	}
 	
 	@Before public void
@@ -89,6 +95,11 @@ public abstract class SystemTest {
 	protected void accessSpecList() {
 		WebElement specListLink = driver.findElement(By.name("specListLink"));
 		specListLink.click();
+	}
+	
+	protected void accessLabelList() {
+		WebElement labelListLink = driver.findElement(By.name("labelListLink"));
+		labelListLink.click();
 	}
 
 	protected void pageShouldContainTryThisCodeLink() {

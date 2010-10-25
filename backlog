@@ -5,13 +5,13 @@ items livrés:
 5. ETQ visiteur, je peux modifier une spec-x
 3. ETQ visiteur, je peux créer une spec-x pour inviter des gens à la faire passer
 1. ETQ visiteur, je peux voir toutes les spec-x existantes
+3. montrer un rapport Cobertura résumé après exécution d'une spec
 
 
 item en cours de développement:
 -------------------------------
 
 5. ETQ visiteur, je peux voir toutes les spec-x associées au libellé game
-3. montrer un "quality report" après exécution d'une spec
 
 
 backlog:
@@ -20,5 +20,5 @@ backlog:
 
 3. trouver toutes les spec-x qui contiennent un mot donné
 5. augmenter l'indicateur de pertinence d'une spec-x pour la voir avant les autres
- exécuter un ensemble de spec
- donner un avancement par libellé
+13. exécuter un ensemble de spec
+8. donner un avancement par libellé

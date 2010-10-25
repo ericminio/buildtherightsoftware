@@ -9,7 +9,8 @@ import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.controller.CreationController;
 import org.ericmignot.controller.DefaultController;
 import org.ericmignot.controller.ExecutionController;
-import org.ericmignot.controller.ListController;
+import org.ericmignot.controller.LabelListController;
+import org.ericmignot.controller.SpecList;
 import org.ericmignot.controller.ModifyController;
 import org.ericmignot.controller.NewController;
 import org.ericmignot.controller.SaveController;
@@ -27,10 +28,11 @@ public class Router {
 		candidates.add( new ModifyController() );
 		executionController = new ExecutionController();
 		candidates.add( executionController );
-		candidates.add( new ListController() );
+		candidates.add( new SpecList() );
 		candidates.add( new NewController() );
 		candidates.add( new CreationController() );
 		candidates.add( new SaveController() );
+		candidates.add( new LabelListController() );
 	}
 	
 	public UserRequest chooseController(HttpServletRequest request) {

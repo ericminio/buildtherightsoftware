@@ -1,10 +1,10 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
-import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
@@ -23,7 +23,7 @@ public class DefaultControllerTest {
 	@Before public void
 	init() {
 		controller = new DefaultController();
-		repository = aRepo().withSpec( aSpec().withTitle( "sample" ).build() ).build();
+		repository = mock(SpecRepository.class);
 	}
 	
 	@Test public void
@@ -32,6 +32,26 @@ public class DefaultControllerTest {
 		controller.setRenderer( viewMock );
 		
 		controller.handle(null, repository, mock( Writer.class ) );
-		verify( viewMock ).setSpec( argThat( isASpec().withTitle( "sample" ) ));
+		verify( repository, never() ).getSpecByTitle( anyString() );
+		verify( viewMock ).setSpec( argThat( isASpec().withTitle( "sample" )
+													  .withContent( expectedContent() ) ));
+	}
+	
+	private String expectedContent() {
+		return "<p>"
+				+ "<table>" 
+				+ "<tr>" 
+				+ "	<td class=\"rulefor\">Rule for</td>" 
+				+ "	<td>mastermind</td>" 
+				+ "</tr>"
+				+ "<tr>" 
+				+ "<td class=\"ruleforheader\">given the secret</td>" 
+				+ "<td class=\"ruleforheader\">when player plays</td>" 
+				+ "<td class=\"ruleforheader\">does he win ?</td>" 
+				+ "</tr>"
+				+ "<tr> <td>green</td> <td>red</td> <td>no</td> </tr>"
+				+ "<tr> <td>green</td> <td>green</td> <td>yes</td> </tr>"
+				+ "</table>"
+			 + "</p>";
 	}
 }

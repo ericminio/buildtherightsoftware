@@ -18,9 +18,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
-public class ListPageTest {
+public class SpecListPageTest {
 
-	private ListPage page;
+	private SpecListPage page;
 	private Element doc;
 	private Writer out = new StringWriter();
 	
@@ -32,7 +32,7 @@ public class ListPageTest {
 		specs.add( aSpec );
 		specs.add( anotherSpec );
 
-		page = new ListPage();
+		page = new SpecListPage();
 		page.setSpecs( specs );
 		page.render( out);
 		doc = doc( out.toString() );

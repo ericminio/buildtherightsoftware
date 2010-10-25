@@ -17,14 +17,14 @@ import org.ericmignot.adapters.ui.ListRenderer;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ListControllerTest {
+public class SpecListTest {
 
-	private ListController controller;
+	private SpecList controller;
 	private Writer writerMock;
 	
 	@Before public void
 	init() {
-		controller = new ListController();
+		controller = new SpecList();
 		writerMock = mock( Writer.class );
 	}
 	

@@ -7,7 +7,8 @@ import org.ericmignot.application.Router;
 import org.ericmignot.controller.CreationController;
 import org.ericmignot.controller.DefaultController;
 import org.ericmignot.controller.ExecutionController;
-import org.ericmignot.controller.ListController;
+import org.ericmignot.controller.LabelListController;
+import org.ericmignot.controller.SpecList;
 import org.ericmignot.controller.ModifyController;
 import org.ericmignot.controller.NewController;
 import org.ericmignot.controller.SaveController;
@@ -58,7 +59,7 @@ public class RouterTest {
 	returnsListWhenSpecListIsCalled() {
 		assertTrue( "activate List", actionRouter.chooseController( 
 				aMockRequest().withThisUri( "/specs/list").build() ) 
-				instanceof ListController );
+				instanceof SpecList );
 	}
 	
 	@Test public void
@@ -83,6 +84,13 @@ public class RouterTest {
 							  .withThisLabel( "game" )
 							  .withThisContent( "tetris" ).build() ) 
 				instanceof SaveController );
+	}
+	
+	@Test public void
+	returnsLabelControllerWhenLabelListIsCalled() {
+		assertTrue( "activate Label list", actionRouter.chooseController( 
+				aMockRequest().withThisUri( "/specs/labels" ).build() ) 
+				instanceof LabelListController );
 	}
 	
 }
