@@ -2,6 +2,7 @@ package org.ericmignot.store;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -39,14 +40,25 @@ public class InMemoryRepositoryTest {
 	}
 	
 	@Test public void
-	canRetrieveAllASpecs() {
+	canRetrieveAllSpecs() {
 		Spec first = aSpec().withTitle( "first" ).build();
 		Spec second = aSpec().withTitle( "second" ).build();
 		repository.saveSpec( first );
 		repository.saveSpec( second );
 		List<Spec> specs = repository.getSpecs();
-		assertTrue( specs.contains(first) );
-		assertTrue( specs.contains(second) );
+		assertTrue( specs.contains( first ) );
+		assertTrue( specs.contains( second ) );
+	}
+	
+	@Test public void
+	canRetrieveSpecsByLabel() {
+		Spec first = aSpec().withTitle( "first" ).withLabel( "one" ).build();
+		Spec second = aSpec().withTitle( "second" ).withLabel( "two" ).build();
+		repository.saveSpec( first );
+		repository.saveSpec( second );
+		List<Spec> specs = repository.getSpecs( "one" );
+		assertTrue( specs.contains( first ) );
+		assertFalse( specs.contains( second ) );
 	}
 	
 }

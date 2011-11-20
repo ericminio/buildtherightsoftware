@@ -2,6 +2,7 @@ package org.ericmignot.util;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +28,16 @@ public class RepositoryMockBuilder {
 		return this;
 	}
 	
+	public RepositoryMockBuilder andSpec(Spec spec) {
+		return withSpec( spec );
+	}
+	
 	public SpecRepository build() {
 		SpecRepository repoMock = mock( SpecRepository.class );
 		for (Spec spec : specs.values()) {
 			when(repoMock.getSpecByTitle( spec.getTitle() ) ).thenReturn( spec );
 		}
+		when(repoMock.getSpecs(anyString())).thenReturn( new ArrayList<Spec>(specs.values()) );
 		when(repoMock.getSpecs()).thenReturn( new ArrayList<Spec>(specs.values()) );
 		return repoMock;
 	}

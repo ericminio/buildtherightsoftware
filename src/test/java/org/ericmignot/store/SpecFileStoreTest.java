@@ -77,4 +77,26 @@ public class SpecFileStoreTest {
 		assertEquals( 2, specs.size() );
 	}
 	
+	@Test public void
+	canFilterSpecListByLabel() {
+		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
+		repository.saveSpec( aSpec().withTitle( "b" ).withContent( "b" ).withLabel( "second" ).build() );
+		List<Spec> specs = repository.getSpecs( "first" );
+		assertEquals( 1, specs.size() );
+	}
+	
+	@Test public void
+	supportsAnEmptyLabelFilterCriteriaParameter() {
+		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
+		List<Spec> specs = repository.getSpecs( "" );
+		assertEquals( 1, specs.size() );
+	}
+	
+	@Test public void
+	supportsAnNullLabelFilterCriteriaParameter() {
+		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
+		List<Spec> specs = repository.getSpecs( null );
+		assertEquals( 1, specs.size() );
+	}
+	
 }

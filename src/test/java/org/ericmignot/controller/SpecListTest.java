@@ -9,11 +9,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.ListRenderer;
+import org.ericmignot.store.InMemoryRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +35,7 @@ public class SpecListTest {
 	@Test public void
 	activationSpecification() {
 		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list").build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list").withThisLabel( "toto" ).build() ) );
 		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list/toto").build() ) );
 		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/listtoto").build() ) );
 		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
@@ -44,11 +49,32 @@ public class SpecListTest {
 		controller.setRenderer( rendererMock );
 		
 		Spec spec = aSpec().withTitle( "sample" ).build();
-		SpecRepository repoMock = aRepo().withSpec( spec ).build();
-		List<Spec> specs = repoMock.getSpecs();
+		SpecRepository repo = aRepo().withSpec( spec ).build();
+		List<Spec> specs = repo.getSpecs();
 		
-		controller.handle( null, repoMock, writerMock );
+		controller.handle( null, repo, writerMock );
 		verify( rendererMock ).setSpecs( specs );
 		verify( rendererMock ).render( writerMock );
+	}
+	
+	@Test public void
+	initializeTheViewWithTheFilteredSpecsWhenALabelIsSpecifiedInTheRequest() {
+		ListRenderer rendererMock = mock( ListRenderer.class );
+		controller.setRenderer( rendererMock );
+		
+		HttpServletRequest fakeRequest = aMockRequest().withThisUri( "/specs/list").withThisLabelParam( "toto" ).build();
+		Spec titiSpec = aSpec().withTitle( "one" ).withLabel( "titi" ).build();
+		Spec totoSpec = aSpec().withTitle( "two" ).withLabel( "toto" ).build();
+		SpecRepository repo = new InMemoryRepository();
+		repo.saveSpec( totoSpec );
+		repo.saveSpec( titiSpec );
+		
+		List<Spec> expectedSpecs = new ArrayList<Spec>();
+		expectedSpecs.add( totoSpec );
+		
+		controller.handle( fakeRequest, repo, writerMock );
+		verify( rendererMock ).setSpecs( expectedSpecs );
+		verify( rendererMock ).render( writerMock );
+		
 	}
 }

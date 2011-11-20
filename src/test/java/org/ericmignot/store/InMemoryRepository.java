@@ -32,6 +32,16 @@ public class InMemoryRepository implements SpecRepository {
 		return new ArrayList<Spec>( specs.values() );
 	}
 
+	public List<Spec> getSpecs(String label) {
+		List<Spec> filteredByLabel = new ArrayList<Spec>();
+		for (Spec spec : specs.values()) {
+			if ( spec.getLabel().equalsIgnoreCase( label ) ) {
+				filteredByLabel.add( spec );
+			}
+		}
+		return filteredByLabel;
+	}
+
 	
 
 }

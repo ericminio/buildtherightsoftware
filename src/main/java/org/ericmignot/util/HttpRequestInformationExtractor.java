@@ -41,6 +41,12 @@ public class HttpRequestInformationExtractor {
 	}
 	
 	public static String getQueryStringValueOf(String param, HttpServletRequest request) {
-		return request.getQueryString().substring( ( param + "=" ).length() );
+		if ( request != null 
+				&& request.getQueryString() != null ) {
+			return request.getQueryString().substring( ( param + "=" ).length() );
+		}
+		else {
+			return "";
+		}
 	}
 }

@@ -33,8 +33,11 @@ public class LabelListPage implements ListRenderer {
 		String list = "<ul>";
 		Map<String, Integer> labels = labelSummary();
 		for (String	label : labels.keySet()) {
-			list += "<li><a class=\"label-filter\" href=\"/specs/list?label=" 
-				+ label + "\" >" + label + " (" + labels.get(label) + ")</a></li>";
+			list += "<li><a "
+							+ "name=\"" + label + "\" "
+							+ "class=\"label-filter\" "
+							+ "href=\"/specs/list?label=" + label 
+						+ "\" >" + label + " (" + labels.get(label) + ")</a></li>";
 		}
 		list += "</ul>";
 		return list;

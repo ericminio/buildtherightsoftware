@@ -2,7 +2,6 @@ package org.ericmignot.application;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 
-import org.ericmignot.util.SpecBuilder;
 import org.ericmignot.util.SystemTest;
 import org.junit.After;
 import org.junit.Before;
@@ -107,8 +106,22 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		having( aSpec().withLabel( "pyxis" ).withTitle( "rotating dinner" ) );
 		accessHomePage();
 		accessLabelList();
-		pageShouldContainTheText( "label filter game", "<li><a class=\"label-filter\" href=\"/specs/list?label=game\" >game (1)</a></li>" );
-		pageShouldContainTheText( "label filter pyxis", "<li><a class=\"label-filter\" href=\"/specs/list?label=pyxis\" >pyxis (2)</a></li>" );
+		pageShouldContainTheText( "label filter game", "game (1)" );
+		pageShouldContainTheText( "label filter pyxis", "pyxis (2)" );
+	}
+	
+	@Test public void
+	canAccessSpecListFilteresByALabel() {
+		having( aSpec().withLabel( "game" ).withTitle( "tetris" ) );
+		having( aSpec().withLabel( "pyxis" ).withTitle( "lotery" ) );
+		having( aSpec().withLabel( "pyxis" ).withTitle( "rotating dinner" ) );
+		accessHomePage();
+		accessLabelList();
+		navigateByLabel( "pyxis" );
+		urlShouldContain( "uri after click on a label", "/specs/list?label=pyxis" );
+		pageShouldContainTheText( "spec list filtered by label", "lotery" );
+		pageShouldContainTheText( "spec list filtered by label", "rotating dinner" );
+		pageShouldNotContainTheText( "spec list filtered by label", "tetris" );
 	}
 	
 

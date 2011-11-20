@@ -30,6 +30,11 @@ public class HttpServletRequestMockBuilder {
 		return this;
 	}
 	
+	public HttpServletRequestMockBuilder withThisLabelParam(String label) {
+		this.queryString = "label=" + label;
+		return this;
+	}
+
 	public HttpServletRequestMockBuilder withThisContent(String content) {
 		this.content = content;
 		return this;

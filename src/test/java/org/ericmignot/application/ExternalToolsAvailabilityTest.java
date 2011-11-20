@@ -19,7 +19,7 @@ public class ExternalToolsAvailabilityTest {
 	
 	@Test public void
 	mavenIsPresent() {
-		launchAndExpect( "mvn --version", "Apache Maven 2." );
+		launchAndExpect( "mvn --version", "Apache Maven" );
 	}
 	
 	protected void launchAndExpect(String command, String expectedOutput) {

@@ -1,6 +1,7 @@
 package org.ericmignot.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -101,7 +102,12 @@ public abstract class SystemTest {
 		WebElement labelListLink = driver.findElement(By.name("labelListLink"));
 		labelListLink.click();
 	}
-
+	
+	protected void navigateByLabel(String label) {
+		WebElement labelLink = driver.findElement(By.name(label));
+		labelLink.click();
+	}
+	
 	protected void pageShouldContainTryThisCodeLink() {
 		assertNotNull("contains try code form", driver.findElement(By.name("tryCodeLink")));
 	}
@@ -135,6 +141,10 @@ public abstract class SystemTest {
 	protected void pageShouldContainTheText(String message, String expected) {
         assertThat( message, driver.getPageSource(), containsString( expected ) );
 	}
+	
+	protected void pageShouldNotContainTheText(String message, String intruder) {
+        assertThat( message, driver.getPageSource(), not(containsString( intruder ) ) );
+	}
 
 	protected void pageShouldContainModifyLink() {
         assertNotNull("modify link present", driver.findElement(By.name("modifyLink")));
@@ -147,6 +157,10 @@ public abstract class SystemTest {
 			uri = url.substring( 0, url.indexOf("?"));
 		}
 		assertEquals( message, "http://localhost:8080" + expectedUri, uri );
+	}
+	
+	protected void urlShouldContain(String message, String expected) {
+		assertThat( message, driver.getCurrentUrl(), containsString( expected) );
 	}
 	
 	protected void queryStringShouldBe(String message, String expectedQueryString) {

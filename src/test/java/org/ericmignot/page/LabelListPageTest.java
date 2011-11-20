@@ -50,7 +50,7 @@ public class LabelListPageTest {
 			for (int labelIndex=0; labelIndex < expectedLabelCountOfTest( testIndex ) ; labelIndex ++) {
 				String expectedText = labelInfoAtIndexGivenTestIndex( labelIndex, testIndex );
 				String expectedLabel = labelAtIndexGivenTestIndex( labelIndex, testIndex );
-				String expectedLink = "<a class=\"label-filter\" href=\"/specs/list?label=" + expectedLabel + "\" >" + expectedText+ "</a>";
+				String expectedLink = "<a name=\"" + expectedLabel + "\" class=\"label-filter\" href=\"/specs/list?label=" + expectedLabel + "\" >" + expectedText+ "</a>";
 				assertThat( pageContent, containsString(expectedLink) );
 			}
 		}

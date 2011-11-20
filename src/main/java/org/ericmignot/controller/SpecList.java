@@ -11,7 +11,7 @@ import org.ericmignot.adapters.ui.ListRenderer;
 import org.ericmignot.adapters.ui.Renderer;
 import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.page.SpecListPage;
-
+import static org.ericmignot.util.HttpRequestInformationExtractor.getQueryStringValueOf;
 public class SpecList implements UserRequest {
 
 	private ListRenderer renderer;
@@ -25,7 +25,7 @@ public class SpecList implements UserRequest {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
-		renderer.setSpecs( repository.getSpecs() );
+		renderer.setSpecs( repository.getSpecs( getQueryStringValueOf( "label", request ) ) );
 		renderer.render( out );
 	}
 

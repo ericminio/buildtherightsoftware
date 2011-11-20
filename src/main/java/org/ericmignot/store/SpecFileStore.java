@@ -68,5 +68,25 @@ public class SpecFileStore implements SpecRepository {
 		}
 		return specs;
 	}
+
+	public List<Spec> getSpecs(String label) {
+		if ( label == null || "".equalsIgnoreCase(label) ) {
+			return getSpecs();
+		}
+		List<Spec> specs = new ArrayList<Spec>();
+		File[] files = new File(path).listFiles( new FileFilter() {
+			public boolean accept(File pathname) {
+				return pathname.getName().endsWith( ".html" );
+			}
+		});
+		for (File file : files) {
+			String name = file.getName().substring( 0, file.getName().indexOf(".html") );
+			Spec spec = getSpecByTitle(name);
+			if (spec.getLabel().equalsIgnoreCase(label)) {
+				specs.add( spec );
+			}
+		}
+		return specs;
+	}
 	
 }
