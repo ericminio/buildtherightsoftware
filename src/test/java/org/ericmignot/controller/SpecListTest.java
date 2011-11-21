@@ -48,8 +48,7 @@ public class SpecListTest {
 	
 	@Test public void
 	initializesTheViewWithTheSpecsBeforeRendering() {
-		Spec spec = aSpec().withTitle( "sample" ).build();
-		SpecRepository repo = aRepo().withSpec( spec ).build();
+		SpecRepository repo = aRepo().withSpec( aSpec().build() ).build();
 		List<Spec> specs = repo.getSpecs();
 		
 		controller.handle( null, repo, writerMock );
@@ -69,11 +68,11 @@ public class SpecListTest {
 	initializeTheViewWithTheFilteredSpecsWhenALabelIsSpecifiedInTheRequest() {
 		List<Spec> expectedSpecs = new ArrayList<Spec>();
 		expectedSpecs.add( aSpec().build() );
-		SpecRepository repo = mock( SpecRepository.class );
-		when(repo.getSpecs( "toto" )).thenReturn( expectedSpecs );
+		SpecRepository repoStub = mock( SpecRepository.class );
+		when(repoStub.getSpecs( "toto" )).thenReturn( expectedSpecs );
 		
 		controller.handle( aMockRequest().withThisUri( "/specs/list")
-							.withThisLabelParam( "toto" ).build(), repo, writerMock );
+							.withThisLabelParam( "toto" ).build(), repoStub, writerMock );
 		verify( rendererMock ).setSpecs( expectedSpecs );
 		verify( rendererMock ).render( writerMock );
 	}
