@@ -1,7 +1,7 @@
 package org.ericmignot.controller;
 
 import static org.ericmignot.util.FileUtils.readFile;
-import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
+import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
 import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -28,8 +28,8 @@ public class CreationControllerTest {
 	@Before public void
 	init() {
 		controller = new CreationController();
-		requestMock = aMockRequest().withThisUri( "/specs/create" )
-									.withThisSpecTitleParam( "toto" )
+		requestMock = aStubRequest().withThisUri( "/specs/create" )
+									.withThisGetParameter( "spec", "toto" )
 					  .build(); 
 		repo = mock( SpecRepository.class );
 		writerMock = mock( Writer.class );
@@ -37,16 +37,16 @@ public class CreationControllerTest {
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create" ).withThisSpecTitleParam( "spec-name" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/create" ).withThisGetParameter( "spec", "spec-name" ).build() ) );
 
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/create/toto" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( null ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/create" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/create/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/create/toto" ).build() ) );
 	}
 
 	@Test public void

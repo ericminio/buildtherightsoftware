@@ -1,6 +1,6 @@
 package org.ericmignot.router;
 
-import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
+import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
 import static org.junit.Assert.assertTrue;
 
 import org.ericmignot.application.Router;
@@ -29,67 +29,67 @@ public class RouterTest {
 	@Test public void
 	returnsDefaultControllerWhenHomeIsCalled() {
 		assertTrue( "activate Show sample", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/").build() ) 
+				aStubRequest().withThisUri( "/").build() ) 
 				instanceof DefaultController );
 	}
 	
 	@Test public void
 	returnsShowWhenShowIsCalled() {
 		assertTrue( "activate Show", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/show/sample").build() ) 
+				aStubRequest().withThisUri( "/specs/show/sample").build() ) 
 				instanceof ShowController );
 	}
 	
 	@Test public void
 	returnsModifyWhenModifyIsCalled() {
 		assertTrue( "activate Modify", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/modify/sample").build() ) 
+				aStubRequest().withThisUri( "/specs/modify/sample").build() ) 
 				instanceof ModifyController );
 	}
 	
 	@Test public void
 	returnsExecuteWhenExecuteIsCalled() {
 		assertTrue( "activate Execution", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/execute/sample")
-							  .withThisGitRepoParam( "git://github.com/testaddict/mastermind.git" ).build() ) 
+				aStubRequest().withThisUri( "/specs/execute/sample")
+							  .withThisGetParameter( "repo", "git://github.com/testaddict/mastermind.git" ).build() ) 
 				instanceof ExecutionController );
 	}
 	
 	@Test public void
 	returnsListWhenSpecListIsCalled() {
 		assertTrue( "activate List", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/list").build() ) 
+				aStubRequest().withThisUri( "/specs/list").build() ) 
 				instanceof SpecList );
 	}
 	
 	@Test public void
 	returnsNewWhenNewIsCalled() {
 		assertTrue( "activate New", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/new").build() ) 
+				aStubRequest().withThisUri( "/specs/new").build() ) 
 				instanceof NewController );
 	}
 	
 	@Test public void
 	returnsCreationWhenCreationIsCalled() {
 		assertTrue( "activate Creation", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/create")
-							  .withThisSpecTitleParam( "the-game-of-the-future" ).build() ) 
+				aStubRequest().withThisUri( "/specs/create")
+							  .withThisGetParameter( "spec", "the-game-of-the-future" ).build() ) 
 				instanceof CreationController );
 	}
 	
 	@Test public void
 	returnsSaveWhenSaveIsCalled() {
 		assertTrue( "activate Save", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/save/toto" )
-							  .withThisLabel( "game" )
-							  .withThisContent( "tetris" ).build() ) 
+				aStubRequest().withThisUri( "/specs/save/toto" )
+							  .withThisPostParameter( "label", "game" )
+							  .withThisPostParameter( "content", "tetris" ).build() ) 
 				instanceof SaveController );
 	}
 	
 	@Test public void
 	returnsLabelControllerWhenLabelListIsCalled() {
 		assertTrue( "activate Label list", actionRouter.chooseController( 
-				aMockRequest().withThisUri( "/specs/labels" ).build() ) 
+				aStubRequest().withThisUri( "/specs/labels" ).build() ) 
 				instanceof LabelListController );
 	}
 	

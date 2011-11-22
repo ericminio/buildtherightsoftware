@@ -1,6 +1,6 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
+import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
 import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertFalse;
@@ -12,8 +12,6 @@ import static org.mockito.Mockito.when;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
@@ -37,13 +35,13 @@ public class SpecListTest {
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list").build() ) );
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list").withThisLabel( "toto" ).build() ) );
-		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/list/toto").build() ) );
-		assertFalse( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/listtoto").build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/list").build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/list").withThisPostParameter( "label", "toto" ).build() ) );
+		assertFalse( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/list/toto").build() ) );
+		assertFalse( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/listtoto").build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( null ).build() ) );
 	}
 	
 	@Test public void
@@ -59,8 +57,8 @@ public class SpecListTest {
 	@Test public void
 	extractOnlyTheLabeledSpecsWhenALabelFilterIsSpecified() {
 		SpecRepository repoMock = mock( SpecRepository.class );
-		controller.handle( aMockRequest().withThisUri( "/specs/list")
-							.withThisLabelParam( "toto" ).build(), repoMock, writerMock );
+		controller.handle( aStubRequest().withThisUri( "/specs/list")
+							.withThisGetParameter( "label", "toto" ).build(), repoMock, writerMock );
 		verify( repoMock ).getSpecs( "toto" );
 	}
 
@@ -71,8 +69,8 @@ public class SpecListTest {
 		SpecRepository repoStub = mock( SpecRepository.class );
 		when(repoStub.getSpecs( "toto" )).thenReturn( expectedSpecs );
 		
-		controller.handle( aMockRequest().withThisUri( "/specs/list")
-							.withThisLabelParam( "toto" ).build(), repoStub, writerMock );
+		controller.handle( aStubRequest().withThisUri( "/specs/list")
+							.withThisGetParameter( "label", "toto" ).build(), repoStub, writerMock );
 		verify( rendererMock ).setSpecs( expectedSpecs );
 		verify( rendererMock ).render( writerMock );
 	}

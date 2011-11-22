@@ -1,6 +1,6 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
+import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
 import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertFalse;
@@ -27,13 +27,13 @@ public class ShowControllerTest {
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample").build() ) );
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/sample-calculator").build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show" ).build() ) );
-		assertFalse( "don't activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/show/" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/show/sample").build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/show/sample-calculator").build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( null ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/show" ).build() ) );
+		assertFalse( "don't activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/show/" ).build() ) );
 	}
 	
 	@Test public void
@@ -45,7 +45,7 @@ public class ShowControllerTest {
 		Spec spec = aSpec().withTitle( "sample" ).build();
 		SpecRepository repoMock = aRepo().withSpec( spec ).build();
 		
-		controller.handle( aMockRequest().withThisUri( "/specs/show/sample").build(), repoMock, writerMock );
+		controller.handle( aStubRequest().withThisUri( "/specs/show/sample").build(), repoMock, writerMock );
 		verify( viewMock ).setSpec( spec );
 		verify( viewMock ).render( writerMock );
 	}

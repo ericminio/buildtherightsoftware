@@ -1,6 +1,6 @@
 package org.ericmignot.controller;
 
-import static org.ericmignot.util.HttpServletRequestMockBuilder.aMockRequest;
+import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.argThat;
@@ -31,9 +31,9 @@ public class SaveControllerTest {
 	@Before public void
 	init() {
 		controller = new SaveController();
-		requestMock = aMockRequest().withThisUri( "/specs/save/toto" )
-									.withThisLabel( "game" )
-									.withThisContent( "tetris" )
+		requestMock = aStubRequest().withThisUri( "/specs/save/toto" )
+									.withThisPostParameter( "label", "game" )
+									.withThisPostParameter( "content", "tetris" )
 					  .build(); 
 		Spec spec = aSpec().withTitle( "toto" ).build();
 		repo = aRepo().withSpec(spec).build();
@@ -43,17 +43,17 @@ public class SaveControllerTest {
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/toto" )
-																		  .withThisLabel( "game" )
-																		  .withThisContent( "tetris" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( null ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/" ).build() ) );
-		assertFalse( "activate", controller.isActivatedBy( aMockRequest().withThisUri( "/specs/save/toto" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save/toto" )
+																		  .withThisPostParameter( "label", "game" )
+																		  .withThisPostParameter( "content", "tetris" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( null ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save/" ).build() ) );
+		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save/toto" ).build() ) );
 	}
 
 	@Test public void
