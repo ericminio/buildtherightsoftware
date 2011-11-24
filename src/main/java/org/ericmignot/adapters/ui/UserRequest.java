@@ -10,7 +10,7 @@ public interface UserRequest {
 
 	public boolean isActivatedBy(HttpServletRequest request);
 	
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out);
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception;
 	
 	public void setRenderer(Renderer renderer);
 

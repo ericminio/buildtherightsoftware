@@ -24,8 +24,7 @@ public class LabelListController implements UserRequest {
 		return uriIs( "/specs/labels", request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository,
-			Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		renderer.setSpecs( repository.getSpecs() );
 		renderer.render( out );
 	}

@@ -27,9 +27,6 @@ public class FileUtils {
 		}
 		catch (IOException fileDoesntExist) {
 		}
-		catch (StringIndexOutOfBoundsException emptyFile) {
-			content = "";
-		}
 		return content;
 	}
 	

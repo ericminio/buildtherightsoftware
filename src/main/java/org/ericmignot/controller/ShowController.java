@@ -31,7 +31,7 @@ public class ShowController implements UserRequest {
 		return trueIfUriStartsWith( URI_PREFIX, request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		Spec spec = repository.getSpecByTitle( uriWithoutThePrefix( URI_PREFIX,  request) );
 		view.setSpec( spec );
 		view.render( out );

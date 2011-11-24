@@ -23,7 +23,7 @@ public class NewController implements UserRequest {
 		return uriIs( "/specs/new", request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		renderer.render( out );
 	}
 

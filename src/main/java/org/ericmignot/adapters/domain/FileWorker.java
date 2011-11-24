@@ -5,6 +5,6 @@ public interface FileWorker {
 
 	public void setWorkingDirectory(String dir);
 	
-	public void work();
+	public void work() throws Exception;
 	
 }

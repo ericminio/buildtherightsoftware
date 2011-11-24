@@ -1,5 +1,6 @@
 package org.ericmignot.adapters.store;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.ericmignot.adapters.domain.Spec;
@@ -7,7 +8,7 @@ import org.ericmignot.adapters.domain.Spec;
 
 public interface SpecRepository {
 
-	public void saveSpec(Spec spec);
+	public void saveSpec(Spec spec) throws IOException;
 	
 	public Spec getSpecByTitle(String title);
 	

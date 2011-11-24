@@ -3,7 +3,7 @@ package org.ericmignot.util;
 import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestInformationExtractor {
-
+	
 	public static boolean trueIfUriStartsWith(String prefix, HttpServletRequest request) {
 		String uri = request.getRequestURI();
 		

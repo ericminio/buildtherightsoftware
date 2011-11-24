@@ -42,14 +42,10 @@ public class ResultPage implements Renderer {
 		return directory + "/runs/" + chrono + "/" + gitRepositoryName + "/target/site/cobertura/frame-summary.html";
 	}
 
-	public void render(Writer out) {
-		try {
-			String template = readFile( "target/html/template.html" );
-			String page = template.replaceAll( "page-content", pageContent() );
-			out.write( page );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void render(Writer out) throws IOException {
+		String template = readFile( "target/html/template.html" );
+		String page = template.replaceAll( "page-content", pageContent() );
+		out.write( page );
 	}
 	
 	protected String pageContent() throws IOException {

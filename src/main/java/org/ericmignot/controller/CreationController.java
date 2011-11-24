@@ -29,7 +29,7 @@ public class CreationController implements UserRequest {
 			&& containsGetParameter( "spec", request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		PlainTextSpec spec = new PlainTextSpec( getQueryStringValueOf( "spec", request ) );
 		spec.setContent( readFile( "target/html/newSpecContent.html" ) );
 		

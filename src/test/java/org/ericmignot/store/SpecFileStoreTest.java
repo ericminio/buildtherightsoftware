@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.ericmignot.adapters.domain.Spec;
@@ -33,35 +34,35 @@ public class SpecFileStoreTest {
 	}
 
 	@Test public void
-	createsAFileWithSpecTitleAsFilenameAndHtmlExtensionWhenSavingASpec() {
+	createsAFileWithSpecTitleAsFilenameAndHtmlExtensionWhenSavingASpec() throws IOException {
 		Spec spec = aSpec().withTitle( "spec-title" ).build();
 		repository.saveSpec( spec );
 		assertTrue( new File( "test-directory/spec-title.html" ).exists() );
 	}
 	
 	@Test public void
-	savesTheSpecContentInTheFileWithHtmlExtension() {
+	savesTheSpecContentInTheFileWithHtmlExtension() throws IOException {
 		Spec spec = aSpec().withTitle( "title" ).withContent( "my test content" ).build();
 		repository.saveSpec( spec );
 		assertEquals( "my test content", readFile( "test-directory/title.html" ) );
 	}
 	
 	@Test public void
-	createsAFileWithSpecTitleAsFilenameAndLabelExtensionWhenSavingASpec() {
+	createsAFileWithSpecTitleAsFilenameAndLabelExtensionWhenSavingASpec() throws IOException {
 		Spec spec = aSpec().withTitle( "spec-title" ).build();
 		repository.saveSpec( spec );
 		assertTrue( new File( "test-directory/spec-title.label" ).exists() );
 	}
 	
 	@Test public void
-	savesTheSpecLabelInTheFileWithLabelExtension() {
+	savesTheSpecLabelInTheFileWithLabelExtension() throws IOException {
 		Spec spec = aSpec().withTitle( "title" ).withLabel( "my test label" ).build();
 		repository.saveSpec( spec );
 		assertEquals( "my test label", readFile( "test-directory/title.label" ) );
 	}
 	
 	@Test public void
-	canRetrieveASpec() {
+	canRetrieveASpec() throws IOException {
 		Spec spec = aSpec().withTitle( "title" ).withContent( "my test content" ).withLabel( "my test label" ).build();
 		repository.saveSpec( spec );
 		assertEquals( "title", repository.getSpecByTitle( "title" ).getTitle() );
@@ -70,7 +71,7 @@ public class SpecFileStoreTest {
 	}
 	
 	@Test public void
-	canRetrieveAllSpecs() {
+	canRetrieveAllSpecs() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "title" ).withContent( "my test content" ).withLabel( "my test label" ).build() );
 		repository.saveSpec( aSpec().withTitle( "another-title" ).withContent( "another content" ).withLabel( "another-label" ).build() );
 		List<Spec> specs = repository.getSpecs();
@@ -78,7 +79,7 @@ public class SpecFileStoreTest {
 	}
 	
 	@Test public void
-	canFilterSpecListByLabel() {
+	canFilterSpecListByLabel() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
 		repository.saveSpec( aSpec().withTitle( "b" ).withContent( "b" ).withLabel( "second" ).build() );
 		List<Spec> specs = repository.getSpecs( "first" );
@@ -86,14 +87,14 @@ public class SpecFileStoreTest {
 	}
 	
 	@Test public void
-	supportsAnEmptyLabelFilterCriteriaParameter() {
+	supportsAnEmptyLabelFilterCriteriaParameter() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
 		List<Spec> specs = repository.getSpecs( "" );
 		assertEquals( 1, specs.size() );
 	}
 	
 	@Test public void
-	supportsAnNullLabelFilterCriteriaParameter() {
+	supportsAnNullLabelFilterCriteriaParameter() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
 		List<Spec> specs = repository.getSpecs( null );
 		assertEquals( 1, specs.size() );

@@ -9,6 +9,7 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.io.IOException;
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +51,7 @@ public class CreationControllerTest {
 	}
 
 	@Test public void
-	createASpecWithDefaultContent() {
+	createASpecWithDefaultContent() throws Exception {
 		SpecRenderer renderer = mock(SpecRenderer.class);
 		controller.setRenderer( renderer );
 		

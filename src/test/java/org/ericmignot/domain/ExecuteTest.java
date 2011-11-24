@@ -4,12 +4,6 @@ import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.io.IOException;
-
-import org.ericmignot.domain.Execution;
-import org.ericmignot.domain.GitPuller;
-import org.ericmignot.domain.GreenPepperRunner;
-import org.ericmignot.domain.MavenCompiler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +21,7 @@ public class ExecuteTest {
 	}
 	
 	@Test public void
-	fetchFromGitThenCompileAndFinnalyRunTheSpecWhenExecuted() throws IOException, InterruptedException {
+	fetchFromGitThenCompileAndFinnalyRunTheSpecWhenExecuted() throws Exception {
 		GitPuller gitDownloadMock = mock( GitPuller.class );
 		action.setGitPuller( gitDownloadMock );
 		

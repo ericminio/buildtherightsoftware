@@ -29,7 +29,7 @@ public class SaveController implements UserRequest {
 				&& containsPostParameter( "content", request);
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		Spec spec = repository.getSpecByTitle( uriWithoutThePrefix( "/specs/save/",  request) );
 		spec.setLabel( request.getParameter( "label" ) );
 		spec.setContent( request.getParameter( "content") );

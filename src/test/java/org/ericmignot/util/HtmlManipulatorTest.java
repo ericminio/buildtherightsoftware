@@ -1,8 +1,6 @@
 package org.ericmignot.util;
 
-import static org.ericmignot.util.HtmlManipulator.extractBodyContent;
-import static org.ericmignot.util.HtmlManipulator.removeAllScriptSections;
-import static org.ericmignot.util.HtmlManipulator.removeScriptSection;
+import static org.ericmignot.util.HtmlManipulator.*;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -26,4 +24,5 @@ public class HtmlManipulatorTest {
 		String content = "<head><body>hello</body>";
 		assertEquals( "body extracted", "hello", extractBodyContent(content) );
 	}
+	
 }

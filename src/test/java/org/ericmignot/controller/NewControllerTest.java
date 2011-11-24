@@ -35,7 +35,7 @@ public class NewControllerTest {
 	}
 	
 	@Test public void
-	rendersTheViewDuringWork() {
+	rendersTheViewDuringWork() throws Exception {
 		Renderer rendererMock = mock( Renderer.class );
 		controller.setRenderer( rendererMock );
 		

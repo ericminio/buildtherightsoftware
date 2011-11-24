@@ -36,7 +36,7 @@ public class ExecutionController implements UserRequest {
 			&& containsGetParameter( REPO_URL, request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		String chrono = ""+new Date().getTime();
 		Spec spec = repository.getSpecByTitle( uriWithoutThePrefix(URI_PREFIX, request) );
 

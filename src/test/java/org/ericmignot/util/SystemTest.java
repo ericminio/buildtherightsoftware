@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.io.IOException;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -65,7 +67,7 @@ public abstract class SystemTest {
 		thread.stop();
 	}
 	
-	protected void having(SpecBuilder specBuilder) {
+	protected void having(SpecBuilder specBuilder) throws IOException {
 		repository.saveSpec( specBuilder.build() );
 	}
 	

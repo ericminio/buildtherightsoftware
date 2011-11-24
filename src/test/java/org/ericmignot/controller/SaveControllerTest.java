@@ -1,6 +1,9 @@
 package org.ericmignot.controller;
 
 import static org.ericmignot.util.HttpServletRequestStubBuilder.aStubRequest;
+import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
+import static org.ericmignot.util.SpecBuilder.aSpec;
+import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.argThat;
@@ -16,10 +19,6 @@ import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.SpecRenderer;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.ericmignot.util.SpecBuilder.aSpec;
-import static org.ericmignot.util.matchers.SpecMatcher.isASpec;
-import static org.ericmignot.util.RepositoryMockBuilder.aRepo;
 
 public class SaveControllerTest {
 
@@ -57,7 +56,7 @@ public class SaveControllerTest {
 	}
 
 	@Test public void
-	createASpecWithDefaultContent() {
+	createASpecWithDefaultContent() throws Exception {
 		SpecRenderer renderer = mock(SpecRenderer.class);
 		controller.setRenderer( renderer );
 		

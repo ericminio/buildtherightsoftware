@@ -28,10 +28,6 @@ public class RepositoryMockBuilder {
 		return this;
 	}
 	
-	public RepositoryMockBuilder andSpec(Spec spec) {
-		return withSpec( spec );
-	}
-	
 	public SpecRepository build() {
 		SpecRepository repoMock = mock( SpecRepository.class );
 		for (Spec spec : specs.values()) {

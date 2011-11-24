@@ -1,8 +1,9 @@
-package org.ericmignot.router;
+package org.ericmignot.application;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -54,7 +55,7 @@ public class FeatureHandlerTest {
 	}
 	
 	@Test public void 
-	givesTheBallToTheCorrectController() throws IOException, ServletException {
+	givesTheBallToTheCorrectController() throws Exception {
 		UserRequest controller = mock(UserRequest.class);
 		Router routerMock = aRouterThatIdentifiesTheController(controller);
 		handler.setRouter( routerMock );
@@ -67,6 +68,17 @@ public class FeatureHandlerTest {
 	}
 	
 	@Test public void
+	displayGenericErrorMessageWhenTheControllerThrowsAnException() throws Exception {
+		UserRequest controller = mock(UserRequest.class);
+		Router routerMock = aRouterThatIdentifiesTheController(controller);
+		handler.setRouter( routerMock );
+		doThrow( new Exception() ).when( controller ).handle( httpRequestMock, handler.getRepository(), printWriterMock );
+		
+		handler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
+		verify(printWriterMock).write( "Error" );
+	}
+	
+	@Test public void
 	useFileRepositoryInProduction() {
 		assertTrue( new FeatureHandler().getRepository() instanceof SpecFileStore );
 	}
@@ -76,7 +88,7 @@ public class FeatureHandlerTest {
 		assertEquals( "specs", ((SpecFileStore) new FeatureHandler().getRepository()).getPath() );
 	}
 
-	protected void useInMemoryRepositoryWithASingleSampleSpec() {
+	protected void useInMemoryRepositoryWithASingleSampleSpec() throws IOException {
 		handler.setRepository( new InMemoryRepository() );
 		Spec sample = aSpec().withTitle( "sample" ).build();
 		handler.getRepository().saveSpec( sample );

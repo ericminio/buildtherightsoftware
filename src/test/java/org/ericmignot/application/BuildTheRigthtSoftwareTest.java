@@ -2,6 +2,8 @@ package org.ericmignot.application;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 
+import java.io.IOException;
+
 import org.ericmignot.util.SystemTest;
 import org.junit.After;
 import org.junit.Before;
@@ -30,14 +32,14 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canShowASpec() {
+	canShowASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ).withContent( "tetris game" ) );
 		showSpec( "tetris" );
 		pageShouldContainTheText( "can show a known spec", "tetris game" );
 	}
 
 	@Test public void
-	specModificationUri() {
+	specModificationUri() throws IOException {
 		having( aSpec().withTitle( "tetris" ).withContent( "tetris game" ) );
 		accessSpecForModification("tetris");
 		updateSpecContent( "toto" );
@@ -46,7 +48,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 
 	@Test public void
-	canModifyASpec() {
+	canModifyASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ).withContent( "tetris game" ) );
 		accessSpecForModification("tetris");
 		updateSpecContent( "toto" );
@@ -77,7 +79,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canAccessSpecList() {
+	canAccessSpecList() throws IOException {
 		having( aSpec().withTitle( "tetris" ) );
 		having( aSpec().withTitle( "lotery" ) );
 		accessHomePage();
@@ -88,7 +90,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canSetALabelToASpec() {
+	canSetALabelToASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ) );
 		accessSpecForModification( "tetris" );
 		pageShouldContainTheText( "label field label", "Labels:" );
@@ -100,7 +102,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canAccessLabelList() {
+	canAccessLabelList() throws IOException {
 		having( aSpec().withLabel( "game" ).withTitle( "tetris" ) );
 		having( aSpec().withLabel( "pyxis" ).withTitle( "lotery" ) );
 		having( aSpec().withLabel( "pyxis" ).withTitle( "rotating dinner" ) );
@@ -111,7 +113,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	canAccessSpecListFilteresByALabel() {
+	canAccessSpecListFilteresByALabel() throws IOException {
 		having( aSpec().withLabel( "game" ).withTitle( "tetris" ) );
 		having( aSpec().withLabel( "pyxis" ).withTitle( "lotery" ) );
 		having( aSpec().withLabel( "pyxis" ).withTitle( "rotating dinner" ) );

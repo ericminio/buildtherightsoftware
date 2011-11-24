@@ -3,9 +3,7 @@ package org.ericmignot.domain;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 
-import org.ericmignot.domain.GreenPepperRunner;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +18,7 @@ public class SpecRunnerTest {
 	}
 	
 	@Test public void
-	canExecuteASe() throws IOException, InterruptedException {
+	canExecuteASe() throws Exception {
 		runner.setWorkingDirectory( "target/test-classes/test-greenpepper");
 		runner.setClassesRelativeDirectory( "mastermind/target/classes" );
 		runner.setSpecFileRelativeFile( "mastermind/se/sample.html" );

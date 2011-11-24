@@ -45,7 +45,7 @@ public class SpecListTest {
 	}
 	
 	@Test public void
-	initializesTheViewWithTheSpecsBeforeRendering() {
+	initializesTheViewWithTheSpecsBeforeRendering() throws Exception {
 		SpecRepository repo = aRepo().withSpec( aSpec().build() ).build();
 		List<Spec> specs = repo.getSpecs();
 		
@@ -55,7 +55,7 @@ public class SpecListTest {
 	}
 	
 	@Test public void
-	extractOnlyTheLabeledSpecsWhenALabelFilterIsSpecified() {
+	extractOnlyTheLabeledSpecsWhenALabelFilterIsSpecified() throws Exception {
 		SpecRepository repoMock = mock( SpecRepository.class );
 		controller.handle( aStubRequest().withThisUri( "/specs/list")
 							.withThisGetParameter( "label", "toto" ).build(), repoMock, writerMock );
@@ -63,7 +63,7 @@ public class SpecListTest {
 	}
 
 	@Test public void
-	initializeTheViewWithTheFilteredSpecsWhenALabelIsSpecifiedInTheRequest() {
+	initializeTheViewWithTheFilteredSpecsWhenALabelIsSpecifiedInTheRequest() throws Exception {
 		List<Spec> expectedSpecs = new ArrayList<Spec>();
 		expectedSpecs.add( aSpec().build() );
 		SpecRepository repoStub = mock( SpecRepository.class );

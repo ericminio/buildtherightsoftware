@@ -10,8 +10,7 @@ import org.ericmignot.domain.PlainTextSpec;
 
 public class DefaultController extends ShowController {
 
-	public void handle(HttpServletRequest request, SpecRepository repository,
-			Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		view.setSpec( sampleSpec() );
 		view.render( out );
 	}

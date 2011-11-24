@@ -38,7 +38,7 @@ public class Execution implements FileWorker {
 		this.gitUrl = gitUrl;
 	}
 
-	public void work() {
+	public void work() throws Exception {
 		String gitRepositoryName = git( gitUrl ).extractRepositoryName();
 		
 		puller.setWorkingDirectory( directory + "/runs/" + chrono );

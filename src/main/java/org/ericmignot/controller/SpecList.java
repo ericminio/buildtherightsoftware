@@ -24,7 +24,7 @@ public class SpecList implements UserRequest {
 		return uriIs( "/specs/list", request );
 	}
 
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) {
+	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
 		renderer.setSpecs( repository.getSpecs( getQueryStringValueOf( "label", request ) ) );
 		renderer.render( out );
 	}

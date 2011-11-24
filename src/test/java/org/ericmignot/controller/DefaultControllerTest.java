@@ -27,7 +27,7 @@ public class DefaultControllerTest {
 	}
 	
 	@Test public void
-	triggersSamplePageRendering() {
+	triggersSamplePageRendering() throws Exception {
 		SpecRenderer viewMock = mock( SpecRenderer.class );
 		controller.setRenderer( viewMock );
 		

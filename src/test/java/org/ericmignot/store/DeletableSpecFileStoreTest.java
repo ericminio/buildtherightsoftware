@@ -4,6 +4,7 @@ import static org.ericmignot.util.SpecBuilder.aSpec;
 import static org.junit.Assert.assertFalse;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class DeletableSpecFileStoreTest {
 	DeletableSpecFileStore repository = new DeletableSpecFileStore("target/test-classes/test-system/");
 	
 	@Test public void
-	canDeleteAllSpecContentFiles() {
+	canDeleteAllSpecContentFiles() throws IOException {
 		Spec tetris = aSpec().withTitle( "tetris" ).withLabel( "game" ).build();
 		repository.saveSpec( tetris );
 		repository.deleteAllSpecs();
@@ -22,7 +23,7 @@ public class DeletableSpecFileStoreTest {
 	}
 	
 	@Test public void
-	canDeleteAllSpecLabelsFiles() {
+	canDeleteAllSpecLabelsFiles() throws IOException {
 		Spec tetris = aSpec().withTitle( "tetris" ).withLabel( "game" ).build();
 		repository.saveSpec( tetris );
 		repository.deleteAllSpecs();

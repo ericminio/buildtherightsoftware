@@ -37,7 +37,7 @@ public class ShowControllerTest {
 	}
 	
 	@Test public void
-	rendersTheViewDuringWork() {
+	rendersTheViewDuringWork() throws Exception {
 		SpecRenderer viewMock = mock( SpecRenderer.class );
 		controller.setRenderer( viewMock );
 		Writer writerMock = mock( Writer.class );

@@ -10,7 +10,6 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.UserRequest;
-import org.ericmignot.store.LabelMigration;
 import org.ericmignot.store.SpecFileStore;
 
 public class FeatureHandler extends AbstractHandler {
@@ -35,7 +34,11 @@ public class FeatureHandler extends AbstractHandler {
 		baseRequest.setHandled( true );
 
 		UserRequest controller = router.chooseController( request );
-		controller.handle( request, repository, response.getWriter() );
+		try {
+			controller.handle( request, repository, response.getWriter() );
+		} catch (Exception e) {
+			response.getWriter().write( "Error" );
+		}
 	}
 
 	public SpecRepository getRepository() {
@@ -49,11 +52,6 @@ public class FeatureHandler extends AbstractHandler {
 	public void setWorkingDirectory(String directory) {
 		router.setWorkingDirectory( directory );
 		setRepository( new SpecFileStore( directory ) );
-		
-		LabelMigration migration = new LabelMigration();
-		migration.setWorkingDirectory( directory );
-		migration.work();
-		
 	}
 
 }

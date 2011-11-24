@@ -54,7 +54,7 @@ public class ExecutionControllerTest {
 	}
 
 	@Test public void
-	launchesExecutionAndRendersResult() {
+	launchesExecutionAndRendersResult() throws Exception {
 		Execution executeMock = mock( Execution.class );
 		controller.setExecution( executeMock );
 		
