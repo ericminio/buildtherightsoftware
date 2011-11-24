@@ -4,7 +4,7 @@
 	<groupId>org.ericmignot</groupId>
 	<artifactId>buildtherightsoftware</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>buildtherightsoftware</name>
 	<url>http://maven.apache.org</url>
 
@@ -157,7 +157,7 @@
 						</excludes>
 					</instrumentation>
 					<check>
-						<totalLineRate>90</totalLineRate>
+						<totalLineRate>100</totalLineRate>
 					</check>
 				</configuration>
 				<executions>
