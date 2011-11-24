@@ -32,4 +32,21 @@ public class MainTest {
 		assertTrue( list.getHandlers()[1] instanceof FeatureHandler );
 	}
 	
+	@Test public void
+	canStart() throws Exception {
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+		        try {
+					Main.main(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+        thread.start();
+		Thread.sleep( 1000 );
+        assertTrue( main.getServer().isStarted() );
+        main.getServer().stop();
+	}
+	
 }

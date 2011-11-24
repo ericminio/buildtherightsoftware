@@ -6,7 +6,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 
 public class Main {
 
-	public Server server;
+	public static Server server;
 
 	public Main() throws Exception {
 		buildServer();
@@ -33,7 +33,7 @@ public class Main {
         new Main().start();
 	}
 
-	private void start() throws Exception {
+	public void start() throws Exception {
 		server.start();
 		server.join();
 	}
