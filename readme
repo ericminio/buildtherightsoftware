@@ -1,6 +1,3 @@
-you need java, maven, git
-
-type :
-git clone git://github.com/testaddict/buildtherightsoftware.git
-cd buildtherightsoftware
-mvn clean test exec:java -Dexec.args="8080"
+You need java, maven, git:
+.clone this repo
+.mvn clean verify exec:java
