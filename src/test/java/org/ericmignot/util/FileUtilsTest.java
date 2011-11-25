@@ -48,4 +48,10 @@ public class FileUtilsTest {
 		FileUtils.removeDir( "target/test-remove-directory" );
 		assertFalse( new File( "target/test-remove-directory" ).exists() );
 	}
+	
+	@Test public void
+	doesNothingWhenTheGivenPathIsNotADirectory() {
+		FileUtils.removeDir( "target/test-remove-directory" );
+		assertTrue( true );
+	}
 }

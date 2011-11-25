@@ -21,6 +21,7 @@ public class HttpRequestInformationExtractorTest {
 		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x" )) );
 		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x=" )) );
 		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x=2" )) );
+		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "y=" )) );
 		
 		assertTrue( containsGetParameter( "y", aRequestWithTheQueryString( "y=2" )) );
 	}

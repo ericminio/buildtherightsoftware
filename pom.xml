@@ -158,6 +158,7 @@
 					</instrumentation>
 					<check>
 						<totalLineRate>100</totalLineRate>
+						<totalBranchRate>100</totalBranchRate>
 					</check>
 				</configuration>
 				<executions>

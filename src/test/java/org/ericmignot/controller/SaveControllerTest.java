@@ -45,6 +45,8 @@ public class SaveControllerTest {
 		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save/toto" )
 																		  .withThisPostParameter( "label", "game" )
 																		  .withThisPostParameter( "content", "tetris" ).build() ) );
+		assertFalse( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/save/toto" )
+				  .withThisPostParameter( "label", "game" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( null ).build() ) );

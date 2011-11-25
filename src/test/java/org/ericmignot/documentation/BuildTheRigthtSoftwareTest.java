@@ -1,4 +1,4 @@
-package org.ericmignot.application;
+package org.ericmignot.documentation;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
 
@@ -27,7 +27,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessHomePage();
 		
 		pageShouldContainModifyLink();
-		pageShouldContainTheText( "home page display a spec sample", "Rule for" );
+		pageShouldContainTheText( "Rule for", "home page display a spec sample" );
 		pageShouldContainTryThisCodeLink();
 	}
 	
@@ -35,7 +35,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	canShowASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ).withContent( "tetris game" ) );
 		showSpec( "tetris" );
-		pageShouldContainTheText( "can show a known spec", "tetris game" );
+		pageShouldContainTheText( "tetris game", "can show a known spec" );
 	}
 
 	@Test public void
@@ -54,7 +54,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		updateSpecContent( "toto" );
 		saveSpec();
         pageShouldContainModifyLink();
-        pageShouldContainTheText( "modification saved", "toto" );
+        pageShouldContainTheText( "toto", "modification saved" );
 	}
 	
 	@Test public void
@@ -74,7 +74,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		activateNewSpecCreation();
 		createNewSpec( "anewspec" );
 		pageShouldContainModifyLink();
-		pageShouldContainTheText( "new spec template", "put your service name here" );
+		pageShouldContainTheText( "put your service name here", "new spec template" );
 		pageShouldContainTryThisCodeLink();
 	}
 	
@@ -85,18 +85,18 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessHomePage();
 		accessSpecList();
 		uriShouldBe( "uri after click on spec list link", "/specs/list" );
-		pageShouldContainTheText( "tetris spec", "<li><a class=\"list\" href=\"/specs/show/tetris\" >tetris</a></li>" );
-		pageShouldContainTheText( "lotery spec", "<li><a class=\"list\" href=\"/specs/show/lotery\" >lotery</a></li>" );
+		pageShouldContainTheText( "<li><a class=\"list\" href=\"/specs/show/tetris\" >tetris</a></li>", "tetris spec" );
+		pageShouldContainTheText( "<li><a class=\"list\" href=\"/specs/show/lotery\" >lotery</a></li>", "lotery spec" );
 	}
 	
 	@Test public void
 	canSetALabelToASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ) );
 		accessSpecForModification( "tetris" );
-		pageShouldContainTheText( "label field label", "Labels:" );
+		pageShouldContainTheText( "Labels:", "label field label" );
 		modifySpecLabel( "game" );
 		saveSpec();
-		pageShouldContainTheText( "label mention", "<span class=\"label\">Labels: game</span>" );
+		pageShouldContainTheText( "<span class=\"label\">Labels: game</span>", "label mention" );
 		accessSpecForModification( "tetris" );
 		labelFieldShouldContainTheValue( "game" );
 	}
@@ -108,8 +108,8 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		having( aSpec().withLabel( "pyxis" ).withTitle( "rotating dinner" ) );
 		accessHomePage();
 		accessLabelList();
-		pageShouldContainTheText( "label filter game", "game (1)" );
-		pageShouldContainTheText( "label filter pyxis", "pyxis (2)" );
+		pageShouldContainTheText( "game (1)", "label filter game" );
+		pageShouldContainTheText( "pyxis (2)", "label filter pyxis" );
 	}
 	
 	@Test public void
@@ -121,9 +121,9 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessLabelList();
 		navigateByLabel( "pyxis" );
 		urlShouldContain( "uri after click on a label", "/specs/list?label=pyxis" );
-		pageShouldContainTheText( "spec list filtered by label", "lotery" );
-		pageShouldContainTheText( "spec list filtered by label", "rotating dinner" );
-		pageShouldNotContainTheText( "spec list filtered by label", "tetris" );
+		pageShouldContainTheText( "lotery", "spec list filtered by label" );
+		pageShouldContainTheText( "rotating dinner", "spec list filtered by label" );
+		pageShouldNotContainTheText( "tetris", "spec list filtered by label" );
 	}
 	
 

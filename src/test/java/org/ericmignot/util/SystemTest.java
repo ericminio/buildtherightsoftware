@@ -140,11 +140,11 @@ public abstract class SystemTest {
 	}
 
 
-	protected void pageShouldContainTheText(String message, String expected) {
+	protected void pageShouldContainTheText(String expected, String message) {
         assertThat( message, driver.getPageSource(), containsString( expected ) );
 	}
 	
-	protected void pageShouldNotContainTheText(String message, String intruder) {
+	protected void pageShouldNotContainTheText(String intruder, String message) {
         assertThat( message, driver.getPageSource(), not(containsString( intruder ) ) );
 	}
 
