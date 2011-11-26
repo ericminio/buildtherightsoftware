@@ -1,5 +1,3 @@
-package org.ericmignot.documentation;
-
 import static org.ericmignot.util.SpecBuilder.aSpec;
 
 import java.io.IOException;
@@ -53,8 +51,8 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessSpecForModification("tetris");
 		updateSpecContent( "toto" );
 		saveSpec();
-        pageShouldContainModifyLink();
-        pageShouldContainTheText( "toto", "modification saved" );
+		pageShouldContainModifyLink();
+		pageShouldContainTheText( "toto", "modification saved" );
 	}
 	
 	@Test public void
