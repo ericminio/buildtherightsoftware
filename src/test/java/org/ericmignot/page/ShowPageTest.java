@@ -47,7 +47,7 @@ public class ShowPageTest {
 	@Test public void
 	displaysSpecLabel() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "label")
-				 						    , withText("Labels: sample-label") ));
+				 						    , withText("Label: sample-label") ));
 	}
 	
 	@Test public void

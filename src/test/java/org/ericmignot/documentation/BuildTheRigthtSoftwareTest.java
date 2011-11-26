@@ -1,3 +1,4 @@
+package org.ericmignot.documentation;
 import static org.ericmignot.util.SpecBuilder.aSpec;
 
 import java.io.IOException;
@@ -23,7 +24,6 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	@Test public void
 	homPageDisplaysASampleSpec() {
 		accessHomePage();
-		
 		pageShouldContainModifyLink();
 		pageShouldContainTheText( "Rule for", "home page display a spec sample" );
 		pageShouldContainTryThisCodeLink();
@@ -42,7 +42,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessSpecForModification("tetris");
 		updateSpecContent( "toto" );
 		saveSpec();
-		uriShouldBe ( "save uri", "/specs/save/tetris" );
+		uriShouldBe ( "/specs/save/tetris", "save uri" );
 	}
 
 	@Test public void
@@ -59,11 +59,11 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	specCreationScenarioUris() {
 		accessHomePage();
 		activateNewSpecCreation();
-		uriShouldBe( "uri after click on new link", "/specs/new" );
+		uriShouldBe( "/specs/new", "uri after click on new link" );
 		
 		createNewSpec( "anewspec" );
-		uriShouldBe( "create uri", "/specs/create" );
-		queryStringShouldBe( "creation query string", "spec=anewspec" );
+		uriShouldBe( "/specs/create", "creation uri" );
+		queryStringShouldBe( "spec=anewspec", "creation query string" );
 	}
 
 	@Test public void
@@ -72,7 +72,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		activateNewSpecCreation();
 		createNewSpec( "anewspec" );
 		pageShouldContainModifyLink();
-		pageShouldContainTheText( "put your service name here", "new spec template" );
+		pageShouldContainTheText( "put your service name here", "display new spec template" );
 		pageShouldContainTryThisCodeLink();
 	}
 	
@@ -82,7 +82,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		having( aSpec().withTitle( "lotery" ) );
 		accessHomePage();
 		accessSpecList();
-		uriShouldBe( "uri after click on spec list link", "/specs/list" );
+		uriShouldBe( "/specs/list", "uri after click on spec list link" );
 		pageShouldContainTheText( "<li><a class=\"list\" href=\"/specs/show/tetris\" >tetris</a></li>", "tetris spec" );
 		pageShouldContainTheText( "<li><a class=\"list\" href=\"/specs/show/lotery\" >lotery</a></li>", "lotery spec" );
 	}
@@ -91,10 +91,10 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	canSetALabelToASpec() throws IOException {
 		having( aSpec().withTitle( "tetris" ) );
 		accessSpecForModification( "tetris" );
-		pageShouldContainTheText( "Labels:", "label field label" );
+		pageShouldContainTheText( "Label:", "label field label" );
 		modifySpecLabel( "game" );
 		saveSpec();
-		pageShouldContainTheText( "<span class=\"label\">Labels: game</span>", "label mention" );
+		pageShouldContainTheText( "<span class=\"label\">Label: game</span>", "label mention" );
 		accessSpecForModification( "tetris" );
 		labelFieldShouldContainTheValue( "game" );
 	}
@@ -118,7 +118,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 		accessHomePage();
 		accessLabelList();
 		navigateByLabel( "pyxis" );
-		urlShouldContain( "uri after click on a label", "/specs/list?label=pyxis" );
+		urlShouldContain( "/specs/list?label=pyxis", "uri after click on a label" );
 		pageShouldContainTheText( "lotery", "spec list filtered by label" );
 		pageShouldContainTheText( "rotating dinner", "spec list filtered by label" );
 		pageShouldNotContainTheText( "tetris", "spec list filtered by label" );

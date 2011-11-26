@@ -73,7 +73,7 @@ public abstract class SystemTest {
 	
 	@Before public void
 	initDriver() {
-		driver = new HtmlUnitDriver(true);
+		driver = new HtmlUnitDriver( true );
 	}
 	
 	protected void modifySpecLabel(String label) {
@@ -152,7 +152,7 @@ public abstract class SystemTest {
         assertNotNull("modify link present", driver.findElement(By.name("modifyLink")));
 	}
 
-	protected void uriShouldBe(String message, String expectedUri) {
+	protected void uriShouldBe(String expectedUri, String message) {
 		String url = driver.getCurrentUrl();
 		String uri = url;
 		if ( url.indexOf("?") != -1 ) {
@@ -161,11 +161,11 @@ public abstract class SystemTest {
 		assertEquals( message, "http://localhost:8080" + expectedUri, uri );
 	}
 	
-	protected void urlShouldContain(String message, String expected) {
+	protected void urlShouldContain(String expected, String message) {
 		assertThat( message, driver.getCurrentUrl(), containsString( expected) );
 	}
 	
-	protected void queryStringShouldBe(String message, String expectedQueryString) {
+	protected void queryStringShouldBe(String expectedQueryString, String message) {
 		String url = driver.getCurrentUrl();
 		String queryString = "";
 		if ( url.indexOf("?") != -1 ) {

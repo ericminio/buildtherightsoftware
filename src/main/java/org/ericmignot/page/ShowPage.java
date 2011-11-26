@@ -29,7 +29,7 @@ public class ShowPage implements SpecRenderer {
 		String invitation = readFile("target/html/invitation.html");
 		invitation = invitation.replaceAll("spec-x", spec.getTitle());
 
-		String label = "<span class=\"label\">Labels: " + spec.getLabel()
+		String label = "<span class=\"label\">Label: " + spec.getLabel()
 				+ "</span>";
 
 		String specContent = "<span class=\"spec\">" + spec.getContent()
