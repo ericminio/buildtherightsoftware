@@ -6,3 +6,6 @@ maven-eclipse.xml
 .externalToolBuilders
 .DS_Store
 /specs
+bin
+.metadata
+
