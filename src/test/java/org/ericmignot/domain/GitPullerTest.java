@@ -25,8 +25,8 @@ public class GitPullerTest {
 	
 	@Test
 	public void canConfigureWorkingDirectory() {
-		puller.setWorkingDirectory( "a-path" );
-		assertThat( puller.getWorkingDirectory(), equalTo( "a-path" ) );
+		puller.setWorkingDirectory( "a-test-path-to-configure-git-puller" );
+		assertThat( puller.getWorkingDirectory(), equalTo( "a-test-path-to-configure-git-puller" ) );
 	}
 	
 	@Test
@@ -55,21 +55,22 @@ public class GitPullerTest {
 
 	@Test
 	public void createDirectoryToWorkIn() throws Exception {
-		puller.setWorkingDirectory( "a-path" );
+		puller.setWorkingDirectory( "a-test-path-to-verify-git-puller-dir-creation" );
 		puller.work();
-		assertTrue( new File( "a-path" ).exists() );
-		new File( "a-path" ).delete();
+		assertTrue( new File( "a-test-path-to-verify-git-puller-dir-creation" ).exists() );
+		new File( "a-test-path-to-verify-git-puller-dir-creation" ).delete();
 	}
 	
 	@Test public void
 	executesCommandWithCorrectParameters() throws Exception {
 		Runtime runtimeMock = aRuntimeMock();
 		puller.setRuntime( runtimeMock );
-		puller.setWorkingDirectory( "a-path" );
+		puller.setWorkingDirectory( "a-test-path-to-verify-git-puller-command" );
 		puller.work();
 		verify( runtimeMock ).exec( puller.getPullCommand(), 
 									null,
-									new File( "a-path" ) );
+									new File( "a-test-path-to-verify-git-puller-command" ) );
+		new File( "a-test-path-to-verify-git-puller-command" ).delete();
 	}
 
 	private Runtime aRuntimeMock() throws IOException {

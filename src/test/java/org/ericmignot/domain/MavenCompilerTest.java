@@ -26,8 +26,8 @@ public class MavenCompilerTest {
 	
 	@Test public void 
 	canConfigureWorkingDirectory() {
-		compiler.setWorkingDirectory( "a-path" );
-		assertThat( compiler.getWorkingDirectory(), equalTo( "a-path" ) );
+		compiler.setWorkingDirectory( "a-test-path-to-configure-maven-compiler" );
+		assertThat( compiler.getWorkingDirectory(), equalTo( "a-test-path-to-configure-maven-compiler" ) );
 	}
 
 	@Test public void 
@@ -51,11 +51,11 @@ public class MavenCompilerTest {
 	executesCommandWithCorrectParameters() throws Exception {
 		Runtime runtimeMock = aRuntimeMock(); 
 		compiler.setRuntime( runtimeMock );
-		compiler.setWorkingDirectory( "a-path" );
+		compiler.setWorkingDirectory( "a-test-path-to-verify-maven-compiler-command" );
 		compiler.work();
 		verify( runtimeMock ).exec( compiler.getCompilerCommand(), 
 									null,
-									new File( "a-path" ) );
+									new File( "a-test-path-to-verify-maven-compiler-command" ) );
 	}
 	
 	private Runtime aRuntimeMock() throws IOException {
