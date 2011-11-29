@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.domain.SpecMatcher;
 
 
 public interface SpecRepository {
@@ -12,8 +13,6 @@ public interface SpecRepository {
 	
 	public Spec getSpecByTitle(String title);
 	
-	public List<Spec> getSpecs();
-	
-	public List<Spec> getSpecs(String label);
+	public List<Spec> getSpecs(SpecMatcher matcher);
 
 }

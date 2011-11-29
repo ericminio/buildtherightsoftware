@@ -11,6 +11,7 @@ import org.ericmignot.adapters.ui.ListRenderer;
 import org.ericmignot.adapters.ui.Renderer;
 import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.page.LabelListPage;
+import static org.ericmignot.domain.SpecMatcher.all;
 
 public class LabelListController implements UserRequest {
 
@@ -25,7 +26,7 @@ public class LabelListController implements UserRequest {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
-		renderer.setSpecs( repository.getSpecs() );
+		renderer.setSpecs( repository.getSpecs( all() ) );
 		renderer.render( out );
 	}
 

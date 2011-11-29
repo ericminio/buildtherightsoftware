@@ -16,8 +16,10 @@ import java.util.List;
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.ListRenderer;
+import org.ericmignot.domain.SpecMatcher;
 import org.junit.Before;
 import org.junit.Test;
+import static org.ericmignot.domain.SpecMatcher.*;
 
 public class SpecListTest {
 
@@ -47,7 +49,7 @@ public class SpecListTest {
 	@Test public void
 	initializesTheViewWithTheSpecsBeforeRendering() throws Exception {
 		SpecRepository repo = aRepo().withSpec( aSpec().build() ).build();
-		List<Spec> specs = repo.getSpecs();
+		List<Spec> specs = repo.getSpecs( SpecMatcher.all() );
 		
 		controller.handle( null, repo, writerMock );
 		verify( rendererMock ).setSpecs( specs );
@@ -59,15 +61,15 @@ public class SpecListTest {
 		SpecRepository repoMock = mock( SpecRepository.class );
 		controller.handle( aStubRequest().withThisUri( "/specs/list")
 							.withThisGetParameter( "label", "toto" ).build(), repoMock, writerMock );
-		verify( repoMock ).getSpecs( "toto" );
+		verify( repoMock ).getSpecs( withLabel( "toto" ) );
 	}
 
 	@Test public void
 	initializeTheViewWithTheFilteredSpecsWhenALabelIsSpecifiedInTheRequest() throws Exception {
+		SpecRepository repoStub = mock( SpecRepository.class );
 		List<Spec> expectedSpecs = new ArrayList<Spec>();
 		expectedSpecs.add( aSpec().build() );
-		SpecRepository repoStub = mock( SpecRepository.class );
-		when(repoStub.getSpecs( "toto" )).thenReturn( expectedSpecs );
+		when(repoStub.getSpecs( withLabel( "toto" ) )).thenReturn( expectedSpecs );
 		
 		controller.handle( aStubRequest().withThisUri( "/specs/list")
 							.withThisGetParameter( "label", "toto" ).build(), repoStub, writerMock );

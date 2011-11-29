@@ -82,22 +82,24 @@ public class SpecFileStoreTest {
 	canFilterSpecListByLabel() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
 		repository.saveSpec( aSpec().withTitle( "b" ).withContent( "b" ).withLabel( "second" ).build() );
-		List<Spec> specs = repository.getSpecs( "first" );
+		List<Spec> specs = repository.getSpecsWithLabel( "first" );
 		assertEquals( 1, specs.size() );
 	}
 	
 	@Test public void
-	supportsAnEmptyLabelFilterCriteriaParameter() throws IOException {
+	anEmptyLabelCriteriaRetrievesOnlySpecsWithEmptyLabel() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
-		List<Spec> specs = repository.getSpecs( "" );
+		List<Spec> specs = repository.getSpecsWithLabel( "" );
 		assertEquals( 1, specs.size() );
 	}
 	
 	@Test public void
-	supportsAnNullLabelFilterCriteriaParameter() throws IOException {
+	aNullLabelCriteriaRetrievesAllSpecs() throws IOException {
 		repository.saveSpec( aSpec().withTitle( "a" ).withContent( "a" ).withLabel( "first" ).build() );
-		List<Spec> specs = repository.getSpecs( null );
+		List<Spec> specs = repository.getSpecsWithLabel( (String)null );
 		assertEquals( 1, specs.size() );
 	}
+	
+	
 	
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.adapters.ui.ListRenderer;
-import org.ericmignot.adapters.ui.SpecRenderer;
+import org.ericmignot.domain.SpecMatcher;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,10 +50,10 @@ public class LabelListControllerTest {
 		List<Spec> specs = new ArrayList<Spec>();
 		specs.add( aSpec().withTitle( "sample" ).build() );
 		SpecRepository repoMock = mock( SpecRepository.class );
-		when( repoMock.getSpecs() ).thenReturn( specs );
+		when( repoMock.getSpecs( SpecMatcher.all()) ).thenReturn( specs );
 		
 		controller.handle( null, repoMock, writerMock );
-		verify( repoMock ).getSpecs();
+		verify( repoMock ).getSpecs( SpecMatcher.all() );
 		verify( viewMock ).setSpecs( specs );
 		verify( viewMock ).render( writerMock );
 	}

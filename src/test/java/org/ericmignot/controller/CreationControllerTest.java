@@ -9,7 +9,6 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.io.IOException;
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;

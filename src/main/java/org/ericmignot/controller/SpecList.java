@@ -1,5 +1,7 @@
 package org.ericmignot.controller;
 
+import static org.ericmignot.domain.SpecMatcher.withLabel;
+import static org.ericmignot.util.HttpRequestInformationExtractor.getQueryStringValueOf;
 import static org.ericmignot.util.HttpRequestInformationExtractor.uriIs;
 
 import java.io.Writer;
@@ -11,7 +13,7 @@ import org.ericmignot.adapters.ui.ListRenderer;
 import org.ericmignot.adapters.ui.Renderer;
 import org.ericmignot.adapters.ui.UserRequest;
 import org.ericmignot.page.SpecListPage;
-import static org.ericmignot.util.HttpRequestInformationExtractor.getQueryStringValueOf;
+
 public class SpecList implements UserRequest {
 
 	private ListRenderer renderer;
@@ -25,7 +27,7 @@ public class SpecList implements UserRequest {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
-		renderer.setSpecs( repository.getSpecs( getQueryStringValueOf( "label", request ) ) );
+		renderer.setSpecs( repository.getSpecs( withLabel(getQueryStringValueOf( "label", request ) ) ) );
 		renderer.render( out );
 	}
 

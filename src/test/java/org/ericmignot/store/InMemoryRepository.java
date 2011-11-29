@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.domain.SpecMatcher;
 
 public class InMemoryRepository implements SpecRepository {
 
@@ -28,20 +29,13 @@ public class InMemoryRepository implements SpecRepository {
 		return specs.get( title );
 	}
 
-	public List<Spec> getSpecs() {
-		return new ArrayList<Spec>( specs.values() );
-	}
-
-	public List<Spec> getSpecs(String label) {
-		List<Spec> filteredByLabel = new ArrayList<Spec>();
+	public List<Spec> getSpecs(SpecMatcher matcher) {
+		List<Spec> filtered = new ArrayList<Spec>();
 		for (Spec spec : specs.values()) {
-			if ( spec.getLabel().equalsIgnoreCase( label ) ) {
-				filteredByLabel.add( spec );
+			if ( matcher.matches(spec) ) {
+				filtered.add( spec );
 			}
 		}
-		return filteredByLabel;
+		return filtered;
 	}
-
-	
-
 }

@@ -1,6 +1,7 @@
 package org.ericmignot.store;
 
 import static org.ericmignot.util.SpecBuilder.aSpec;
+import static org.ericmignot.domain.SpecMatcher.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ericmignot.adapters.domain.Spec;
+import org.ericmignot.domain.SpecMatcher;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {
@@ -45,7 +47,7 @@ public class InMemoryRepositoryTest {
 		Spec second = aSpec().withTitle( "second" ).build();
 		repository.saveSpec( first );
 		repository.saveSpec( second );
-		List<Spec> specs = repository.getSpecs();
+		List<Spec> specs = repository.getSpecs( SpecMatcher.all() );
 		assertTrue( specs.contains( first ) );
 		assertTrue( specs.contains( second ) );
 	}
@@ -56,7 +58,7 @@ public class InMemoryRepositoryTest {
 		Spec second = aSpec().withTitle( "second" ).withLabel( "two" ).build();
 		repository.saveSpec( first );
 		repository.saveSpec( second );
-		List<Spec> specs = repository.getSpecs( "one" );
+		List<Spec> specs = repository.getSpecs( withLabel( "one" ) );
 		assertTrue( specs.contains( first ) );
 		assertFalse( specs.contains( second ) );
 	}

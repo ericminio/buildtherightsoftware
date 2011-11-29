@@ -1,8 +1,8 @@
 package org.ericmignot.util;
 
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.anyString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
+import org.ericmignot.domain.SpecMatcher;
 
 public class RepositoryMockBuilder {
 
@@ -33,8 +34,7 @@ public class RepositoryMockBuilder {
 		for (Spec spec : specs.values()) {
 			when(repoMock.getSpecByTitle( spec.getTitle() ) ).thenReturn( spec );
 		}
-		when(repoMock.getSpecs(anyString())).thenReturn( new ArrayList<Spec>(specs.values()) );
-		when(repoMock.getSpecs()).thenReturn( new ArrayList<Spec>(specs.values()) );
+		when(repoMock.getSpecs( (SpecMatcher) anyObject() )).thenReturn( new ArrayList<Spec>(specs.values()) );
 		return repoMock;
 	}
 	

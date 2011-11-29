@@ -14,6 +14,8 @@ import java.util.List;
 import org.ericmignot.adapters.domain.Spec;
 import org.ericmignot.adapters.store.SpecRepository;
 import org.ericmignot.domain.PlainTextSpec;
+import org.ericmignot.domain.SpecMatcher;
+import static org.ericmignot.domain.SpecMatcher.*;
 
 public class SpecFileStore implements SpecRepository {
 
@@ -51,40 +53,38 @@ public class SpecFileStore implements SpecRepository {
 		return newSpec;
 	}
 
-	public List<Spec> getSpecs() {
-		List<Spec> specs = new ArrayList<Spec>();
+	private File[] getAllHtmlFiles() {
 		File[] files = new File(path).listFiles(new FileFilter() {
 			public boolean accept(File pathname) {
 				return pathname.getName().endsWith(".html");
 			}
 		});
-		for (File file : files) {
-			String name = file.getName().substring(0,
-					file.getName().indexOf(".html"));
-			specs.add(getSpecByTitle(name));
-		}
-		return specs;
+		return files;
 	}
 
-	public List<Spec> getSpecs(String label) {
-		if (label == null || "".equalsIgnoreCase(label)) {
-			return getSpecs();
-		}
+	public List<Spec> getSpecs(SpecMatcher matcher) {
 		List<Spec> specs = new ArrayList<Spec>();
-		File[] files = new File(path).listFiles(new FileFilter() {
-			public boolean accept(File pathname) {
-				return pathname.getName().endsWith(".html");
-			}
-		});
+		File[] files = getAllHtmlFiles();
 		for (File file : files) {
 			String name = file.getName().substring(0,
 					file.getName().indexOf(".html"));
 			Spec spec = getSpecByTitle(name);
-			if (spec.getLabel().equalsIgnoreCase(label)) {
+			if (matcher.matches(spec)) {
 				specs.add(spec);
 			}
 		}
 		return specs;
 	}
+	
+	public List<Spec> getSpecs() {
+		return getSpecs( all() );
+	}
+	
+	public List<Spec> getSpecsWithLabel(String label) {
+		return getSpecs( withLabel( label ) );
+	}
+	
+	
+	
 
 }
