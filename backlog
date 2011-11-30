@@ -17,7 +17,7 @@ item en cours de développement:
 backlog:
 --------
 
-
+. afficher un historique des exécutions
 3. trouver toutes les spec-x qui contiennent un mot donné
 5. augmenter l'indicateur de pertinence d'une spec-x pour la voir avant les autres
 13. exécuter un ensemble de spec
