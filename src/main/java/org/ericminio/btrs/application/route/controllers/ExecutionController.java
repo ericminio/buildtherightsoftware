@@ -3,7 +3,6 @@ package org.ericminio.btrs.application.route.controllers;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsGetParameter;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.trueIfUriStartsWith;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriWithoutThePrefix;
-import static org.ericminio.btrs.workers.GitUtils.git;
 
 import java.io.Writer;
 import java.util.Date;
@@ -49,7 +48,7 @@ public class ExecutionController implements UserRequest {
 		resultPage.setWorkingDirectory( directory );
 		resultPage.setChrono( chrono );
 		resultPage.setSpec(spec);
-		resultPage.setGitRepositoryName( git( request.getParameter(REPO_URL) ).extractRepositoryName() );
+		resultPage.setGitRepositoryName( execute.getSourcePuller().getRepositoryName() );
 		resultPage.render( out);
 	}
 	

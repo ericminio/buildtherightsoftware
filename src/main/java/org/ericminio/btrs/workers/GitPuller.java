@@ -29,6 +29,14 @@ public class GitPuller implements SourcePuller {
 	public String getUrl() {
 		return this.gitUrl;
 	}
+	
+	public String getRepositoryName() {
+		if ( gitUrl.length() < "git://github.com/*/*.git".length() ) {
+			return null;
+		} else {
+			return gitUrl.substring( gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4 );
+		}
+	}
 
 	public String getPullCommand() {
 		return "git clone " + gitUrl;

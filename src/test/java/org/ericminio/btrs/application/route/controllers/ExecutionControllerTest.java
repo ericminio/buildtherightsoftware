@@ -7,6 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.Writer;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ericminio.btrs.application.route.controllers.ExecutionController;
 import org.ericminio.btrs.application.view.pages.ResultPage;
+import org.ericminio.btrs.domain.SourcePuller;
 import org.ericminio.btrs.domain.Spec;
 import org.ericminio.btrs.domain.SpecRepository;
 import org.ericminio.btrs.workers.Execution;
@@ -58,6 +60,9 @@ public class ExecutionControllerTest {
 	launchesExecutionAndRendersResult() throws Exception {
 		Execution executeMock = mock( Execution.class );
 		controller.setExecution( executeMock );
+		SourcePuller pullerMock = mock( SourcePuller.class );
+		when( pullerMock.getRepositoryName() ).thenReturn( "mastermind" );
+		when( executeMock.getSourcePuller() ).thenReturn( pullerMock );
 		
 		ResultPage resultPageMock = mock( ResultPage.class );
 		controller.setRenderer( resultPageMock );

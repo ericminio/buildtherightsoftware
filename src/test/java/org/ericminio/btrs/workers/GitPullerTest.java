@@ -1,6 +1,8 @@
 package org.ericminio.btrs.workers;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
@@ -34,6 +36,18 @@ public class GitPullerTest {
 	public void canConfigureUrl() {
 		puller.setUrl( "an-url" );
 		assertThat( puller.getUrl(), equalTo( "an-url" ) );
+	}
+	
+	@Test
+	public void canExtractRepositoryNameFromAGithubUrl() {
+		puller.setUrl( "git://github.com/testaddict/mastermind.git" );
+		assertThat( puller.getRepositoryName(), equalTo( "mastermind" ) );
+	}
+	
+	@Test
+	public void cannotExtractRepositoryIfUrlDoesNotTargetAGithubRepository() {
+		puller.setUrl( "an-url" );
+		assertThat( puller.getRepositoryName(), is(nullValue()) );
 	}
 	
 	@Test

@@ -1,11 +1,9 @@
 package org.ericminio.btrs.workers;
 
-import static org.ericminio.btrs.workers.GitUtils.git;
-
+import org.ericminio.btrs.domain.Compiler;
 import org.ericminio.btrs.domain.FileWorker;
 import org.ericminio.btrs.domain.SourcePuller;
 import org.ericminio.btrs.domain.Spec;
-import org.ericminio.btrs.domain.Compiler;
 import org.ericminio.btrs.domain.SpecRunner;
 
 public class Execution implements FileWorker {
@@ -42,31 +40,52 @@ public class Execution implements FileWorker {
 	}
 
 	public void work() throws Exception {
-		String gitRepositoryName = git( gitUrl ).extractRepositoryName();
-		
+		pullSource();
+		String repositoryName = puller.getRepositoryName();
+		compile(repositoryName);
+		runSpec(repositoryName);
+	}
+
+	private void runSpec(String repositoryName) throws Exception {
+		runner.setWorkingDirectory( directory + "/" );
+		runner.setSpecFileRelativeFile( spec.getTitle() + ".html" );
+		runner.setClassesRelativeDirectory( "runs/" + chrono + "/" + repositoryName + "/target/classes") ;
+		runner.setOutputRelativeDirectory( "runs/" + chrono + "/" + repositoryName + "/se/out") ;
+		runner.work();
+	}
+
+	private void compile(String gitRepositoryName) throws Exception {
+		compiler.setWorkingDirectory( directory + "/runs/" + chrono + "/" + gitRepositoryName );
+		compiler.work();
+	}
+
+	private void pullSource() throws Exception {
 		puller.setWorkingDirectory( directory + "/runs/" + chrono );
 		puller.setUrl( gitUrl );
 		puller.work();
-		compiler.setWorkingDirectory( directory + "/runs/" + chrono + "/" + gitRepositoryName );
-		compiler.work();
-		runner.setWorkingDirectory( directory + "/" );
-		runner.setSpecFileRelativeFile( spec.getTitle() + ".html" );
-		runner.setClassesRelativeDirectory( "runs/" + chrono + "/" + gitRepositoryName + "/target/classes") ;
-		runner.setOutputRelativeDirectory( "runs/" + chrono + "/" + gitRepositoryName + "/se/out") ;
-		runner.work();
 	}
 	
 	public void setSourcePuller(SourcePuller puller) {
 		this.puller = puller;
 	}
 
+	public SourcePuller getSourcePuller() {
+		return this.puller;
+	}
+
 	public void setCompiler(Compiler compiler) {
 		this.compiler = compiler;
+	}
+
+	public Compiler getCompiler() {
+		return this.compiler;
 	}
 
 	public void setSpecRunner(SpecRunner runner) {
 		this.runner = runner;
 	}
 
-	
+	public SpecRunner getSpecRunner() {
+		return this.runner;
+	}
 }
