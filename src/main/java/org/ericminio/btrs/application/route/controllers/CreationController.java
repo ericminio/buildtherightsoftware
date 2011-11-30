@@ -4,6 +4,7 @@ import static org.ericminio.btrs.application.route.controllers.HttpRequestInform
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.getQueryStringValueOf;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriIs;
 import static org.ericminio.btrs.store.FileUtils.readFile;
+import static org.ericminio.btrs.store.SpecBuilder.aSpec;
 
 import java.io.Writer;
 
@@ -13,8 +14,8 @@ import org.ericminio.btrs.application.route.UserRequest;
 import org.ericminio.btrs.application.view.Renderer;
 import org.ericminio.btrs.application.view.SpecRenderer;
 import org.ericminio.btrs.application.view.pages.ShowPage;
+import org.ericminio.btrs.domain.Spec;
 import org.ericminio.btrs.domain.SpecRepository;
-import org.ericminio.btrs.store.PlainTextSpec;
 
 public class CreationController implements UserRequest {
 
@@ -30,9 +31,8 @@ public class CreationController implements UserRequest {
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
-		PlainTextSpec spec = new PlainTextSpec( getQueryStringValueOf( "spec", request ) );
-		spec.setContent( readFile( "target/html/newSpecContent.html" ) );
-		
+		Spec spec = aSpec().withTitle(  getQueryStringValueOf( "spec", request ) )
+						   .withContent( readFile( "target/html/newSpecContent.html" ) ).build();
 		repository.saveSpec( spec );
 		renderer.setSpec( spec );
 		renderer.render( out );

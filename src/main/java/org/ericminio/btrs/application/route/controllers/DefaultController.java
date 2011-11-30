@@ -1,12 +1,13 @@
 package org.ericminio.btrs.application.route.controllers;
 
+import static org.ericminio.btrs.store.SpecBuilder.aSpec;
+
 import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.ericminio.btrs.domain.Spec;
 import org.ericminio.btrs.domain.SpecRepository;
-import org.ericminio.btrs.store.PlainTextSpec;
 
 public class DefaultController extends ShowController {
 
@@ -16,9 +17,7 @@ public class DefaultController extends ShowController {
 	}
 
 	private Spec sampleSpec() {
-		PlainTextSpec spec = new PlainTextSpec( "sample" );
-		spec.setContent( sampleContent() );
-		return spec;
+		return aSpec().withTitle( "sample" ).withContent( sampleContent() ).build();
 	}
 	
 	private String sampleContent() {

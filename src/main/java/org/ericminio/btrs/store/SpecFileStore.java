@@ -16,6 +16,7 @@ import org.ericminio.btrs.domain.SpecRepository;
 
 import static org.ericminio.btrs.domain.matchers.CoreMatchers.*;
 import static org.ericminio.btrs.store.FileUtils.readFile;
+import static org.ericminio.btrs.store.SpecBuilder.aSpec;
 
 public class SpecFileStore implements SpecRepository {
 
@@ -48,9 +49,7 @@ public class SpecFileStore implements SpecRepository {
 	public Spec getSpecByTitle(String title) {
 		String content = readFile(path + "/" + title + ".html");
 		String label = readFile(path + "/" + title + ".label");
-		PlainTextSpec newSpec = new PlainTextSpec(title, content);
-		newSpec.setLabel(label);
-		return newSpec;
+		return aSpec().withTitle( title ).withContent( content ).withLabel( label ).build();
 	}
 
 	private File[] getAllHtmlFiles() {
