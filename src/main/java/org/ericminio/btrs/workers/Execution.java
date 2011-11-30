@@ -3,7 +3,10 @@ package org.ericminio.btrs.workers;
 import static org.ericminio.btrs.workers.GitUtils.git;
 
 import org.ericminio.btrs.domain.FileWorker;
+import org.ericminio.btrs.domain.SourcePuller;
 import org.ericminio.btrs.domain.Spec;
+import org.ericminio.btrs.domain.Compiler;
+import org.ericminio.btrs.domain.SpecRunner;
 
 public class Execution implements FileWorker {
 	
@@ -12,14 +15,14 @@ public class Execution implements FileWorker {
 	private Spec spec;
 	private String gitUrl;
 	
-	private GitPuller puller;
-	private MavenCompiler compiler;
-	private GreenPepperRunner runner;
+	private SourcePuller puller;
+	private Compiler compiler;
+	private SpecRunner runner;
 	
 	public Execution() {
-		setGitPuller( new GitPuller() );
+		setSourcePuller( new GitPuller() );
 		setCompiler( new MavenCompiler() );
-		setRunner( new GreenPepperRunner() );
+		setSpecRunner( new GreenPepperRunner() );
 	}
 	
 	public void setWorkingDirectory(String dir) {
@@ -53,15 +56,15 @@ public class Execution implements FileWorker {
 		runner.work();
 	}
 	
-	public void setGitPuller(GitPuller gitDownload) {
-		this.puller = gitDownload;
+	public void setSourcePuller(SourcePuller puller) {
+		this.puller = puller;
 	}
 
-	public void setCompiler(MavenCompiler compiler) {
+	public void setCompiler(Compiler compiler) {
 		this.compiler = compiler;
 	}
 
-	public void setRunner(GreenPepperRunner runner) {
+	public void setSpecRunner(SpecRunner runner) {
 		this.runner = runner;
 	}
 

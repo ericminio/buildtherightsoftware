@@ -2,9 +2,9 @@ package org.ericminio.btrs.workers;
 
 import java.io.File;
 
-import org.ericminio.btrs.domain.SourceRepositoryPuller;
+import org.ericminio.btrs.domain.SourcePuller;
 
-public class GitPuller implements SourceRepositoryPuller {
+public class GitPuller implements SourcePuller {
 
 	private String directory;
 	private String gitUrl;

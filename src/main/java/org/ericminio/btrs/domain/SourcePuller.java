@@ -1,6 +1,6 @@
 package org.ericminio.btrs.domain;
 
-public interface SourceRepositoryPuller extends FileWorker {
+public interface SourcePuller extends FileWorker {
 
 	public void setUrl(String url);
 	
