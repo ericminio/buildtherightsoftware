@@ -38,7 +38,6 @@ textarea {
 .rulefor {
     font-weight:normal;
     color:#41809B;
-    padding-bottom: 5px;
 }
 
 .ruleforheader {
@@ -110,7 +109,6 @@ padding-right: 12px;
 padding-top: 6px;
 text-align: left;
 text-decoration: none;
-text-shadow: rgba(34, 118, 187, 0.746094) 0px 1px 1px;
 width: 100px;
 	}
 
