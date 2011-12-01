@@ -38,13 +38,7 @@ public class ShowPageTest {
 		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
 										 , withAttribute("href", "/specs/modify/sample-title") ));
 	}
-	
-	@Test public void
-	displaysCodeSubmissionSection() throws IOException {
-		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
-											, withAttribute("action", "/specs/execute/sample-title") ));
-	}
-	
+
 	@Test public void
 	displaysSpecLabel() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "label")
@@ -55,6 +49,18 @@ public class ShowPageTest {
 	displaysSpecContent() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "spec")
 				 						    , withText("sample content") ));
+	}
+		
+	@Test public void
+	displaysCodeSubmissionSection() throws IOException {
+		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
+											, withAttribute("action", "/specs/execute/sample-title") ));
+	}
+	
+	@Test public void
+	displaysCodeSubmissionInvitation() throws IOException {
+		assertThat( doc, hasSelector( "span", withAttribute("class", "example")
+											, withText("(example: git://github.com/ericminio/mastermind.git)") ));
 	}
 	
 }
