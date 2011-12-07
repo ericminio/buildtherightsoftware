@@ -9,7 +9,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import static org.ericminio.btrs.store.FileUtils.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -73,7 +73,7 @@ public class GitPullerTest {
 		puller.setWorkingDirectory( "a-test-path-to-verify-git-puller-dir-creation" );
 		puller.work();
 		assertTrue( new File( "a-test-path-to-verify-git-puller-dir-creation" ).exists() );
-		new File( "a-test-path-to-verify-git-puller-dir-creation" ).delete();
+		removeDir( "a-test-path-to-verify-git-puller-dir-creation" );
 	}
 	
 	@Test public void
