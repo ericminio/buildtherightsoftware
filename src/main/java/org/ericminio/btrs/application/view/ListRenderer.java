@@ -6,7 +6,7 @@ import org.ericminio.btrs.domain.Spec;
 
 public interface ListRenderer extends Renderer {
 
-	public void setSpecs(List<Spec> specs);
+	void setSpecs(List<Spec> specs);
 
 }
 

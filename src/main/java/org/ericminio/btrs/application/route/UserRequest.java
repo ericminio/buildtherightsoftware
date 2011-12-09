@@ -9,10 +9,10 @@ import org.ericminio.btrs.domain.SpecRepository;
 
 public interface UserRequest {
 
-	public boolean isActivatedBy(HttpServletRequest request);
+	boolean isActivatedBy(HttpServletRequest request);
 	
-	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception;
+	void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception;
 	
-	public void setRenderer(Renderer renderer);
+	void setRenderer(Renderer renderer);
 
 }

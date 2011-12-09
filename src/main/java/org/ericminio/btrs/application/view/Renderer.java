@@ -6,5 +6,5 @@ import java.io.Writer;
 
 public interface Renderer {
 
-	public void render(Writer out) throws IOException;
+	void render(Writer out) throws IOException;
 }

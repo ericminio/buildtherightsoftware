@@ -4,5 +4,5 @@ import org.ericminio.btrs.domain.Spec;
 
 public interface SpecRenderer extends Renderer {
 
-	public void setSpec(Spec spec);
+	void setSpec(Spec spec);
 }

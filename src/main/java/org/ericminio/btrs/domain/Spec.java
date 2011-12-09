@@ -2,13 +2,13 @@ package org.ericminio.btrs.domain;
 
 public interface Spec {
 
-	public String getTitle();
+	String getTitle();
 
-	public String getContent();
+	String getContent();
 
-	public String getLabel();
+	String getLabel();
 
-	public void setLabel(String label);
+	void setLabel(String label);
 
-	public void setContent(String content);
+	void setContent(String content);
 }
