@@ -39,6 +39,7 @@ public class FeatureHandler extends AbstractHandler {
 			controller.handle( request, repository, response.getWriter() );
 		} catch (Exception e) {
 			response.getWriter().write( "Error" );
+			e.printStackTrace();
 		}
 	}
 
