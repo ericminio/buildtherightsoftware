@@ -1,34 +1,40 @@
 package org.ericminio.btrs.application.view.pages;
 
 import static org.ericminio.btrs.store.SpecBuilder.aSpec;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import org.ericminio.btrs.application.view.pages.ResultPage;
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import org.w3c.dom.Element;
 
 public class ResultPageTest {
 
 	private ResultPage page;
 	private String content;
+	private Element doc;
 	
 	@Before public void
 	init() throws IOException {
 		page = new ResultPage();
 		page.setWorkingDirectory( "target/test-classes/test-page-result" );
 		page.setChrono( "chrono" );
-		page.setSpec( aSpec().withTitle( "sample" ).build() );
+		page.setSpec( aSpec().withTitle( "sample" ).withLabel( "sample-label" ).build() );
 		page.setGitRepositoryName( "mastermind" );
 		
 		Writer out = new StringWriter();
 		page.render( out);
 		content = out.toString();
+	}
+	
+	@Test public void
+	displaysSpecLabel() {
+		assertThat( content, containsString( "<span class=\"label\">Label: sample-label</span>" ) );
 	}
 	
 	@Test public void

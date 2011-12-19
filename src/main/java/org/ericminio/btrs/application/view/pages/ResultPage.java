@@ -52,7 +52,7 @@ public class ResultPage implements Renderer {
 	}
 	
 	protected String specLabel() {
-		return "<span class=\"label\">Labels: " + spec.getLabel() + "</span>";
+		return "<span class=\"label\">Label: " + spec.getLabel() + "</span>";
 	}
 
 	protected String specContent() {
