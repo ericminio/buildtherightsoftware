@@ -1,8 +1,6 @@
 package org.ericminio.btrs.application.route.controllers;
 
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsNotEmptyGetParameter;
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.trueIfUriStartsWith;
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriWithoutThePrefix;
+import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.*;
 
 import java.io.Writer;
 import java.util.Date;
@@ -32,7 +30,7 @@ public class ExecutionController implements UserRequest {
 	
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return trueIfUriStartsWith( URI_PREFIX, request ) 
-			&& containsNotEmptyGetParameter( REPO_URL, request );
+			&& containsGetParameter( REPO_URL, request );
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {

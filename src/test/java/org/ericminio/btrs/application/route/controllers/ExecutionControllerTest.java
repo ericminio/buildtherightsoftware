@@ -44,7 +44,12 @@ public class ExecutionControllerTest {
 	
 	@Test public void
 	activationSpecification() {
-		assertTrue( "activation", controller.isActivatedBy( aStubRequest().withThisUri( "/specs/execute/sample" ).withThisGetParameter( "repo", "git://github.com/testaddict/mastermind.git" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( 
+				aStubRequest().withThisUri( "/specs/execute/sample" )
+				.withThisGetParameter( "repo", "git://github.com/testaddict/mastermind.git" ).build() ) );
+		assertTrue( "activation", controller.isActivatedBy( 
+				aStubRequest().withThisUri( "/specs/execute/sample" )
+				.withThisGetParameter( "repo", "" ).build() ) );
 
 		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "/" ).build() ) );
 		assertFalse( "activate", controller.isActivatedBy( aStubRequest().withThisUri( "" ).build() ) );

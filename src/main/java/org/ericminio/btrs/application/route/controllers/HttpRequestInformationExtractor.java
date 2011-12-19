@@ -35,7 +35,15 @@ public class HttpRequestInformationExtractor {
 		
 		return true;
 	}
-	
+
+	public static boolean containsGetParameter(String param, HttpServletRequest request) {
+		String queryString = request.getQueryString();
+		if (queryString == null) return false;
+		if (! queryString.startsWith( param+"=" )) return false;
+		
+		return true;
+	}
+
 	public static String uriWithoutThePrefix(String prefix, HttpServletRequest request) {
 		return request.getRequestURI().substring( prefix.length() );
 	}
