@@ -27,7 +27,7 @@ public class HttpRequestInformationExtractor {
 		return request.getParameter( param ) != null;
 	}
 	
-	public static boolean containsGetParameter(String param, HttpServletRequest request) {
+	public static boolean containsNotEmptyGetParameter(String param, HttpServletRequest request) {
 		String queryString = request.getQueryString();
 		if (queryString == null) return false;
 		if (! queryString.startsWith( param+"=" )) return false;

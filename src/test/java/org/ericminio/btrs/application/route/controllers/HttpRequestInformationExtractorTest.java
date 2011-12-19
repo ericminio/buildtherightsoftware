@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsGetParameter;
+import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsNotEmptyGetParameter;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.getQueryStringValueOf;
 import static org.junit.Assert.assertTrue;
 
@@ -17,14 +17,14 @@ public class HttpRequestInformationExtractorTest {
 
 	@Test public void
 	canAssessWhereQueryStringContainsAGivenParameter() {
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( null )) );
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "" )) );
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x" )) );
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x=" )) );
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "x=2" )) );
-		assertFalse( containsGetParameter( "y", aRequestWithTheQueryString( "y=" )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( null )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "" )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "x" )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "x=" )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "x=2" )) );
+		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "y=" )) );
 		
-		assertTrue( containsGetParameter( "y", aRequestWithTheQueryString( "y=2" )) );
+		assertTrue( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "y=2" )) );
 	}
 
 	private HttpServletRequest aRequestWithTheQueryString(String queryString) {

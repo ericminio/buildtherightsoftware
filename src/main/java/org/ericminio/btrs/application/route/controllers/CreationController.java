@@ -1,6 +1,6 @@
 package org.ericminio.btrs.application.route.controllers;
 
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsGetParameter;
+import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsNotEmptyGetParameter;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.getQueryStringValueOf;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriIs;
 import static org.ericminio.btrs.store.FileUtils.readFile;
@@ -27,7 +27,7 @@ public class CreationController implements UserRequest {
 	
 	public boolean isActivatedBy(HttpServletRequest request) {
 		return uriIs( "/specs/create", request ) 
-			&& containsGetParameter( "spec", request );
+			&& containsNotEmptyGetParameter( "spec", request );
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
