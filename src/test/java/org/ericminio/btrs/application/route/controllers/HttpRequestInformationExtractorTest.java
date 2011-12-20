@@ -15,6 +15,20 @@ import static org.junit.Assert.assertTrue;
 public class HttpRequestInformationExtractorTest {
 
 	@Test public void
+	canAssessWetherARequestUriStartsWithAGivenPrefix() {
+		assertFalse( trueIfUriStartsWith( "this", aRequestWithTheUri( null ) ) );
+		assertFalse( trueIfUriStartsWith( "this", aRequestWithTheUri( "that" ) ) );
+		assertFalse( trueIfUriStartsWith( "that", aRequestWithTheUri( "that" ) ) );
+		assertTrue( trueIfUriStartsWith( "that", aRequestWithTheUri( "that-and-more" ) ) );
+	}
+	
+	private HttpServletRequest aRequestWithTheUri(String uri) {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		when(request.getRequestURI()).thenReturn( uri );
+		return request;
+	}
+	
+	@Test public void
 	canAssessWhenQueryStringContainsAGivenNotEmptyParameter() {
 		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( null )) );
 		assertFalse( containsNotEmptyGetParameter( "y", aRequestWithTheQueryString( "" )) );
