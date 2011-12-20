@@ -16,10 +16,10 @@ public class HttpRequestInformationExtractorTest {
 
 	@Test public void
 	canAssessWetherARequestUriStartsWithAGivenPrefix() {
-		assertFalse( trueIfUriStartsWith( "this", aRequestWithTheUri( null ) ) );
-		assertFalse( trueIfUriStartsWith( "this", aRequestWithTheUri( "that" ) ) );
-		assertFalse( trueIfUriStartsWith( "that", aRequestWithTheUri( "that" ) ) );
-		assertTrue( trueIfUriStartsWith( "that", aRequestWithTheUri( "that-and-more" ) ) );
+		assertFalse( uriStartsWith( "this", aRequestWithTheUri( null ) ) );
+		assertFalse( uriStartsWith( "this", aRequestWithTheUri( "that" ) ) );
+		assertFalse( uriStartsWith( "that", aRequestWithTheUri( "that" ) ) );
+		assertTrue( uriStartsWith( "that", aRequestWithTheUri( "that-and-more" ) ) );
 	}
 	
 	private HttpServletRequest aRequestWithTheUri(String uri) {

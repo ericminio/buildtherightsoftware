@@ -29,7 +29,7 @@ public class ExecutionController implements UserRequest {
 	}
 	
 	public boolean isActivatedBy(HttpServletRequest request) {
-		return trueIfUriStartsWith( URI_PREFIX, request ) 
+		return uriStartsWith( URI_PREFIX, request ) 
 			&& containsGetParameter( REPO_URL, request );
 	}
 

@@ -1,7 +1,7 @@
 package org.ericminio.btrs.application.route.controllers;
 
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.containsPostParameter;
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.trueIfUriStartsWith;
+import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriStartsWith;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriWithoutThePrefix;
 
 import java.io.Writer;
@@ -24,7 +24,7 @@ public class SaveController implements UserRequest {
 	}
 	
 	public boolean isActivatedBy(HttpServletRequest request) {
-		return trueIfUriStartsWith( "/specs/save/", request ) 
+		return uriStartsWith( "/specs/save/", request ) 
 				&& containsPostParameter( "label", request )
 				&& containsPostParameter( "content", request);
 	}

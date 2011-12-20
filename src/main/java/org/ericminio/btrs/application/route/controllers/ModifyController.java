@@ -1,6 +1,6 @@
 package org.ericminio.btrs.application.route.controllers;
 
-import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.trueIfUriStartsWith;
+import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriStartsWith;
 import static org.ericminio.btrs.application.route.controllers.HttpRequestInformationExtractor.uriWithoutThePrefix;
 
 import java.io.Writer;
@@ -28,7 +28,7 @@ public class ModifyController implements UserRequest {
 	}
 
 	public boolean isActivatedBy(HttpServletRequest request) {
-		return trueIfUriStartsWith( URI_PREFIX, request );
+		return uriStartsWith( URI_PREFIX, request );
 	}
 
 	public void handle(HttpServletRequest request, SpecRepository repository, Writer out) throws Exception {
