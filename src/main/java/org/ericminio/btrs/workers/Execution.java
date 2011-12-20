@@ -11,7 +11,7 @@ public class Execution implements FileWorker {
 	private String directory;
 	private String chrono;
 	private Spec spec;
-	private String gitUrl;
+	private String sourceRepositoryUrl;
 	
 	private SourcePuller puller;
 	private Compiler compiler;
@@ -35,8 +35,8 @@ public class Execution implements FileWorker {
 		this.spec = spec;
 	}
 
-	public void setGitUrl(String gitUrl) {
-		this.gitUrl = gitUrl;
+	public void setSourceRepositoryUrl(String url) {
+		this.sourceRepositoryUrl = url;
 	}
 
 	public void work() throws Exception {
@@ -61,7 +61,7 @@ public class Execution implements FileWorker {
 
 	private void pullSource() throws Exception {
 		puller.setWorkingDirectory( directory + "/runs/" + chrono );
-		puller.setUrl( gitUrl );
+		puller.setUrl( sourceRepositoryUrl );
 		puller.work();
 	}
 	

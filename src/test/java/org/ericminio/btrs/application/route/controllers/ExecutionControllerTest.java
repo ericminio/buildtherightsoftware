@@ -79,7 +79,7 @@ public class ExecutionControllerTest {
 		verify( executeMock ).setWorkingDirectory( "target/test-classes/test-system" );
 		verify( executeMock ).setChrono( Mockito.anyString() );
 		verify( executeMock ).setSpec( spec );
-		verify( executeMock ).setGitUrl( "git://github.com/testaddict/mastermind.git" );
+		verify( executeMock ).setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
 		verify( executeMock ).work();
 		verify( resultPageMock ).setWorkingDirectory( "target/test-classes/test-system" );
 		verify( resultPageMock ).setChrono( Mockito.anyString() );

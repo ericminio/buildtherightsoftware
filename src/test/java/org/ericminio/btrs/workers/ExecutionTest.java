@@ -24,7 +24,7 @@ public class ExecutionTest {
 		execution.setWorkingDirectory( "working-directory" );
 		execution.setChrono( "test-chrono" );
 		execution.setSpec( aSpec().withTitle( "sample" ).build() );
-		execution.setGitUrl( "git://github.com/testaddict/mastermind.git" );
+		execution.setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
 	}
 	
 	@Test public void
@@ -50,7 +50,7 @@ public class ExecutionTest {
 	
 	
 	@Test public void
-	fetchFromGitThenCompileAndFinnalyRunTheSpecWhenExecuted() throws Exception {
+	fetchSourcesThenCompileAndFinnalyRunTheSpecWhenExecuted() throws Exception {
 		SourcePuller pullerMock = mock( SourcePuller.class );
 		execution.setSourcePuller( pullerMock );
 		when(pullerMock.getRepositoryName()).thenReturn( "mastermind" );

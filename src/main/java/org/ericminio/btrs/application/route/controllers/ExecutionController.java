@@ -40,7 +40,7 @@ public class ExecutionController implements UserRequest {
 		execute.setWorkingDirectory( directory );
 		execute.setChrono( chrono );
 		execute.setSpec( spec );
-		execute.setGitUrl( request.getParameter(REPO_URL) );
+		execute.setSourceRepositoryUrl( request.getParameter(REPO_URL) );
 		execute.work();
 
 		resultPage.setWorkingDirectory( directory );
