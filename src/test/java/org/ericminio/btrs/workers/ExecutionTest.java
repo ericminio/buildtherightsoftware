@@ -3,6 +3,7 @@ package org.ericminio.btrs.workers;
 import static org.ericminio.btrs.store.SpecBuilder.aSpec;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,25 @@ public class ExecutionTest {
 		execution.setChrono( "test-chrono" );
 		execution.setSpec( aSpec().withTitle( "sample" ).build() );
 		execution.setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
+	}
+	
+	@Test public void
+	setsGitPullerWhenRepositoryUrlPointsAtGithub() {
+		execution.setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
+		assertTrue( execution.getSourcePuller() instanceof GitPuller );
+	}
+	
+	@Test public void
+	setsMercurialPullerWhenRepositoryUrlPointsAtBitbuket() {
+		execution.setSourceRepositoryUrl( "https://bitbucket.org/ericminio/bowling-kata" );
+		assertTrue( execution.getSourcePuller() instanceof MercurialPuller );
+	}
+	
+	@Test public void
+	reSetsGitPullerWhenRepositoryUrlPointsAtGithub() {
+		execution.setSourceRepositoryUrl( "https://bitbucket.org/ericminio/bowling-kata" );
+		execution.setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
+		assertTrue( execution.getSourcePuller() instanceof GitPuller );
 	}
 	
 	@Test public void

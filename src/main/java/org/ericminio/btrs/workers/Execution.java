@@ -37,6 +37,12 @@ public class Execution implements FileWorker {
 
 	public void setSourceRepositoryUrl(String url) {
 		this.sourceRepositoryUrl = url;
+		if ( url.indexOf( "bitbucket.org" ) != -1) {
+			setSourcePuller( new MercurialPuller() );
+		}
+		else {
+			setSourcePuller( new GitPuller() );
+		}
 	}
 
 	public void work() throws Exception {

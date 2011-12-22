@@ -1,51 +1,53 @@
 package org.ericminio.btrs.workers;
 
+
+import static org.ericminio.btrs.store.FileUtils.removeDir;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.ericminio.btrs.store.FileUtils.*;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.ericminio.btrs.workers.GitPuller;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GitPullerTest {
+public class MercurialPullerTest {
 
-	private GitPuller puller;
+	private MercurialPuller puller;
 	
 	@Before public void
 	init() {
-		puller = new GitPuller();
+		puller = new MercurialPuller();
+	}
+	
+	@Test public void
+	canConfigureWorkingDirectory() {
+		puller.setWorkingDirectory( "this-path" );
+		assertThat( puller.getWorkingDirectory(), equalTo( "this-path" ) );
+	}
+	
+	@Test public void
+	canConfigureUrl() {
+		puller.setUrl( "this-url" );
+		assertThat( puller.getUrl(), equalTo( "this-url" ) );
 	}
 	
 	@Test
-	public void canConfigureWorkingDirectory() {
-		puller.setWorkingDirectory( "a-test-path-to-configure-git-puller" );
-		assertThat( puller.getWorkingDirectory(), equalTo( "a-test-path-to-configure-git-puller" ) );
+	public void canExtractRepositoryNameFromABitbucketUrl() {
+		puller.setUrl( "https://bitbucket.org/ericminio/bowling-kata" );
+		assertThat( puller.getRepositoryName(), equalTo( "bowling-kata" ) );
 	}
 	
 	@Test
-	public void canConfigureUrl() {
-		puller.setUrl( "an-url" );
-		assertThat( puller.getUrl(), equalTo( "an-url" ) );
-	}
-	
-	@Test
-	public void canExtractRepositoryNameFromAGithubUrl() {
-		puller.setUrl( "git://github.com/testaddict/mastermind.git" );
-		assertThat( puller.getRepositoryName(), equalTo( "mastermind" ) );
-	}
-	
-	@Test
-	public void cannotExtractRepositoryIfUrlDoesNotTargetAGithubRepository() {
+	public void cannotExtractRepositoryIfUrlDoesNotTargetAMercurialRepository() {
 		puller.setUrl( "an-url" );
 		assertThat( puller.getRepositoryName(), is(nullValue()) );
 	}
@@ -53,7 +55,7 @@ public class GitPullerTest {
 	@Test
 	public void pullCommand() {
 		puller.setUrl( "an-url" );
-		assertThat( puller.getPullCommand(), equalTo( "git clone an-url" ) );
+		assertThat( puller.getPullCommand(), equalTo( "hg clone an-url" ) );
 	}
 	
 	@Test public void
@@ -70,22 +72,23 @@ public class GitPullerTest {
 
 	@Test
 	public void createDirectoryToWorkIn() throws Exception {
-		puller.setWorkingDirectory( "a-test-path-to-verify-git-puller-dir-creation" );
+		puller.setRuntime( aRuntimeMock() );
+		puller.setWorkingDirectory( "a-test-path-to-verify-mercurial-puller-dir-creation" );
 		puller.work();
-		assertTrue( new File( "a-test-path-to-verify-git-puller-dir-creation" ).exists() );
-		removeDir( "a-test-path-to-verify-git-puller-dir-creation" );
+		assertTrue( new File( "a-test-path-to-verify-mercurial-puller-dir-creation" ).exists() );
+		removeDir( "a-test-path-to-verify-mercurial-puller-dir-creation" );
 	}
 	
 	@Test public void
 	executesCommandWithCorrectParameters() throws Exception {
 		Runtime runtimeMock = aRuntimeMock();
 		puller.setRuntime( runtimeMock );
-		puller.setWorkingDirectory( "a-test-path-to-verify-git-puller-command" );
+		puller.setWorkingDirectory( "a-test-path-to-verify-mercurial-puller-command" );
 		puller.work();
 		verify( runtimeMock ).exec( puller.getPullCommand(), 
 									null,
-									new File( "a-test-path-to-verify-git-puller-command" ) );
-		removeDir( "a-test-path-to-verify-git-puller-command" );
+									new File( "a-test-path-to-verify-mercurial-puller-command" ) );
+		removeDir( "a-test-path-to-verify-mercurial-puller-command" );
 	}
 
 	private Runtime aRuntimeMock() throws IOException {
@@ -95,4 +98,5 @@ public class GitPullerTest {
 		return toReturn;
 	}
 
+	
 }

@@ -5,4 +5,5 @@ public interface SourcePuller extends FileWorker {
 	void setUrl(String url);
 	
 	String getRepositoryName();
+	
 }
