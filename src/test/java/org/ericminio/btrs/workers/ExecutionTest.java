@@ -90,7 +90,7 @@ public class ExecutionTest {
 		verify( compilerMock ).work();
 		verify( specRunnerMock ).setWorkingDirectory( "working-directory/" );
 		verify( specRunnerMock ).setSpecFileRelativeFile( "sample.html" );
-		verify( specRunnerMock ).setClassesRelativeDirectory( "runs/test-chrono/mastermind/target/classes" );
+		verify( specRunnerMock ).setClassPathRelativeDirectory( "runs/test-chrono/mastermind/target/classes:runs/test-chrono/mastermind/target/test-classes" );
 		verify( specRunnerMock ).setOutputRelativeDirectory( "runs/test-chrono/mastermind/se/out" );
 		verify( specRunnerMock ).work();
 	}

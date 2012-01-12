@@ -21,7 +21,7 @@ public class SpecRunnerTest {
 	@Test public void
 	canExecuteASe() throws Exception {
 		runner.setWorkingDirectory( "target/test-classes/test-greenpepper");
-		runner.setClassesRelativeDirectory( "mastermind/target/classes" );
+		runner.setClassPathRelativeDirectory( "mastermind/target/classes:mastermind/target/test-classes" );
 		runner.setSpecFileRelativeFile( "mastermind/se/sample.html" );
 		runner.setOutputRelativeDirectory( "mastermind/se/out" );
 		runner.work();

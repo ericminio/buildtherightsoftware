@@ -55,9 +55,17 @@ public class Execution implements FileWorker {
 	private void runSpec(String repositoryName) throws Exception {
 		runner.setWorkingDirectory( directory + "/" );
 		runner.setSpecFileRelativeFile( spec.getTitle() + ".html" );
-		runner.setClassesRelativeDirectory( "runs/" + chrono + "/" + repositoryName + "/target/classes") ;
+		runner.setClassPathRelativeDirectory( mavenClasses(repositoryName) + ":" + mavenTestClasses(repositoryName)) ;
 		runner.setOutputRelativeDirectory( "runs/" + chrono + "/" + repositoryName + "/se/out") ;
 		runner.work();
+	}
+
+	protected String mavenClasses(String repositoryName) {
+		return "runs/" + chrono + "/" + repositoryName + "/target/classes";
+	}
+
+	protected String mavenTestClasses(String repositoryName) {
+		return "runs/" + chrono + "/" + repositoryName + "/target/test-classes";
 	}
 
 	private void compile(String gitRepositoryName) throws Exception {

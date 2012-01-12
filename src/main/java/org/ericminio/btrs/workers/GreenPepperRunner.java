@@ -8,7 +8,7 @@ public class GreenPepperRunner implements SpecRunner {
 
 	private String directory;
 
-	private String classesRelativePath;
+	private String classpathRelativePath;
 	private String specFileRelativePath;
 	private String outRelativePath;
 
@@ -16,8 +16,8 @@ public class GreenPepperRunner implements SpecRunner {
 		this.directory = path;
 	}
 
-	public void setClassesRelativeDirectory(String classesRelativePath) {
-		this.classesRelativePath = classesRelativePath;
+	public void setClassPathRelativeDirectory(String cpRelativePath) {
+		this.classpathRelativePath = cpRelativePath;
 	}
 
 	public void setSpecFileRelativeFile(String specFileRelativePath) {
@@ -31,7 +31,7 @@ public class GreenPepperRunner implements SpecRunner {
 	public void work() throws Exception {
 		File dir = new File(directory);
 		String command = "java -cp greenpepper-core-2.7.jar:"
-				+ classesRelativePath + " com.greenpepper.runner.Main" + " "
+				+ classpathRelativePath + " com.greenpepper.runner.Main" + " "
 				+ specFileRelativePath + " -o " + outRelativePath;
 		Process process;
 		process = Runtime.getRuntime().exec(command, null, dir);
