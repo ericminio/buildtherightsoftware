@@ -26,6 +26,7 @@ public class ResultPageTest {
 		page.setChrono( "chrono" );
 		page.setSpec( aSpec().withTitle( "sample" ).withLabel( "sample-label" ).build() );
 		page.setGitRepositoryName( "mastermind" );
+		page.setSourceRepositoryUrl( "url-to-sources" );
 		
 		Writer out = new StringWriter();
 		page.render( out);
@@ -33,8 +34,13 @@ public class ResultPageTest {
 	}
 	
 	@Test public void
+	displaysSourceRepository() {
+		assertThat( content, containsString( "<p><span class=\"repository\">Repository: url-to-sources</span></p>" ) );
+	}
+	
+	@Test public void
 	displaysSpecLabel() {
-		assertThat( content, containsString( "<span class=\"label\">Label: sample-label</span>" ) );
+		assertThat( content, containsString( "<p><span class=\"label\">Label: sample-label</span></p>" ) );
 	}
 	
 	@Test public void

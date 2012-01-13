@@ -13,7 +13,8 @@ public class ResultPage implements Renderer {
 	private String directory;
 	private String chrono;
 	private Spec spec;
-	private String gitRepositoryName;
+	private String repositoryName;
+	private String sourceRepositoryUrl;
 	
 	public void setWorkingDirectory(String directory) {
 		this.directory = directory;
@@ -28,16 +29,16 @@ public class ResultPage implements Renderer {
 	}
 
 	public void setGitRepositoryName(String gitRepositoryName) {
-		this.gitRepositoryName = gitRepositoryName;
+		this.repositoryName = gitRepositoryName;
 	}
 
 
 	public String getResultPagePath() {
-		return directory + "/runs/" + chrono + "/" + gitRepositoryName + "/se/out/" + spec.getTitle() + ".html";
+		return directory + "/runs/" + chrono + "/" + repositoryName + "/se/out/" + spec.getTitle() + ".html";
 	}
 	
 	public String getCoberturaReportPath() {
-		return directory + "/runs/" + chrono + "/" + gitRepositoryName + "/target/site/cobertura/frame-summary.html";
+		return directory + "/runs/" + chrono + "/" + repositoryName + "/target/site/cobertura/frame-summary.html";
 	}
 
 	public void render(Writer out) throws IOException {
@@ -47,12 +48,16 @@ public class ResultPage implements Renderer {
 	}
 	
 	protected String pageContent() throws IOException {
-		String content = specLabel() + specContent() + coberturaReport();
+		String content = sourceRepositoryMention() + specLabel() + specContent() + coberturaReport();
 		return content;
 	}
 	
+	protected String sourceRepositoryMention() {
+		return "<p><span class=\"repository\">Repository: " + this.sourceRepositoryUrl + "</span></p>";
+	}
+	
 	protected String specLabel() {
-		return "<span class=\"label\">Label: " + spec.getLabel() + "</span>";
+		return "<p><span class=\"label\">Label: " + spec.getLabel() + "</span></p>";
 	}
 
 	protected String specContent() {
@@ -82,6 +87,10 @@ public class ResultPage implements Renderer {
 			newContent = removeScriptSection( newContent );
 		}
 		return newContent;
+	}
+
+	public void setSourceRepositoryUrl(String url) {
+		this.sourceRepositoryUrl = url;
 	}
 	
 }

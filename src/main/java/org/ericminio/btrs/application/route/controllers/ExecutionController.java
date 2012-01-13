@@ -47,6 +47,7 @@ public class ExecutionController implements UserRequest {
 		resultPage.setChrono( chrono );
 		resultPage.setSpec(spec);
 		resultPage.setGitRepositoryName( execute.getSourcePuller().getRepositoryName() );
+		resultPage.setSourceRepositoryUrl( request.getParameter(REPO_URL) );
 		resultPage.render( out);
 	}
 	

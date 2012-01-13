@@ -85,6 +85,7 @@ public class ExecutionControllerTest {
 		verify( resultPageMock ).setChrono( Mockito.anyString() );
 		verify( resultPageMock ).setSpec( spec );
 		verify( resultPageMock ).setGitRepositoryName( "mastermind" );
+		verify( resultPageMock ).setSourceRepositoryUrl( "git://github.com/testaddict/mastermind.git" );
 		verify( resultPageMock ).render( writerMock ); 
 		
 	}
