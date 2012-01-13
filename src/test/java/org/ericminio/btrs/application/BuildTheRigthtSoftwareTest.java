@@ -23,9 +23,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	@Test public void
 	homPageDisplaysASampleSpec() {
 		accessHomePage();
-		pageShouldContainModifyLink();
-		pageShouldContainTheText( "Rule for", "home page display a spec sample" );
-		pageShouldContainTryThisCodeLink();
+		pageShouldContainTheText( "Welcome :)", "home page displays welcome message" );
 	}
 	
 	@Test public void

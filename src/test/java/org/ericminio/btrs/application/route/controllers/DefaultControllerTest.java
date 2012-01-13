@@ -1,20 +1,20 @@
 package org.ericminio.btrs.application.route.controllers;
 
-import static org.ericminio.btrs.domain.matchers.HamcrestSpecMatcher.isASpec;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.io.Writer;
 
-import org.ericminio.btrs.application.route.controllers.DefaultController;
-import org.ericminio.btrs.application.view.SpecRenderer;
+import org.ericminio.btrs.application.view.Renderer;
+import org.ericminio.btrs.application.view.pages.WelcomePage;
 import org.ericminio.btrs.domain.SpecRepository;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class DefaultControllerTest {
 
@@ -28,31 +28,24 @@ public class DefaultControllerTest {
 	}
 	
 	@Test public void
-	triggersSamplePageRendering() throws Exception {
-		SpecRenderer viewMock = mock( SpecRenderer.class );
-		controller.setRenderer( viewMock );
-		
-		controller.handle(null, repository, mock( Writer.class ) );
-		verify( repository, never() ).getSpecByTitle( anyString() );
-		verify( viewMock ).setSpec( argThat( isASpec().withTitle( "sample" )
-													  .withContent( expectedContent() ) ));
+	isAlwaysActivated() {
+		assertThat( controller.isActivatedBy( null), is(true) );
 	}
 	
-	private String expectedContent() {
-		return "<p>"
-				+ "<table>" 
-				+ "<tr>" 
-				+ "	<td class=\"rulefor\">Rule for</td>" 
-				+ "	<td>mastermind</td>" 
-				+ "</tr>"
-				+ "<tr>" 
-				+ "<td class=\"ruleforheader\">given the secret</td>" 
-				+ "<td class=\"ruleforheader\">when player plays</td>" 
-				+ "<td class=\"ruleforheader\">does he win ?</td>" 
-				+ "</tr>"
-				+ "<tr> <td>green</td> <td>red</td> <td>no</td> </tr>"
-				+ "<tr> <td>green</td> <td>green</td> <td>yes</td> </tr>"
-				+ "</table>"
-			 + "</p>";
+	@Test public void
+	rendererIsTheWelcomePage() {
+		assertThat( controller.getRenderer(), instanceOf(WelcomePage.class) );
+	}
+	
+	@Test public void
+	triggersRenderingWithoutInteractingWithSpecRepository() throws Exception {
+		Renderer viewMock = mock( Renderer.class );
+		controller.setRenderer( viewMock );
+		
+		Writer writerMock = mock( Writer.class );
+		controller.handle(null, repository, writerMock );
+		
+		verify( repository, never() ).getSpecByTitle( anyString() );
+		verify( viewMock ).render( writerMock );
 	}
 }
