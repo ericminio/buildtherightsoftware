@@ -4,27 +4,82 @@ Welcome :)
 
 <p>
 	<ol>
-		<li>Create a GreenPepper specification</li>
-		<li>Share it</li>
-		<li>Make it pass</li>
+		<li><a href="specs/new">Create</a> a <a href="http://www.greenpeppersoftware.com/confluence/display/GPW/Home/">GreenPepper</a> specification</li>
+		<li>Share the link to it</li>
 	</ol>
 </p>
 
 <p>
-	Available combinaisons:
+	To try a code for a spec:
 	<ul>
-		<li>GreenPepper spec + Maven Java 5 code on github.com</li>
-		<li>GreenPepper spec + Maven Java 5 code on bitbucket.org</li>
-	</ul>
-</p>
-
-<p>
-	Notes:
-	<ul>
-		<li>Your maven project must support a 'mvn clean cobertura:cobertura'</li>
+		<li>Create a <a href="http://maven.apache.org/">Maven</a> project.</li>
+		<li>(the system will execute these maven goals : clean cobertura:cobertura)</li>
+		<li>(you can put your greenpepper fixtures in both the main or test  maven's directories)</li>
+		<li>Share it on <a href="http://github.com">github.com</a> or <a href="http://bitbucket.org">bitbucket.org</a></li>
+		<li>(the system will pull with git for github hosted projects and with mercurial for bitbucket hosted project)</li>
+		<li>Go to <a href="specs/list">the spec</a> you need to make pass</li>
+		<li>Put the url of your repository in the input field below the spec and click 'Try this code !'</li>
 	</ul>
 </p>
 
 <p>
 Enjoy :)
 </p>
+
+<p>
+<b>Github sample</b>
+<ul>
+<li>Given the following table for a spec about the mastermind</li>
+
+<table border="1" cellpadding="0" cellspacing="0"> 
+<tr> 
+    <td>Rule for</td> 
+    <td>mastermind</td> 
+</tr>
+<tr> 
+    <td class="ruleforheader">given the secret</td> 
+    <td class="ruleforheader">when player plays</td> 
+    <td class="ruleforheader">does he win ?</td> 
+</tr>
+<tr> <td>green</td> <td>red</td> <td>no</td> </tr>
+<tr> <td>green</td> <td>green</td> <td>yes</td> </tr>
+</table>
+
+<li>You can try this code : git://github.com/ericminio/mastermind.git</li>
+<li>For a quick start, look at the <a href="https://github.com/ericminio/mastermind/blob/master/pom.xml">pom.xml</a>, 
+	and at the <a href="https://github.com/ericminio/mastermind/blob/master/src/main/java/Mastermind.java">Mastermind</a> class. 
+	Note that the fixture is in the default package 
+	(more about imports <a href="http://www.greenpeppersoftware.com/confluence/display/GPO/Import">here</a> 
+	and <a href="http://www.greenpeppersoftware.com/confluence/display/GPO/Using+a+custom+SystemUnderDevelopment">here</a>)
+</li>
+
+</ul>
+</p>
+
+<p>
+<b>Bitbucket sample</b>
+<ul>
+<li>Given the following table for a spec about the string-calculator kata</li>
+
+<table border="1" cellspacing="0" cellpadding="0"> 
+<tr> 
+    <td>Rule for</td> 
+    <td>String calculator</td> 
+</tr>
+<tr> 
+    <td>input</td>  
+    <td>output ?</td> 
+</tr>
+<tr> <td></td> <td>0</td> </tr>
+<tr> <td>1</td> <td>1</td> </tr>
+<tr> <td>1, 2</td> <td>3</td> </tr>
+<tr> <td>1, 2, 7, 12</td> <td>22</td> </tr>
+</table>
+
+<li>You can try this code : https://bitbucket.org/ericminio/string-calculator-kata</li>
+<li>For a quick start, look at the <a href="https://bitbucket.org/ericminio/string-calculator-kata/src/024abbbc5f6b/pom.xml">pom.xml</a>, and at the <a href="https://bitbucket.org/ericminio/string-calculator-kata/src/024abbbc5f6b/src/test/java/StringCalculatorFixture.java">StringCalculatorFixture</a> class. Note the <i>Fixture</i> suffix because the StringCalculator class already exists in the main directory</li>
+
+</ul>
+</p>
+
+

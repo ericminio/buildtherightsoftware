@@ -31,25 +31,17 @@ public class WelcomePageTest {
 	@Test public void
 	welcome() {
 		assertThat( out.toString(), containsString( "Welcome :)" ) );
+		assertThat( out.toString(), containsString( "Github sample" ) );
+		assertThat( out.toString(), containsString( "Bitbucket sample" ) );
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test public void
 	instructions() throws IOException {
-		assertThat( doc, hasSelector( "li", withText( "Create a GreenPepper specification" )));
-		assertThat( doc, hasSelector( "li", withText( "Share it" )));
-		assertThat( doc, hasSelector( "li", withText( "Make it pass" )));
+		assertThat( doc, hasSelector( "a", withText( "GreenPepper" )));
+		assertThat( doc, hasSelector( "a", withText( "Maven" )));
+		assertThat( doc, hasSelector( "a", withText( "github.com" )));
+		assertThat( doc, hasSelector( "a", withText( "bitbucket.org" )));
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Test public void
-	features() {
-		assertThat( doc, hasSelector( "li", withText( "GreenPepper spec + Maven Java 5 code on github.com" )));
-		assertThat( doc, hasSelector( "li", withText( "GreenPepper spec + Maven Java 5 code on bitbucket.org" )));
-	}
-	
-	@Test public void
-	notes() {
-		assertThat( doc, hasSelector( "li", withText( "Your maven project must support a 'mvn clean cobertura:cobertura'" )));
-	}
 }
