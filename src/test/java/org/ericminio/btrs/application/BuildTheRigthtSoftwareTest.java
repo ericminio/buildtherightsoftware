@@ -21,7 +21,7 @@ public class BuildTheRigthtSoftwareTest extends SystemTest {
 	}
 	
 	@Test public void
-	homPageDisplaysASampleSpec() {
+	homPageDisplaysAWelcomeMessage() {
 		accessHomePage();
 		pageShouldContainTheText( "Welcome :)", "home page displays welcome message" );
 	}
