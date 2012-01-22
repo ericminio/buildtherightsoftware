@@ -1,6 +1,7 @@
 package org.ericminio.btrs.store;
 
-import static org.ericminio.btrs.domain.matchers.CoreMatchers.*;
+import static org.ericminio.btrs.domain.matchers.CoreMatchers.all;
+import static org.ericminio.btrs.domain.matchers.CoreMatchers.withLabel;
 import static org.ericminio.btrs.store.SpecBuilder.aSpec;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ericminio.btrs.domain.Spec;
-import org.ericminio.btrs.domain.SpecMatcher;
 import org.junit.Test;
 
 public class InMemoryRepositoryTest {
