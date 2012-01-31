@@ -11,8 +11,16 @@ public class MercurialPuller extends ComandLinePuller {
 		if ( url.length() < "https://bitbucket.org/a/b".length() ) {
 			return null;
 		} else {
-			return url.substring( url.lastIndexOf("/") + 1, url.length() );
+			return url.substring( startIndex(), endIndex() );
 		}
+	}
+
+	protected int endIndex() {
+		return url.indexOf( " " ) != -1 ? url.indexOf( " " ) : url.length();
+	}
+
+	protected int startIndex() {
+		return url.lastIndexOf("/") + 1;
 	}
 
 	public String getPullCommand() {

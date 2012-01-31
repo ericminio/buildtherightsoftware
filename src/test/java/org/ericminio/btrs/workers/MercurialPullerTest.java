@@ -47,6 +47,12 @@ public class MercurialPullerTest {
 	}
 	
 	@Test
+	public void canExtractRepositoryNameFromABitbucketUrlWithARevisionNumber() {
+		puller.setUrl( "https://bitbucket.org/ericminio/bowling-kata -r 797256eb0eb2" );
+		assertThat( puller.getRepositoryName(), equalTo( "bowling-kata" ) );
+	}
+	
+	@Test
 	public void cannotExtractRepositoryIfUrlDoesNotTargetAMercurialRepository() {
 		puller.setUrl( "an-url" );
 		assertThat( puller.getRepositoryName(), is(nullValue()) );
@@ -54,8 +60,8 @@ public class MercurialPullerTest {
 	
 	@Test
 	public void pullCommand() {
-		puller.setUrl( "an-url" );
-		assertThat( puller.getPullCommand(), equalTo( "hg clone an-url" ) );
+		puller.setUrl( "a-command with-a-param" );
+		assertThat( puller.getPullCommand(), equalTo( "hg clone a-command with-a-param" ) );
 	}
 	
 	@Test public void

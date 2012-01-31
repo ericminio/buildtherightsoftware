@@ -72,10 +72,10 @@ public class FeatureHandlerTest {
 		UserRequest controller = mock(UserRequest.class);
 		Router routerMock = aRouterThatIdentifiesTheController(controller);
 		handler.setRouter( routerMock );
-		doThrow( new Exception() ).when( controller ).handle( httpRequestMock, handler.getRepository(), printWriterMock );
+		doThrow( new Exception( ) ).when( controller ).handle( httpRequestMock, handler.getRepository(), printWriterMock );
 		
 		handler.handle(null, mock(Request.class), httpRequestMock, httpResponseMock);
-		verify(printWriterMock).write( "Error" );
+		verify(printWriterMock).write( "Error\n" );
 	}
 	
 	@Test public void
