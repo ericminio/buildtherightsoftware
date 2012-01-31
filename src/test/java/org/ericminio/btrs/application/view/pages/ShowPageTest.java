@@ -33,34 +33,48 @@ public class ShowPageTest {
 		doc = doc( out.toString() );
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test public void
 	displaysModifySection() throws IOException {
 		assertThat( doc, hasSelector( "a", withAttribute("name", "modifyLink")
 										 , withAttribute("href", "/specs/modify/sample-title") ));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test public void
 	displaysSpecLabel() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "label")
 				 						    , withText("Label: sample-label") ));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test public void
 	displaysSpecContent() {
 		assertThat( doc, hasSelector( "span", withAttribute("class", "spec")
 				 						    , withText("sample content") ));
 	}
 		
+	@SuppressWarnings("unchecked")
 	@Test public void
-	displaysCodeSubmissionSection() throws IOException {
+	displaysCodeSubmissionInputField() throws IOException {
 		assertThat( doc, hasSelector( "form", withAttribute("name", "tryCodeForm")
 											, withAttribute("action", "/specs/execute/sample-title") ));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test public void
 	displaysCodeSubmissionInvitation() throws IOException {
-		assertThat( doc, hasSelector( "span", withAttribute("class", "example")
-											, withText("(example: git://github.com/ericminio/mastermind.git)") ));
+		assertThat( doc, hasSelector( "span", 
+				withAttribute("class", "invitation"),
+				withText("Can you make it?") ));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test public void
+	displaysLinkToHelp() throws IOException {
+		assertThat( doc, hasSelector( "a",  
+				withAttribute( "href", "/" ),
+				withText("Learn how") ));
 	}
 	
 }
